@@ -2,9 +2,8 @@ image: ubuntu:latest
 
 variables:
   EXPORT_NAME: foveal
-  GODOT_VERSION: 4.4-beta2
+  GODOT_BUILD: Godot_v4.4-beta2_mono_linux_x86_64
   GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot-builds/releases/download/4.4-beta2/Godot_v4.4-beta2_mono_linux_x86_64.zip
-  GODOT_BINARY_PATH: /usr/local/bin/godot
 
 stages:
   - setup
@@ -13,7 +12,6 @@ stages:
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - ${GODOT_BINARY_PATH}
     - .wine
     - .config/godot
     - .local/share/godot
@@ -23,43 +21,23 @@ cache:
 setup-environment:
   stage: setup
   script:
-    - echo "Updating package lists..."
     - apt-get update -qq
-
-    - echo "Installing required packages..."
     - apt-get install -y wget unzip wine64
-
-    - echo "Creating directories for Godot binary..."
-    - mkdir -p $(dirname ${GODOT_BINARY_PATH})
-
-    - echo "Downloading Godot ${GODOT_VERSION} Mono version..."
     - wget -O godot.zip ${GODOT_DOWNLOAD_URL}
-
-    - echo "Extracting Godot ZIP file..."
-    - unzip godot.zip -d /usr/local/bin/
-
-    - echo "Making Godot binary executable..."
-    - chmod +x ${GODOT_BINARY_PATH}
-
-    - echo "Verifying Godot installation..."
-    - ${GODOT_BINARY_PATH} --version
+    - unzip godot.zip
+    - chmod +x ${GODOT_BUILD}/${GODOT_BUILD}
+    - ${GODOT_BUILD}/${GODOT_BUILD} --version
   artifacts:
     paths:
-      - ${GODOT_BINARY_PATH}
+      - ${GODOT_BUILD}
     expire_in: 1 week
 
 windows:
   stage: build
   needs: [setup-environment]
   script:
-    - echo "Starting Windows export process..."
-    - echo "Listing available export presets:"
-    - ${GODOT_BINARY_PATH} --headless --export-templates
-
-    - echo "Exporting project to Windows..."
-    - ${GODOT_BINARY_PATH} --headless --export-release "Windows Desktop" "build/${EXPORT_NAME}.exe"
-    
-    - echo "Windows export completed."
+    - ${GODOT_BUILD}/${GODOT_BUILD} --headless --export-templates
+    - ${GODOT_BUILD}/${GODOT_BUILD} --headless --export-release "Windows Desktop" "build/${EXPORT_NAME}.exe"
   artifacts:
     paths:
       - build/${EXPORT_NAME}.exe
