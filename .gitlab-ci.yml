@@ -1,0 +1,44 @@
+image: ubuntu:latest
+
+variables:
+  GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot-builds/releases/download/4.4-beta2/Godot_v4.4-beta2_mono_linux_x86_64.zip
+  GODOT_PATH: Godot_v4.4-beta2_mono_linux_x86_64/Godot_v4.4-beta2_mono_linux.x86_64
+  EXPORT_NAME: foveal
+
+stages:
+  - setup
+  - build
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .wine
+    - .config/godot
+    - .local/share/godot
+    - .cache/godot
+  policy: pull-push
+
+setup-environment:
+  stage: setup
+  script:
+    - apt-get update -qq
+    - apt-get install -y wget unzip wine64
+    - wget -O godot.zip ${GODOT_DOWNLOAD_URL}
+    - unzip godot.zip
+    - chmod +x ${GODOT_PATH}
+    - ${GODOT_PATH} --version
+  artifacts:
+    paths:
+      - ${GODOT_PATH}
+    expire_in: 1 week
+
+windows:
+  stage: build
+  needs: [setup-environment]
+  script:
+    - ${GODOT_PATH} --headless --export-templates
+    - ${GODOT_PATH} --headless --export-release "Windows Desktop" "build/${EXPORT_NAME}.exe"
+  artifacts:
+    paths:
+      - build/${EXPORT_NAME}.exe
+    expire_in: 1 week
