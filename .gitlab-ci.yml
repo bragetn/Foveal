@@ -3,7 +3,7 @@ image: ubuntu:latest
 variables:
   EXPORT_NAME: foveal
   GODOT_VERSION: 4.4-beta2
-  GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot-builds/releases/download/4.4-beta2/Godot_v4.4-beta2_mono_linux_x86_64
+  GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot-builds/releases/download/4.4-beta2/Godot_v4.4-beta2_mono_linux_x86_64.zip
   GODOT_BINARY_PATH: /usr/local/bin/godot
 
 stages:
@@ -18,23 +18,29 @@ cache:
     - .config/godot
     - .local/share/godot
     - .cache/godot
+  policy: pull-push
 
 setup-environment:
   stage: setup
   script:
     - echo "Updating package lists..."
     - apt-get update -qq
+
     - echo "Installing required packages..."
     - apt-get install -y wget unzip wine64
+
     - echo "Creating directories for Godot binary..."
     - mkdir -p $(dirname ${GODOT_BINARY_PATH})
-    - if [ ! -f "${GODOT_BINARY_PATH}" ]; then
-        echo "Downloading Godot ${GODOT_VERSION} Mono version...";
-        wget -O ${GODOT_BINARY_PATH} ${GODOT_DOWNLOAD_URL};
-        chmod +x ${GODOT_BINARY_PATH};
-      else
-        echo "Godot binary already exists, skipping download.";
-      fi
+
+    - echo "Downloading Godot ${GODOT_VERSION} Mono version..."
+    - wget -O godot.zip ${GODOT_DOWNLOAD_URL}
+
+    - echo "Extracting Godot ZIP file..."
+    - unzip godot.zip -d /usr/local/bin/
+
+    - echo "Making Godot binary executable..."
+    - chmod +x ${GODOT_BINARY_PATH}
+
     - echo "Verifying Godot installation..."
     - ${GODOT_BINARY_PATH} --version
   artifacts:
@@ -49,8 +55,10 @@ windows:
     - echo "Starting Windows export process..."
     - echo "Listing available export presets:"
     - ${GODOT_BINARY_PATH} --headless --export-templates
+
     - echo "Exporting project to Windows..."
     - ${GODOT_BINARY_PATH} --headless --export-release "Windows Desktop" "build/${EXPORT_NAME}.exe"
+    
     - echo "Windows export completed."
   artifacts:
     paths:
