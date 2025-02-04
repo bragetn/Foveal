@@ -3,7 +3,7 @@ image: ubuntu:latest
 variables:
   EXPORT_NAME: foveal
   GODOT_VERSION: 4.4-beta2
-  GODOT_DOWNLOAD_URL: https://downloads.tuxfamily.org/godotengine/4.4/beta2/mono/Godot_v4.4-beta2_mono_linux_x86_64
+  GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot-builds/releases/download/4.4-beta2/Godot_v4.4-beta2_mono_linux_x86_64
   GODOT_BINARY_PATH: /usr/local/bin/godot
 
 stages:
