@@ -12,12 +12,7 @@ void vertex() {
 }
 
 void fragment() {
-	vec3 scaled_position = floor((local_position + offset) / scale);
-	float pattern = fract((scaled_position.x + scaled_position.y + scaled_position.z) * 0.5);
-	if (pattern == 0.0) {
-		ALBEDO = color_a;
-	}
-	else {
-		ALBEDO = color_b;
-	}
+	vec3 scaled_position = floor((local_position + offset + 0.001) / scale);
+	float pattern = mod(scaled_position.x + scaled_position.y + scaled_position.z, 2);
+	ALBEDO = (pattern == 0.0) ? color_a : color_b;
 }
