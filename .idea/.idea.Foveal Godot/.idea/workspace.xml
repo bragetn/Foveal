@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="aa270d81-da2c-43a1-aa59-f069cb4143c3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/shaders/checkerboard.gdshader" beforeDir="false" afterPath="$PROJECT_DIR$/common/shaders/checkerboard.gdshader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities/player/player.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/player.tscn" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stages/playground/playground.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/stages/playground/playground.tscn" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +29,12 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;project-setup&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;foveal-base&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -83,6 +88,8 @@
       <workItem from="1738857865979" duration="7000" />
       <workItem from="1738857882185" duration="68000" />
       <workItem from="1738857955554" duration="4000" />
+      <workItem from="1739365104755" duration="1537000" />
+      <workItem from="1739366665603" duration="3417000" />
     </task>
     <servers />
   </component>
