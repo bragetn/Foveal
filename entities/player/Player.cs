@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Diagnostics;
 
-[Tool]
 public partial class Player : XROrigin3D
 {
     private XRCamera3D _camera;
@@ -20,25 +19,16 @@ public partial class Player : XROrigin3D
     {
         Vector3 viewDir = _target.GlobalPosition - _camera.GlobalPosition;
 
-        if (Engine.IsEditorHint())
-        {
-            DebugDraw3D.DrawRay(_camera.GlobalPosition, viewDir, 1.0f);
-        }
-        else
-        {
-            var spaceState = GetWorld3D().DirectSpaceState;
-            var query = PhysicsRayQueryParameters3D.Create(_camera.GlobalPosition, _target.GlobalPosition);
-            var result = spaceState.IntersectRay(query);
+        var spaceState = GetWorld3D().DirectSpaceState;
+        var query = PhysicsRayQueryParameters3D.Create(_camera.GlobalPosition, _target.GlobalPosition);
+        var result = spaceState.IntersectRay(query);
 
-            if (result.Count > 0)
-            {
-                var collider = result["collider"].As<Node>();
-                if (collider is GazeTarget gazeTarget)
-                {
-                    gazeTarget.AddValue((float) delta);
-                }
-            }
-
+        if (result.Count <= 0) return;
+        
+        var collider = result["collider"].As<Node>();
+        if (collider is GazeTarget gazeTarget)
+        {
+            gazeTarget.AddValue((float) delta);
         }
     }
 }
