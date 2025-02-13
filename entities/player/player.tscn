@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://chup18iujp2xd"]
+[gd_scene load_steps=6 format=3 uid="uid://chup18iujp2xd"]
 
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="1_abrql"]
+[ext_resource type="Script" uid="uid://de6adnpniq5dc" path="res://entities/player/Player.cs" id="1_bls4j"]
 [ext_resource type="PackedScene" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="1_sglur"]
 [ext_resource type="PackedScene" uid="uid://raeeicvvindd" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_hand.tscn" id="2_sglur"]
 
@@ -9,6 +10,7 @@ radius = 0.25
 height = 0.5
 
 [node name="Player" type="XROrigin3D"]
+script = ExtResource("1_bls4j")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
@@ -32,5 +34,5 @@ tracker = &"/user/eyes_ext"
 pose = &"eye_gaze"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Eyes"]
-transform = Transform3D(0.395, 0, 0, 0, 0.395, 0, 0, 0, 0.395, 0, 0, -6)
+transform = Transform3D(0.395, 0, 0, 0, 0.395, 0, 0, 0, 0.395, 0, 0, -10)
 mesh = SubResource("SphereMesh_sglur")
