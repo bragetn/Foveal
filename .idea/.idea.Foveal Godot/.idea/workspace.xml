@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="aa270d81-da2c-43a1-aa59-f069cb4143c3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/player/player.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/player.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities/gaze_target/GazeTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/entities/gaze_target/GazeTarget.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities/gaze_target/gaze_target.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/entities/gaze_target/gaze_target.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities/player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stages/playground/playground.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/stages/playground/playground.tscn" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +31,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;foveal-base&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gaze-target&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -89,7 +91,8 @@
       <workItem from="1738857882185" duration="68000" />
       <workItem from="1738857955554" duration="4000" />
       <workItem from="1739365104755" duration="1537000" />
-      <workItem from="1739366665603" duration="3417000" />
+      <workItem from="1739366665603" duration="3939000" />
+      <workItem from="1739437940068" duration="8631000" />
     </task>
     <servers />
   </component>

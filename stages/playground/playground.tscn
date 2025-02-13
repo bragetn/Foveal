@@ -48,4 +48,37 @@ mesh = SubResource("BoxMesh_elqxi")
 [node name="Player" parent="." instance=ExtResource("2_elqxi")]
 
 [node name="GazeTarget" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0975718, 2.37043, -5)
+Seconds = 1.5
+
+[node name="GazeTarget2" parent="." instance=ExtResource("4_o6tti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36721, 2.84988, -5)
+Seconds = 3.0
+
+[node name="GazeTarget3" parent="." instance=ExtResource("4_o6tti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.33645, 1.94895, -5)
+Seconds = 0.5
+
+[node name="GazeTarget4" parent="." instance=ExtResource("4_o6tti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574907, 3.59628, 4.038)
+Seconds = 0.0
+
+[node name="GazeTarget5" parent="." instance=ExtResource("4_o6tti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.23496, 4.1199, 4.038)
+Seconds = 0.0
+
+[node name="GazeTarget6" parent="." instance=ExtResource("4_o6tti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12081, 3.59628, 4.59017)
+Seconds = 10.0
+
+[node name="GazeTarget7" parent="." instance=ExtResource("4_o6tti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.645922, 5.53215, 4.038)
+Seconds = 0.0
+
+[node name="GazeTarget8" parent="." instance=ExtResource("4_o6tti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193619, 4.63016, 4.08154)
+Seconds = 0.0
+
+[node name="GazeTarget9" parent="." instance=ExtResource("4_o6tti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60706, 4.77584, 4.08154)
+Seconds = 5.0

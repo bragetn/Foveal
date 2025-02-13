@@ -35,7 +35,7 @@ public partial class Player : XROrigin3D
                 var collider = result["collider"].As<Node>();
                 if (collider is GazeTarget gazeTarget)
                 {
-                    gazeTarget.ChangeColor();
+                    gazeTarget.AddValue((float) delta);
                 }
             }
 

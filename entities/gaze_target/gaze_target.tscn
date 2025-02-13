@@ -1,12 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://ce5n050wc588g"]
 
 [ext_resource type="Script" uid="uid://cpj8itlmivt2p" path="res://entities/gaze_target/GazeTarget.cs" id="1_ref4b"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dm85m"]
-albedo_color = Color(0.268123, 0.501558, 1, 1)
+[ext_resource type="Material" uid="uid://clso2br4rvb7g" path="res://entities/gaze_target/gaze_target_material.tres" id="2_kosym"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_dm85m"]
-material = SubResource("StandardMaterial3D_dm85m")
+material = ExtResource("2_kosym")
 radius = 0.2
 height = 0.4
 
@@ -17,6 +15,8 @@ radius = 0.2
 script = ExtResource("1_ref4b")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+instance_shader_parameters/completed = false
+instance_shader_parameters/t = 0.0
 mesh = SubResource("SphereMesh_dm85m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
