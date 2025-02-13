@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa270d81-da2c-43a1-aa59-f069cb4143c3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/player/player.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/player.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stages/playground/playground.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/stages/playground/playground.tscn" afterDir="false" />
-    </list>
+    <list default="true" id="aa270d81-da2c-43a1-aa59-f069cb4143c3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
