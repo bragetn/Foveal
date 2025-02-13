@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://chup18iujp2xd"]
+[gd_scene load_steps=10 format=3 uid="uid://chup18iujp2xd"]
 
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="1_abrql"]
 [ext_resource type="Script" uid="uid://de6adnpniq5dc" path="res://entities/player/Player.cs" id="1_bls4j"]
 [ext_resource type="PackedScene" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="1_sglur"]
 [ext_resource type="PackedScene" uid="uid://raeeicvvindd" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_hand.tscn" id="2_sglur"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="4_qiwj3"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_26q78"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="6_bectd"]
+[ext_resource type="Script" uid="uid://3akucoox0fs0" path="res://addons/godot-xr-tools/player/player_body.gd" id="7_bectd"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_sglur"]
 radius = 0.25
@@ -23,11 +27,18 @@ tracker = &"left_hand"
 
 [node name="LeftHand" parent="LeftHand" instance=ExtResource("1_abrql")]
 
+[node name="MovementDirect" parent="LeftHand" instance=ExtResource("4_qiwj3")]
+max_speed = 1.0
+strafe = true
+
 [node name="RightHand" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
 [node name="RightHand" parent="RightHand" instance=ExtResource("2_sglur")]
+
+[node name="MovementTurn" parent="RightHand" instance=ExtResource("6_bectd")]
+turn_mode = 1
 
 [node name="Eyes" type="XRController3D" parent="."]
 tracker = &"/user/eyes_ext"
@@ -36,3 +47,11 @@ pose = &"eye_gaze"
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Eyes"]
 transform = Transform3D(0.395, 0, 0, 0, 0.395, 0, 0, 0, 0.395, 0, 0, -10)
 mesh = SubResource("SphereMesh_sglur")
+
+[node name="PlayerBody" type="CharacterBody3D" parent="." groups=["player_body"] instance=ExtResource("6_26q78")]
+process_priority = -100
+process_physics_priority = -100
+top_level = true
+collision_layer = 524288
+collision_mask = 1023
+script = ExtResource("7_bectd")
