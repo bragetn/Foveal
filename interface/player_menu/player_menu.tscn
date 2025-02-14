@@ -1,12 +1,15 @@
-[gd_scene format=3 uid="uid://dnrjqga7ascle"]
+[gd_scene load_steps=2 format=3 uid="uid://dnrjqga7ascle"]
 
-[node name="SpawnMenu" type="Control"]
+[ext_resource type="Script" uid="uid://b1ehj33e2nqup" path="res://interface/player_menu/PlayerMenu.cs" id="1_pgc4h"]
+
+[node name="PlayerMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pgc4h")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -24,17 +27,18 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="AddTargetButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Play"
+text = "Add Target
+"
 
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ToggleGazeDotButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Persona 5"
+text = "Toggle Gaze Dot"
 
-[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ResetPlayerPositionButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Royal"
+text = "Reset Player Position"

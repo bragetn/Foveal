@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_26q78"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="6_bectd"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_wvtmh"]
-[ext_resource type="PackedScene" uid="uid://dnrjqga7ascle" path="res://interface/player_menu/spawn_menu.tscn" id="7_7thud"]
+[ext_resource type="PackedScene" uid="uid://dnrjqga7ascle" path="res://interface/player_menu/player_menu.tscn" id="7_7thud"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="9_7thud"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_sglur"]
@@ -47,7 +47,7 @@ viewport_size = Vector2(200, 300)
 input_keyboard = false
 unshaded = true
 filter = false
-scene_properties_keys = PackedStringArray()
+scene_properties_keys = PackedStringArray("PlayerMenu")
 
 [node name="RightHand" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)

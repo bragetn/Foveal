@@ -7,14 +7,24 @@
     <list default="true" id="aa270d81-da2c-43a1-aa59-f069cb4143c3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities/player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities/player/player.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/player.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interface/player_menu/spawn_menu.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/58c9bcecb77b4a6981e6304277561360583a00/19/8b09f6af/DelegateUtils.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e3157c720a4245958cf8a1b12c4b4a27e90928/33/08ba607b/Array.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -26,6 +36,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Executable.Player.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "player-menu",
@@ -90,7 +101,7 @@
       <workItem from="1739365104755" duration="1537000" />
       <workItem from="1739366665603" duration="3939000" />
       <workItem from="1739437940068" duration="8631000" />
-      <workItem from="1739524729020" duration="4593000" />
+      <workItem from="1739524729020" duration="12694000" />
     </task>
     <servers />
   </component>
@@ -100,5 +111,12 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Frame#PlayerMenu.&lt;_Ready&gt;b__3_0" memberName="this" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

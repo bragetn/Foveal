@@ -9,6 +9,7 @@ public partial class Player : XROrigin3D
     private XRController3D _leftHand;
     private Node3D _target;
     private Node3D _playerMenu;
+    private Node3D _playerBody;
     
     public override void _Ready()
     {
@@ -17,8 +18,11 @@ public partial class Player : XROrigin3D
         _leftHand = GetNode<XRController3D>("LeftHand");
         _target = GetNode<Node3D>("Eyes/MeshInstance3D");
         _playerMenu = GetNode<Node3D>("LeftHand/PlayerMenu");
+        _playerBody = GetNode<Node3D>("PlayerBody");
         
         _leftHand.ButtonPressed += LeftHandButtonPressed;
+
+        Radio.Instance.ResetPlayerPosition += ResetPlayerPosition;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -58,5 +62,10 @@ public partial class Player : XROrigin3D
             // For the future generations
             return;
         }
+    }
+
+    private void ResetPlayerPosition()
+    {
+        _playerBody.Call("teleport", new Transform3D(new Basis(Vector3.Up, Mathf.DegToRad(0)), new Vector3(0, 0, 0)));
     }
 }
