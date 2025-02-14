@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="aa270d81-da2c-43a1-aa59-f069cb4143c3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addons/godot-xr-tools/misc/hold_button.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/addons/godot-xr-tools/misc/hold_button.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addons/godot-xr-tools/player/player_body.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/addons/godot-xr-tools/player/player_body.tscn" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities/player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/player/player.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/player.tscn" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +90,7 @@
       <workItem from="1739365104755" duration="1537000" />
       <workItem from="1739366665603" duration="3939000" />
       <workItem from="1739437940068" duration="8631000" />
-      <workItem from="1739524729020" duration="2618000" />
+      <workItem from="1739524729020" duration="4593000" />
     </task>
     <servers />
   </component>
