@@ -31,4 +31,9 @@ public partial class Player : XROrigin3D
             gazeTarget.AddValue((float) delta);
         }
     }
+
+    private void _on_xr_tools_hold_button_pressed()
+    {
+        GD.Print("funker");
+    }
 }
