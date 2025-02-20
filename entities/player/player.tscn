@@ -11,10 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_wvtmh"]
 [ext_resource type="PackedScene" uid="uid://dnrjqga7ascle" path="res://interface/player_menu/player_menu.tscn" id="7_7thud"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="9_7thud"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_sglur"]
-radius = 0.25
-height = 0.5
+[ext_resource type="PackedScene" uid="uid://urpde0irgbah" path="res://entities/gaze_dot/gaze_dot.tscn" id="11_a1qjk"]
 
 [node name="Player" type="XROrigin3D"]
 script = ExtResource("1_bls4j")
@@ -65,8 +62,7 @@ step_turn_angle = 30.0
 tracker = &"/user/eyes_ext"
 pose = &"eye_gaze"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Eyes"]
-transform = Transform3D(0.395, 0, 0, 0, 0.395, 0, 0, 0, 0.395, 0, 0, -10)
-mesh = SubResource("SphereMesh_sglur")
+[node name="GazeDot" parent="Eyes" instance=ExtResource("11_a1qjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [node name="PlayerBody" parent="." instance=ExtResource("6_26q78")]

@@ -16,7 +16,7 @@ public partial class Player : XROrigin3D
         _camera = GetNode<XRCamera3D>("XRCamera3D");
         _eyes = GetNode<XRController3D>("Eyes");
         _leftHand = GetNode<XRController3D>("LeftHand");
-        _target = GetNode<Node3D>("Eyes/MeshInstance3D");
+        _target = GetNode<Node3D>("Eyes/GazeDot");
         _playerMenu = GetNode<Node3D>("LeftHand/PlayerMenu");
         _playerBody = GetNode<Node3D>("PlayerBody");
         
