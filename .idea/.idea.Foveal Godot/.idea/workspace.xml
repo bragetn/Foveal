@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="aa270d81-da2c-43a1-aa59-f069cb4143c3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/autoloads/Radio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/common/autoloads/Radio.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities/gaze_dot/gaze_dot.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/entities/gaze_dot/gaze_dot.tscn" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities/player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/player/player.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/player.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interface/player_menu/PlayerMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/interface/player_menu/PlayerMenu.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +102,8 @@
       <workItem from="1739366665603" duration="3939000" />
       <workItem from="1739437940068" duration="8631000" />
       <workItem from="1739524729020" duration="12694000" />
-      <workItem from="1740053131091" duration="2319000" />
+      <workItem from="1740053131091" duration="3410000" />
+      <workItem from="1740057418076" duration="1363000" />
     </task>
     <servers />
   </component>

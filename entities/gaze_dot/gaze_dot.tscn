@@ -9,7 +9,7 @@ shader_parameter/color = Color(1, 1, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_21k70"]
 material = SubResource("ShaderMaterial_tniv3")
-size = Vector2(0.15, 0.15)
+size = Vector2(0.05, 0.05)
 
 [node name="GazeDot" type="MeshInstance3D"]
 mesh = SubResource("QuadMesh_21k70")

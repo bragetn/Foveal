@@ -7,6 +7,8 @@ public partial class Radio : Node
     public delegate void ResetPlayerPositionEventHandler();
     [Signal]
     public delegate void ToggleGazeDotEventHandler();
+    [Signal]
+    public delegate void AddTargetEventHandler();
     
     public static Radio Instance { get; private set; }
     

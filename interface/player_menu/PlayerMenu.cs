@@ -15,6 +15,7 @@ public partial class PlayerMenu : Control
 
         _resetPlayerPositionButton.Pressed += () => Radio.Instance.EmitSignal("ResetPlayerPosition");
         _toggleGazeDotButton.Pressed += () => Radio.Instance.EmitSignal("ToggleGazeDot");
+        _addTargetButton.Pressed += () => Radio.Instance.EmitSignal("AddTarget");
     }
     
 }
