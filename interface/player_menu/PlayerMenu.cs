@@ -14,6 +14,7 @@ public partial class PlayerMenu : Control
         _resetPlayerPositionButton = GetNode<Button>("MarginContainer/VBoxContainer/ResetPlayerPositionButton");
 
         _resetPlayerPositionButton.Pressed += () => Radio.Instance.EmitSignal("ResetPlayerPosition");
+        _toggleGazeDotButton.Pressed += () => Radio.Instance.EmitSignal("ToggleGazeDot");
     }
     
 }

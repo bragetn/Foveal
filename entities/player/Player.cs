@@ -23,6 +23,7 @@ public partial class Player : XROrigin3D
         _leftHand.ButtonPressed += LeftHandButtonPressed;
 
         Radio.Instance.ResetPlayerPosition += ResetPlayerPosition;
+        Radio.Instance.ToggleGazeDot += ToggleGazeDot;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -67,5 +68,10 @@ public partial class Player : XROrigin3D
     private void ResetPlayerPosition()
     {
         _playerBody.Call("teleport", new Transform3D(new Basis(Vector3.Up, Mathf.DegToRad(0)), new Vector3(0, 0, 0)));
+    }
+
+    private void ToggleGazeDot()
+    {
+        _target.Visible = !_target.Visible;
     }
 }

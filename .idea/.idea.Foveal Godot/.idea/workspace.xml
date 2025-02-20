@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa270d81-da2c-43a1-aa59-f069cb4143c3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/addons/debug_draw_3d/libs/~libdd3d.windows.editor.x86_64.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Foveal Godot/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Foveal Godot.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Foveal Godot.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/autoloads/Radio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/common/autoloads/Radio.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities/player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/entities/player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/export_presets.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/export_presets.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interface/player_menu/PlayerMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/interface/player_menu/PlayerMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +63,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Editor" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Godot/Godot 4.4 beta2/Godot_v4.4-beta2_mono_win64.exe" />
+      <option name="EXE_PATH" value="$USER_HOME$/Godot/Godot 4.4 beta4/Godot_v4.4-beta4_mono_win64.exe" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;./&quot; --editor" />
       <option name="WORKING_DIRECTORY" value="C:\Users\vizlab_stud\Desktop\Foveal Godot\foveal-godot" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -71,7 +76,7 @@
       </method>
     </configuration>
     <configuration name="Player" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Godot/Godot 4.4 beta2/Godot_v4.4-beta2_mono_win64.exe" />
+      <option name="EXE_PATH" value="$USER_HOME$/Godot/Godot 4.4 beta4/Godot_v4.4-beta4_mono_win64.exe" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;./&quot;" />
       <option name="WORKING_DIRECTORY" value="C:\Users\vizlab_stud\Desktop\Foveal Godot\foveal-godot" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -99,6 +104,7 @@
       <workItem from="1739366665603" duration="3939000" />
       <workItem from="1739437940068" duration="8631000" />
       <workItem from="1739524729020" duration="12694000" />
+      <workItem from="1740053131091" duration="332000" />
     </task>
     <servers />
   </component>
