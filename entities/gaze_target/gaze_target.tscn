@@ -12,6 +12,7 @@ height = 0.4
 radius = 0.2
 
 [node name="GazeTarget" type="StaticBody3D"]
+collision_layer = 1048577
 script = ExtResource("1_ref4b")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

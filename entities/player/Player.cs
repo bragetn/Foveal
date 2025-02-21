@@ -10,6 +10,7 @@ public partial class Player : XROrigin3D
     private Node3D _gazeDot;
     private Node3D _playerMenu;
     private Node3D _playerBody;
+    private Node3D _pointer;
 
     private PackedScene _targetScene = GD.Load<PackedScene>("res://entities/gaze_target/gaze_target.tscn");
 
@@ -21,8 +22,11 @@ public partial class Player : XROrigin3D
         _gazeDot = GetNode<Node3D>("Eyes/GazeDot");
         _playerMenu = GetNode<Node3D>("LeftHand/PlayerMenu");
         _playerBody = GetNode<Node3D>("PlayerBody");
+        _pointer = GetNode<Node3D>("RightHand/FunctionPointer");
 
         _leftHand.ButtonPressed += LeftHandButtonPressed;
+        
+        _pointer.Connect("pointing_event", new Callable(this, nameof(PointingEvent)));
 
         Radio.Instance.ResetPlayerPosition += ResetPlayerPosition;
         Radio.Instance.ToggleGazeDot += ToggleGazeDot;
@@ -84,5 +88,11 @@ public partial class Player : XROrigin3D
         Node3D target = _targetScene.Instantiate<Node3D>();
         target.GlobalPosition = new Vector3(rng.RandfRange(-3, 3), rng.RandfRange(0, 3), -5);
         GetTree().GetRoot().AddChild(target);
+    }
+
+    private void PointingEvent(Variant pointingEvent)
+    {
+        var e = PointerUtil.ParseEvent(pointingEvent);
+        GD.Print(e.EventType);
     }
 }

@@ -57,6 +57,7 @@ turn_mode = 1
 step_turn_angle = 30.0
 
 [node name="FunctionPointer" parent="RightHand" instance=ExtResource("9_7thud")]
+laser_length = 1
 
 [node name="Eyes" type="XRController3D" parent="."]
 tracker = &"/user/eyes_ext"
