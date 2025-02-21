@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bv2t17o3eeibx"]
+[gd_scene load_steps=10 format=3 uid="uid://bv2t17o3eeibx"]
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_18tpb"]
 [ext_resource type="PackedScene" uid="uid://chup18iujp2xd" path="res://entities/player/player.tscn" id="2_elqxi"]
 [ext_resource type="Shader" uid="uid://brq6fbyudbflp" path="res://common/shaders/checkerboard.gdshader" id="3_sx8fd"]
-[ext_resource type="PackedScene" uid="uid://ce5n050wc588g" path="res://entities/gaze_target/gaze_target.tscn" id="4_o6tti"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sx8fd"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -54,39 +53,3 @@ shape = SubResource("ConcavePolygonShape3D_o6tti")
 [node name="StartXR" parent="." instance=ExtResource("1_18tpb")]
 
 [node name="Player" parent="." instance=ExtResource("2_elqxi")]
-
-[node name="GazeTarget" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0975718, 2.37043, -5)
-Seconds = 1.5
-
-[node name="GazeTarget2" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36721, 2.84988, -5)
-Seconds = 3.0
-
-[node name="GazeTarget3" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.33645, 1.94895, -5)
-Seconds = 0.5
-
-[node name="GazeTarget4" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574907, 3.59628, 4.038)
-Seconds = 0.0
-
-[node name="GazeTarget5" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.23496, 4.1199, 4.038)
-Seconds = 0.0
-
-[node name="GazeTarget6" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12081, 3.59628, 4.59017)
-Seconds = 10.0
-
-[node name="GazeTarget7" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.645922, 5.53215, 4.038)
-Seconds = 0.0
-
-[node name="GazeTarget8" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193619, 4.63016, 4.08154)
-Seconds = 0.0
-
-[node name="GazeTarget9" parent="." instance=ExtResource("4_o6tti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60706, 4.77584, 4.08154)
-Seconds = 5.0
