@@ -92,7 +92,21 @@ public partial class Player : XROrigin3D
 
     private void PointingEvent(Variant pointingEvent)
     {
-        var e = PointerUtil.ParseEvent(pointingEvent);
-        GD.Print(e.EventType);
+        var pointerEvent = PointerUtil.ParseEvent(pointingEvent);
+
+        if (pointerEvent.Target is GazeTarget gazeTarget)
+        {
+            switch (pointerEvent.EventType)
+            {
+                case PointerUtil.EventType.Pressed:
+                    GD.Print("Grab");
+                    gazeTarget.Grab(pointerEvent);
+                    break;
+                case PointerUtil.EventType.Released:
+                    GD.Print("Release");
+                    gazeTarget.Release();
+                    break;
+            }
+        }
     }
 }

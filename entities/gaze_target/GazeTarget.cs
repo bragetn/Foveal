@@ -10,6 +10,10 @@ public partial class GazeTarget : StaticBody3D
     private float _valueDelta;
     private bool _completed;
 
+    private bool _isGrabbed;
+    private float _pointerDistance;
+    private Node3D _pointer;
+
 
     public override void _Ready()
     {
@@ -17,6 +21,37 @@ public partial class GazeTarget : StaticBody3D
     }
 
     public override void _PhysicsProcess(double delta)
+    {
+        ProcessGrab();
+        ProcessEyeGaze(delta);
+    }
+
+    public void AddValue(float value)
+    {
+        if (_completed) return;
+        _valueDelta = value;
+    }
+
+    public void Grab(PointerUtil.PointerEvent pointerEvent)
+    {
+        _isGrabbed = true;
+        _pointerDistance = pointerEvent.Pointer.GlobalPosition.DistanceTo(GlobalPosition);
+        _pointer = pointerEvent.Pointer;
+    }
+
+    public void Release()
+    {
+        _isGrabbed = false;
+    }
+
+    private void ProcessGrab()
+    {
+        if (!_isGrabbed) return;
+        
+        GlobalPosition = _pointer.GlobalPosition - _pointer.GlobalBasis.Z * _pointerDistance;
+    }
+
+    private void ProcessEyeGaze(double delta)
     {
         if (_completed) return;
         
@@ -42,11 +77,5 @@ public partial class GazeTarget : StaticBody3D
         {
             _meshInstance.SetInstanceShaderParameter("t", _value / Seconds);
         }
-    }
-
-    public void AddValue(float value)
-    {
-        if (_completed) return;
-        _valueDelta = value;
     }
 }
