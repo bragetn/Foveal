@@ -17,6 +17,8 @@ public partial class Player : XROrigin3D
     private Node _movementTurn;
 
     private PackedScene _targetScene = GD.Load<PackedScene>("res://entities/gaze_target/gaze_target.tscn");
+    private PackedScene _playerMenuScene = GD.Load<PackedScene>("res://interface/player_menu/player_menu.tscn");
+    private PackedScene _targetMenuScene = GD.Load<PackedScene>("res://interface/target_menu/target_menu.tscn");
     
     private GazeTarget _grabbedTarget;
 
@@ -39,6 +41,12 @@ public partial class Player : XROrigin3D
         Radio.Instance.ResetPlayerPosition += ResetPlayerPosition;
         Radio.Instance.ToggleGazeDot += ToggleGazeDot;
         Radio.Instance.AddTarget += AddTarget;
+        Radio.Instance.ExitTargetMenu += ExitTargetMenu;
+
+        _playerMenu.Set("scene", _playerMenuScene);
+        _playerMenu.ProcessMode = ProcessModeEnum.Disabled;
+        _playerMenu.Visible = false;
+        
     }
 
     public override void _PhysicsProcess(double delta)
@@ -94,6 +102,30 @@ public partial class Player : XROrigin3D
             return;
         }
     }
+    
+    private void PointingEvent(Variant pointingEvent)
+    {
+        var pointerEvent = PointerUtil.ParseEvent(pointingEvent);
+
+        if (pointerEvent.Target is GazeTarget gazeTarget)
+        {
+            switch (pointerEvent.EventType)
+            {
+                case PointerUtil.EventType.Pressed:
+                    gazeTarget.Grab(pointerEvent);
+                    _movementTurn.Set("enabled", false);
+                    _grabbedTarget = gazeTarget;
+                    
+                    _playerMenu.Set("scene", _targetMenuScene);
+                    break;
+                case PointerUtil.EventType.Released:
+                    gazeTarget.Release();
+                    _movementTurn.Set("enabled", true);
+                    _grabbedTarget = null;
+                    break;
+            }
+        }
+    }
 
     private void ResetPlayerPosition()
     {
@@ -113,25 +145,8 @@ public partial class Player : XROrigin3D
         GetTree().GetRoot().AddChild(target);
     }
 
-    private void PointingEvent(Variant pointingEvent)
+    private void ExitTargetMenu()
     {
-        var pointerEvent = PointerUtil.ParseEvent(pointingEvent);
-
-        if (pointerEvent.Target is GazeTarget gazeTarget)
-        {
-            switch (pointerEvent.EventType)
-            {
-                case PointerUtil.EventType.Pressed:
-                    gazeTarget.Grab(pointerEvent);
-                    _movementTurn.Set("enabled", false);
-                    _grabbedTarget = gazeTarget;
-                    break;
-                case PointerUtil.EventType.Released:
-                    gazeTarget.Release();
-                    _movementTurn.Set("enabled", true);
-                    _grabbedTarget = null;
-                    break;
-            }
-        }
+        _playerMenu.Set("scene", _playerMenuScene);
     }
 }

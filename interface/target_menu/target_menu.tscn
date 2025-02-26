@@ -1,0 +1,122 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1tqqk3ddggtd"]
+
+[ext_resource type="Script" uid="uid://com1raenw06dc" path="res://interface/target_menu/TargetMenu.cs" id="1_yem0h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drqdu"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="TargetMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yem0h")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Target Menu"
+horizontal_alignment = 1
+
+[node name="AddMovementButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "Add Movement
+"
+
+[node name="DelayHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/DelayHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_drqdu")
+text = "0.0 "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CounterVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/DelayHBox"]
+layout_mode = 2
+
+[node name="AddButton" type="Button" parent="MarginContainer/VBoxContainer/DelayHBox/CounterVBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "+"
+
+[node name="SubtractButton" type="Button" parent="MarginContainer/VBoxContainer/DelayHBox/CounterVBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "-"
+
+[node name="SizeSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 4.0
+value = 2.0
+
+[node name="TypeHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Type1Button" type="Button" parent="MarginContainer/VBoxContainer/TypeHBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "Placeholder
+Value"
+
+[node name="Type2Button" type="Button" parent="MarginContainer/VBoxContainer/TypeHBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "Placeholder
+Value"
+
+[node name="Type3Button" type="Button" parent="MarginContainer/VBoxContainer/TypeHBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "Placeholder
+Value"
+
+[node name="DeleteTargetButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "Delete Target"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "Exit"

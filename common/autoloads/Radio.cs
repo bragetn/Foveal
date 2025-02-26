@@ -3,12 +3,13 @@ using System;
 
 public partial class Radio : Node
 {
-    [Signal]
-    public delegate void ResetPlayerPositionEventHandler();
-    [Signal]
-    public delegate void ToggleGazeDotEventHandler();
-    [Signal]
-    public delegate void AddTargetEventHandler();
+    // Player Menu
+    [Signal] public delegate void ResetPlayerPositionEventHandler();
+    [Signal] public delegate void ToggleGazeDotEventHandler();
+    [Signal] public delegate void AddTargetEventHandler();
+    
+    // Target Menu
+    [Signal] public delegate void ExitTargetMenuEventHandler();
     
     public static Radio Instance { get; private set; }
     
