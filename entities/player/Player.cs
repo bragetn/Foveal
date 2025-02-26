@@ -19,7 +19,8 @@ public partial class Player : XROrigin3D
     private PackedScene _targetScene = GD.Load<PackedScene>("res://entities/gaze_target/gaze_target.tscn");
     private PackedScene _playerMenuScene = GD.Load<PackedScene>("res://interface/player_menu/player_menu.tscn");
     private PackedScene _targetMenuScene = GD.Load<PackedScene>("res://interface/target_menu/target_menu.tscn");
-    
+
+    private bool _isGrabbing;
     private GazeTarget _grabbedTarget;
 
     public override void _Ready()
@@ -37,10 +38,14 @@ public partial class Player : XROrigin3D
         _leftHand.ButtonPressed += LeftHandButtonPressed;
         
         _pointer.Connect("pointing_event", new Callable(this, nameof(PointingEvent)));
-
+        
+        // Player Menu
         Radio.Instance.ResetPlayerPosition += ResetPlayerPosition;
         Radio.Instance.ToggleGazeDot += ToggleGazeDot;
         Radio.Instance.AddTarget += AddTarget;
+        
+        // Target Menu
+        Radio.Instance.AssignTargetToMenu += AssignTargetToMenu;
         Radio.Instance.ExitTargetMenu += ExitTargetMenu;
 
         _playerMenu.Set("scene", _playerMenuScene);
@@ -114,14 +119,14 @@ public partial class Player : XROrigin3D
                 case PointerUtil.EventType.Pressed:
                     gazeTarget.Grab(pointerEvent);
                     _movementTurn.Set("enabled", false);
+                    _isGrabbing = true;
                     _grabbedTarget = gazeTarget;
-                    
                     _playerMenu.Set("scene", _targetMenuScene);
                     break;
                 case PointerUtil.EventType.Released:
                     gazeTarget.Release();
                     _movementTurn.Set("enabled", true);
-                    _grabbedTarget = null;
+                    _isGrabbing = false;
                     break;
             }
         }
@@ -143,6 +148,11 @@ public partial class Player : XROrigin3D
         Node3D target = _targetScene.Instantiate<Node3D>();
         target.GlobalPosition = new Vector3(rng.RandfRange(-3, 3), rng.RandfRange(0, 3), -5);
         GetTree().GetRoot().AddChild(target);
+    }
+
+    private void AssignTargetToMenu(TargetMenu targetMenu)
+    {
+        targetMenu.Target = _grabbedTarget;
     }
 
     private void ExitTargetMenu()

@@ -5,7 +5,8 @@ public partial class GazeTarget : StaticBody3D
 {
     [Export] public float Seconds { get; set; } = 1.0f;
     [Export] public float Radius { get; set; } = 0.2f;
-
+    [Export] public float Delay { get; set; } = 0.0f;
+    
     private MeshInstance3D _meshInstance;
     private float _value;
     private float _valueDelta;

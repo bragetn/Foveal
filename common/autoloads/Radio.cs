@@ -9,6 +9,7 @@ public partial class Radio : Node
     [Signal] public delegate void AddTargetEventHandler();
     
     // Target Menu
+    [Signal] public delegate void AssignTargetToMenuEventHandler(TargetMenu targetMenu);
     [Signal] public delegate void ExitTargetMenuEventHandler();
     
     public static Radio Instance { get; private set; }

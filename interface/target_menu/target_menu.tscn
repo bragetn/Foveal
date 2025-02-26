@@ -47,7 +47,7 @@ text = "Add Movement
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/DelayHBox"]
+[node name="DelayLabel" type="Label" parent="MarginContainer/VBoxContainer/DelayHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -59,14 +59,14 @@ vertical_alignment = 1
 [node name="CounterVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/DelayHBox"]
 layout_mode = 2
 
-[node name="AddButton" type="Button" parent="MarginContainer/VBoxContainer/DelayHBox/CounterVBox"]
+[node name="AddDelayButton" type="Button" parent="MarginContainer/VBoxContainer/DelayHBox/CounterVBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
 text = "+"
 
-[node name="SubtractButton" type="Button" parent="MarginContainer/VBoxContainer/DelayHBox/CounterVBox"]
+[node name="SubtractDelayButton" type="Button" parent="MarginContainer/VBoxContainer/DelayHBox/CounterVBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 3
