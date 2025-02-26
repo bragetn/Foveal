@@ -3,7 +3,8 @@ using System;
 
 public partial class GazeTarget : StaticBody3D
 {
-    [Export] public float Seconds = 1.0f;
+    [Export] public float Seconds { get; set; } = 1.0f;
+    [Export] public float Radius { get; set; } = 0.2f;
 
     private MeshInstance3D _meshInstance;
     private float _value;
@@ -42,6 +43,18 @@ public partial class GazeTarget : StaticBody3D
     public void Release()
     {
         _isGrabbed = false;
+    }
+
+    public void UpdatePointerDistance(float value)
+    {
+        if (!_isGrabbed) return;
+        
+        _pointerDistance += value;
+            
+        if (_pointerDistance < Radius)
+        {
+            _pointerDistance = Radius;
+        }
     }
 
     private void ProcessGrab()

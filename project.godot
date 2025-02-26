@@ -52,5 +52,6 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 openxr/enabled=true
 openxr/default_action_map="uid://xoypkmdml5ff"
+openxr/startup_alert=false
 openxr/extensions/eye_gaze_interaction=true
 shaders/enabled=true
