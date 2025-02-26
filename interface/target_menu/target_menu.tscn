@@ -75,8 +75,9 @@ text = "-"
 
 [node name="SizeSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-max_value = 4.0
-value = 2.0
+max_value = 1.0
+step = 0.25
+value = 0.5
 
 [node name="TypeHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

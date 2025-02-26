@@ -8,7 +8,8 @@ public partial class TargetMenu : Control
     
     private Label _delayLabel;
     private Button _addDelayButton;
-    private Button _subtractDelayButton;
+    private Button _subtractDelayButton; 
+    private Slider _sizeSlider;
     private Button _deleteTargetButton;
     private Button _exitButton;
 
@@ -22,15 +23,19 @@ public partial class TargetMenu : Control
         _delayLabel = GetNode<Label>("MarginContainer/VBoxContainer/DelayHBox/DelayLabel");
         _addDelayButton = GetNode<Button>("MarginContainer/VBoxContainer/DelayHBox/CounterVBox/AddDelayButton");
         _subtractDelayButton = GetNode<Button>("MarginContainer/VBoxContainer/DelayHBox/CounterVBox/SubtractDelayButton");
+        _sizeSlider = GetNode<Slider>("MarginContainer/VBoxContainer/SizeSlider");
         _deleteTargetButton = GetNode<Button>("MarginContainer/VBoxContainer/DeleteTargetButton");
         _exitButton = GetNode<Button>("MarginContainer/VBoxContainer/ExitButton");
 
         _addDelayButton.Pressed += () => UpdateDelay(false);
         _subtractDelayButton.Pressed += () => UpdateDelay(true);
         _deleteTargetButton.Pressed += DeleteTarget;
+        _sizeSlider.ValueChanged += UpdateSize;
         _exitButton.Pressed += () => Radio.Instance.EmitSignal("ExitTargetMenu");
+
         
         _delayLabel.Text = Target.Delay.ToString("n2");
+        _sizeSlider.Value = Target.GetSize();
     }
 
     private void UpdateDelay(bool sign)
@@ -38,6 +43,11 @@ public partial class TargetMenu : Control
         Target.Delay += sign ? -0.5f : 0.5f;
         Target.Delay = MathF.Max(Target.Delay, 0.0f);
         _delayLabel.Text = Target.Delay.ToString("n2");
+    }
+
+    private void UpdateSize(double value)
+    {
+        Target.SetSize((float) value);
     }
 
     private void DeleteTarget()

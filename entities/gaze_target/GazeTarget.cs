@@ -4,10 +4,11 @@ using System;
 public partial class GazeTarget : StaticBody3D
 {
     [Export] public float Seconds { get; set; } = 1.0f;
-    [Export] public float Radius { get; set; } = 0.2f;
+    [Export] public float Radius { get; set; } = 0.1f * MathF.Pow(2, 0.5f * 1.5f);
     [Export] public float Delay { get; set; } = 0.0f;
     
     private MeshInstance3D _meshInstance;
+    private CollisionShape3D _collisionShape;
     private float _value;
     private float _valueDelta;
     private bool _completed;
@@ -20,6 +21,8 @@ public partial class GazeTarget : StaticBody3D
     public override void _Ready()
     {
         _meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
+        _collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+        UpdateSize();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -57,6 +60,35 @@ public partial class GazeTarget : StaticBody3D
             _pointerDistance = Radius;
         }
     }
+    
+    public float GetSize()
+    {
+        return MathF.Log2(Radius / 0.1f) / 1.5f;
+    }
+
+    public void SetSize(float value)
+    {
+        // t ∈ [0.0, 1.0]
+        // radius(t) = 0.1 * 2^(2t)
+        Radius = 0.1f * MathF.Pow(2, value * 1.5f);
+        UpdateSize();
+    }
+
+    private void UpdateSize()
+    {
+        if (_meshInstance.GetMesh().Duplicate() is SphereMesh mesh)
+        {
+            mesh.Radius = Radius;
+            mesh.Height = Radius * 2.0f;
+            _meshInstance.Mesh = mesh;
+        }
+
+        if (_collisionShape.GetShape().Duplicate() is SphereShape3D shape)
+        {
+            shape.Radius = Radius;
+            _collisionShape.Shape = shape;
+        }
+    }
 
     private void ProcessGrab()
     {
@@ -64,7 +96,7 @@ public partial class GazeTarget : StaticBody3D
         
         GlobalPosition = _pointer.GlobalPosition - _pointer.GlobalBasis.Z * _pointerDistance;
     }
-
+    
     private void ProcessEyeGaze(double delta)
     {
         if (_completed) return;
