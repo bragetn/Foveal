@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://chup18iujp2xd"]
+[gd_scene load_steps=12 format=3 uid="uid://chup18iujp2xd"]
 
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="1_abrql"]
 [ext_resource type="Script" uid="uid://de6adnpniq5dc" path="res://entities/player/Player.cs" id="1_bls4j"]
@@ -9,12 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_26q78"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="6_bectd"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_wvtmh"]
-[ext_resource type="PackedScene" uid="uid://dnrjqga7ascle" path="res://interface/player_menu/player_menu.tscn" id="7_7thud"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="9_7thud"]
 [ext_resource type="PackedScene" uid="uid://urpde0irgbah" path="res://entities/gaze_dot/gaze_dot.tscn" id="11_a1qjk"]
 
 [node name="Player" type="XROrigin3D"]
 script = ExtResource("1_bls4j")
+TargetMoveSpeed = 2.0
+MenuOffset = Vector3(0, 0.2, 0)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
@@ -36,15 +37,13 @@ rotation_action = ""
 strength = 2.5
 
 [node name="PlayerMenu" parent="LeftHand" instance=ExtResource("6_wvtmh")]
-transform = Transform3D(0.899559, -0.347616, 0.264494, 0.147412, 0.811602, 0.565307, -0.411174, -0.469537, 0.781327, -0.072825, 0.14453, -0.0281194)
-screen_size = Vector2(0.2, 0.3)
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866026, 0, 0, 0)
+screen_size = Vector2(0.2, 0.4)
 collision_layer = 5242880
-scene = ExtResource("7_7thud")
-viewport_size = Vector2(200, 300)
 input_keyboard = false
 unshaded = true
 filter = false
-scene_properties_keys = PackedStringArray("PlayerMenu")
+scene_properties_keys = PackedStringArray()
 
 [node name="RightHand" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
@@ -57,6 +56,7 @@ turn_mode = 1
 step_turn_angle = 30.0
 
 [node name="FunctionPointer" parent="RightHand" instance=ExtResource("9_7thud")]
+laser_length = 1
 
 [node name="Eyes" type="XRController3D" parent="."]
 tracker = &"/user/eyes_ext"
