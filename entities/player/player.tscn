@@ -15,6 +15,7 @@
 [node name="Player" type="XROrigin3D"]
 script = ExtResource("1_bls4j")
 TargetMoveSpeed = 2.0
+MenuOffset = Vector3(0, 0.2, 0)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
@@ -36,10 +37,9 @@ rotation_action = ""
 strength = 2.5
 
 [node name="PlayerMenu" parent="LeftHand" instance=ExtResource("6_wvtmh")]
-transform = Transform3D(0.899559, -0.347616, 0.264494, 0.147412, 0.811602, 0.565307, -0.411174, -0.469537, 0.781327, -0.072825, 0.14453, -0.0281194)
-screen_size = Vector2(0.2, 0.3)
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866026, 0, 0, 0)
+screen_size = Vector2(0.2, 0.4)
 collision_layer = 5242880
-viewport_size = Vector2(400, 600)
 input_keyboard = false
 unshaded = true
 filter = false

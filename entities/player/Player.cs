@@ -5,6 +5,8 @@ using System.Diagnostics;
 public partial class Player : XROrigin3D
 {
     [Export] public float TargetMoveSpeed { get; set; } = 1.0f;
+    [Export] public float MenuScale { get; set; } = 0.2f;
+    [Export] public Vector3 MenuOffset { get; set; } = Vector3.Zero;
     
     private XRCamera3D _camera;
     private XRController3D _eyes;
@@ -48,7 +50,7 @@ public partial class Player : XROrigin3D
         Radio.Instance.AssignTargetToMenu += AssignTargetToMenu;
         Radio.Instance.ExitTargetMenu += ExitTargetMenu;
 
-        _playerMenu.Set("scene", _playerMenuScene);
+        SetMenu(_playerMenuScene);
         _playerMenu.ProcessMode = ProcessModeEnum.Disabled;
         _playerMenu.Visible = false;
         
@@ -121,7 +123,7 @@ public partial class Player : XROrigin3D
                     _movementTurn.Set("enabled", false);
                     _isGrabbing = true;
                     _grabbedTarget = gazeTarget;
-                    _playerMenu.Set("scene", _targetMenuScene);
+                    SetMenu(_targetMenuScene);
                     break;
                 case PointerUtil.EventType.Released:
                     gazeTarget.Release();
@@ -130,6 +132,24 @@ public partial class Player : XROrigin3D
                     break;
             }
         }
+    }
+
+    private void SetMenu(PackedScene menuScene)
+    {
+        _playerMenu.Set("scene", menuScene);
+        
+        var menu = _playerMenu.Get("scene_node").As<Control>();
+        var container = menu.GetChild(0).GetChild<Control>(0);
+
+        Vector2 viewportSize = new Vector2(1132.0f, container.Size.Y);
+        
+        float aspectRatio = viewportSize.Y / viewportSize.X;
+        Vector2 screenSize = new Vector2(1.0f, aspectRatio) * MenuScale;
+
+        _playerMenu.Position = _playerMenu.Basis.Y * (screenSize.Y / 2.0f) + MenuOffset;
+        
+        _playerMenu.Set("viewport_size", viewportSize);
+        _playerMenu.Set("screen_size", screenSize);
     }
 
     private void ResetPlayerPosition()
@@ -157,6 +177,6 @@ public partial class Player : XROrigin3D
 
     private void ExitTargetMenu()
     {
-        _playerMenu.Set("scene", _playerMenuScene);
+        SetMenu(_playerMenuScene);
     }
 }
