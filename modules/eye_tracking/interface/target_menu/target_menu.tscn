@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d1tqqk3ddggtd"]
 
-[ext_resource type="Script" uid="uid://com1raenw06dc" path="res://interface/target_menu/TargetMenu.cs" id="1_yem0h"]
+[ext_resource type="Script" uid="uid://com1raenw06dc" path="res://modules/eye_tracking/interface/target_menu/TargetMenu.cs" id="1_yem0h"]
 [ext_resource type="Texture2D" uid="uid://cwup5a0qcgb0r" path="res://icon.svg" id="2_fv1ya"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drqdu"]

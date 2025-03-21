@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ce5n050wc588g"]
 
-[ext_resource type="Script" uid="uid://cpj8itlmivt2p" path="res://entities/gaze_target/GazeTarget.cs" id="1_ref4b"]
-[ext_resource type="Material" uid="uid://clso2br4rvb7g" path="res://entities/gaze_target/gaze_target_material.tres" id="2_kosym"]
+[ext_resource type="Script" uid="uid://cpj8itlmivt2p" path="res://modules/eye_tracking/entities/gaze_target/GazeTarget.cs" id="1_ref4b"]
+[ext_resource type="Material" uid="uid://clso2br4rvb7g" path="res://modules/eye_tracking/entities/gaze_target/gaze_target_material.tres" id="2_kosym"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_dm85m"]
 material = ExtResource("2_kosym")

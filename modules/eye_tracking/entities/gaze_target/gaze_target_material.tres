@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://clso2br4rvb7g"]
 
-[ext_resource type="Shader" uid="uid://cbxxrceqlyf86" path="res://entities/gaze_target/gaze_target_shader.gdshader" id="1_b7ms5"]
+[ext_resource type="Shader" uid="uid://cbxxrceqlyf86" path="res://modules/eye_tracking/entities/gaze_target/gaze_target_shader.gdshader" id="1_b7ms5"]
 
 [resource]
 render_priority = 0

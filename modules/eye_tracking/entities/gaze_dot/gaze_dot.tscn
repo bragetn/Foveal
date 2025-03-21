@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://urpde0irgbah"]
 
-[ext_resource type="Shader" uid="uid://bss5vfdwsthwc" path="res://entities/gaze_dot/gaze_dot.gdshader" id="1_0kivt"]
+[ext_resource type="Shader" uid="uid://bss5vfdwsthwc" path="res://modules/eye_tracking/entities/gaze_dot/gaze_dot.gdshader" id="1_0kivt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tniv3"]
 render_priority = 10
