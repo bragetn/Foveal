@@ -18,9 +18,9 @@ public partial class Player : XROrigin3D
     private Node3D _pointer;
     private Node _movementTurn;
 
-    private PackedScene _targetScene = GD.Load<PackedScene>("res://entities/gaze_target/gaze_target.tscn");
-    private PackedScene _playerMenuScene = GD.Load<PackedScene>("res://interface/player_menu/player_menu.tscn");
-    private PackedScene _targetMenuScene = GD.Load<PackedScene>("res://interface/target_menu/target_menu.tscn");
+    private PackedScene _targetScene = GD.Load<PackedScene>("uid://ce5n050wc588g");
+    private PackedScene _playerMenuScene = GD.Load<PackedScene>("uid://dnrjqga7ascle");
+    private PackedScene _targetMenuScene = GD.Load<PackedScene>("uid://d1tqqk3ddggtd");
 
     private bool _isGrabbing;
     private GazeTarget _grabbedTarget;
