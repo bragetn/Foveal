@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Radio : Node
+public partial class CoreRadio : Node
 {
     // Player Menu
     [Signal] public delegate void ResetPlayerPositionEventHandler();
@@ -12,7 +12,7 @@ public partial class Radio : Node
     [Signal] public delegate void AssignTargetToMenuEventHandler(TargetMenu targetMenu);
     [Signal] public delegate void ExitTargetMenuEventHandler();
     
-    public static Radio Instance { get; private set; }
+    public static CoreRadio Instance { get; private set; }
     
     public override void _Ready()
     {

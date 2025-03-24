@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class GazeTarget : StaticBody3D
+public partial class GazeTarget : StaticBody3D, IGazeable
 {
     [Export] public float Seconds { get; set; } = 1.0f;
     [Export] public float Radius { get; set; } = 0.1f * MathF.Pow(2, 0.5f * 1.5f);

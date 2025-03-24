@@ -13,9 +13,9 @@ public partial class PlayerMenu : Control
         _toggleGazeDotButton = GetNode<Button>("MarginContainer/VBoxContainer/ToggleGazeDotButton");
         _resetPlayerPositionButton = GetNode<Button>("MarginContainer/VBoxContainer/ResetPlayerPositionButton");
 
-        _resetPlayerPositionButton.Pressed += () => Radio.Instance.EmitSignal("ResetPlayerPosition");
-        _toggleGazeDotButton.Pressed += () => Radio.Instance.EmitSignal("ToggleGazeDot");
-        _addTargetButton.Pressed += () => Radio.Instance.EmitSignal("AddTarget");
+        _resetPlayerPositionButton.Pressed += () => CoreRadio.Instance.EmitSignal("ResetPlayerPosition");
+        _toggleGazeDotButton.Pressed += () => CoreRadio.Instance.EmitSignal("ToggleGazeDot");
+        _addTargetButton.Pressed += () => CoreRadio.Instance.EmitSignal("AddTarget");
     }
     
 }

@@ -42,13 +42,13 @@ public partial class Player : XROrigin3D
         _pointer.Connect("pointing_event", new Callable(this, nameof(PointingEvent)));
         
         // Player Menu
-        Radio.Instance.ResetPlayerPosition += ResetPlayerPosition;
-        Radio.Instance.ToggleGazeDot += ToggleGazeDot;
-        Radio.Instance.AddTarget += AddTarget;
-        
-        // Target Menu
-        Radio.Instance.AssignTargetToMenu += AssignTargetToMenu;
-        Radio.Instance.ExitTargetMenu += ExitTargetMenu;
+        // Radio.Instance.ResetPlayerPosition += ResetPlayerPosition;
+        // Radio.Instance.ToggleGazeDot += ToggleGazeDot;
+        // Radio.Instance.AddTarget += AddTarget;
+        //
+        // // Target Menu
+        // Radio.Instance.AssignTargetToMenu += AssignTargetToMenu;
+        // Radio.Instance.ExitTargetMenu += ExitTargetMenu;
 
         SetMenu(_playerMenuScene);
         _playerMenu.ProcessMode = ProcessModeEnum.Disabled;
