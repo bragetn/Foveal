@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bv2t17o3eeibx"]
+[gd_scene load_steps=13 format=3 uid="uid://bv2t17o3eeibx"]
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_18tpb"]
-[ext_resource type="PackedScene" uid="uid://chup18iujp2xd" path="res://modules/eye_tracking/entities/player/player.tscn" id="2_elqxi"]
+[ext_resource type="PackedScene" uid="uid://cewnyms3lxqwo" path="res://core/entities/player/player.tscn" id="3_d2rny"]
 [ext_resource type="Shader" uid="uid://brq6fbyudbflp" path="res://core/common/shaders/checkerboard.gdshader" id="3_sx8fd"]
+[ext_resource type="PackedScene" uid="uid://ce5n050wc588g" path="res://modules/eye_tracking/entities/gaze_target/gaze_target.tscn" id="4_2pev7"]
+[ext_resource type="PackedScene" uid="uid://bmgc7qlit8rsa" path="res://core/common/extensions/eye_tracker/eye_tracker.tscn" id="4_7pgfd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sx8fd"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -60,4 +62,12 @@ shape = SubResource("ConcavePolygonShape3D_o6tti")
 
 [node name="StartXR" parent="." instance=ExtResource("1_18tpb")]
 
-[node name="Player" parent="." instance=ExtResource("2_elqxi")]
+[node name="Player" parent="." instance=ExtResource("3_d2rny")]
+
+[node name="EyeTracker" parent="Player" node_paths=PackedStringArray("Camera") instance=ExtResource("4_7pgfd")]
+Camera = NodePath("../XRCamera3D")
+
+[node name="GazeTarget" parent="." instance=ExtResource("4_2pev7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -5)
+
+[editable path="Player"]

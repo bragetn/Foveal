@@ -31,6 +31,21 @@ public partial class GazeTarget : StaticBody3D, IGazeable
         ProcessEyeGaze(delta);
     }
 
+    public void OnGazeEnter()
+    {
+        GD.Print("GAZE ENTER");
+    }
+
+    public void OnGazeExit()
+    {
+        GD.Print("GAZE EXIT");
+    }
+
+    public void OnGazeStay(double delta)
+    {
+        GD.Print("GAZE STAY");
+    }
+
     public void AddValue(float value)
     {
         if (_completed) return;

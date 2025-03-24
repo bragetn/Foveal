@@ -23,6 +23,13 @@ public partial class EyeTracker : XRController3D
         PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(Camera.GlobalPosition, _gazeDot.GlobalPosition);
         Dictionary result = spaceState.IntersectRay(query);
 
+        if (result.Count <= 0)
+        {
+            _prevGazeable?.OnGazeExit();
+            _prevGazeable = null;
+            return;
+        }
+        
         Node collider = result["collider"].As<Node>();
         
         if (collider is IGazeable gazeable)
