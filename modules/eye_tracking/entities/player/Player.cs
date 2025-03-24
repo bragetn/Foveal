@@ -58,25 +58,7 @@ public partial class Player : XROrigin3D
 
     public override void _PhysicsProcess(double delta)
     {
-        ProcessEyeGaze(delta);
         ProcessGrab(delta);
-    }
-
-    private void ProcessEyeGaze(double delta)
-    {
-        Vector3 viewDir = _gazeDot.GlobalPosition - _camera.GlobalPosition;
-
-        var spaceState = GetWorld3D().DirectSpaceState;
-        var query = PhysicsRayQueryParameters3D.Create(_camera.GlobalPosition, _gazeDot.GlobalPosition);
-        var result = spaceState.IntersectRay(query);
-
-        if (result.Count <= 0) return;
-
-        var collider = result["collider"].As<Node>();
-        if (collider is GazeTarget gazeTarget)
-        {
-            gazeTarget.AddValue((float)delta);
-        }
     }
 
     private void ProcessGrab(double delta)

@@ -28,30 +28,33 @@ public partial class GazeTarget : StaticBody3D, IGazeable
     public override void _PhysicsProcess(double delta)
     {
         ProcessGrab();
-        ProcessEyeGaze(delta);
-    }
-
-    public void OnGazeEnter()
-    {
-        GD.Print("GAZE ENTER");
+        // ProcessEyeGaze(delta);
     }
 
     public void OnGazeExit()
     {
-        GD.Print("GAZE EXIT");
+        if (_completed) return;
+        _value = 0.0f;
+        _meshInstance.SetInstanceShaderParameter("t", 0.0f);
     }
 
     public void OnGazeStay(double delta)
     {
-        GD.Print("GAZE STAY");
+        _value += (float) delta;
+        
+        if (_value > Seconds)
+        {
+            _value = Seconds;
+            _completed = true;
+            _meshInstance.SetInstanceShaderParameter("completed", true);
+        }
+        
+        if (Seconds > 0.0f)
+        {
+            _meshInstance.SetInstanceShaderParameter("t", _value / Seconds);
+        }
     }
-
-    public void AddValue(float value)
-    {
-        if (_completed) return;
-        _valueDelta = value;
-    }
-
+    
     public void Grab(PointerUtil.PointerEvent pointerEvent)
     {
         _isGrabbed = true;
@@ -110,33 +113,5 @@ public partial class GazeTarget : StaticBody3D, IGazeable
         if (!_isGrabbed) return;
         
         GlobalPosition = _pointer.GlobalPosition - _pointer.GlobalBasis.Z * _pointerDistance;
-    }
-    
-    private void ProcessEyeGaze(double delta)
-    {
-        if (_completed) return;
-        
-        if (_valueDelta == 0.0f)
-        {
-            _value -= (float) delta;
-            if (_value < 0.0f) _value = 0.0f;
-        }
-        else
-        {
-            _value += _valueDelta;
-            _valueDelta = 0.0f;
-        }
-        
-        if (_value > Seconds)
-        {
-            _value = Seconds;
-            _completed = true;
-            _meshInstance.SetInstanceShaderParameter("completed", true);
-        }
-        
-        if (Seconds > 0.0f)
-        {
-            _meshInstance.SetInstanceShaderParameter("t", _value / Seconds);
-        }
     }
 }
