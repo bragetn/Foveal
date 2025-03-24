@@ -1,4 +1,28 @@
-[gd_scene format=3 uid="uid://bhhwl1c052tya"]
+[gd_scene load_steps=6 format=3 uid="uid://bhhwl1c052tya"]
+
+[ext_resource type="PackedScene" uid="uid://scoafeh8eoef" path="res://modules/eye_tracking/interface/module_menu/module_menu.tscn" id="1_7mj28"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4csak"]
+bg_color = Color(1, 1, 1, 0.15)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vrja"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mj28"]
+bg_color = Color(0.121569, 0.121569, 0.152941, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="Theme" id="Theme_ovpse"]
+Button/styles/hover = SubResource("StyleBoxFlat_4csak")
+Button/styles/normal = SubResource("StyleBoxEmpty_1vrja")
+Button/styles/pressed = null
+Panel/styles/panel = SubResource("StyleBoxFlat_7mj28")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -7,3 +31,74 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_ovpse")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ModulesContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="Panel" parent="HBoxContainer/ModulesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ModulesContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="ModulesVBox" type="VBoxContainer" parent="HBoxContainer/ModulesContainer/ColorRect/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ModulesHeader" type="Label" parent="HBoxContainer/ModulesContainer/ColorRect/MarginContainer/ModulesVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Modules"
+
+[node name="Button" type="Button" parent="HBoxContainer/ModulesContainer/ColorRect/MarginContainer/ModulesVBox"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Eye Tracking"
+
+[node name="MenuContainer" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuPanel" type="Panel" parent="HBoxContainer/MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MenuContainer/MenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="ModuleMenu" parent="HBoxContainer/MenuContainer/MenuPanel/MarginContainer" instance=ExtResource("1_7mj28")]
+layout_mode = 2
+size_flags_vertical = 3
