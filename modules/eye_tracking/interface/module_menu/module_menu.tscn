@@ -1,4 +1,9 @@
-[gd_scene format=3 uid="uid://scoafeh8eoef"]
+[gd_scene load_steps=5 format=3 uid="uid://scoafeh8eoef"]
+
+[ext_resource type="Texture2D" uid="uid://dfjjxwbqqr4up" path="res://core/assets/icons/mappe-icon.svg" id="1_bprh4"]
+[ext_resource type="Script" uid="uid://pt4627wy0w21" path="res://modules/eye_tracking/interface/module_menu/ModuleMenu.cs" id="1_pbbiw"]
+[ext_resource type="Texture2D" uid="uid://cot0eprvytfsr" path="res://core/assets/icons/velgtest-icon.svg" id="2_pbbiw"]
+[ext_resource type="Texture2D" uid="uid://infsa3y7f11c" path="res://core/assets/icons/tilfeldig-icon.svg" id="3_icqq6"]
 
 [node name="ModuleMenu" type="VBoxContainer"]
 anchors_preset = 15
@@ -6,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pbbiw")
 
 [node name="HeaderLabel" type="Label" parent="."]
 layout_mode = 2
@@ -26,19 +32,25 @@ theme_override_constants/separation = 20
 custom_minimum_size = Vector2(500, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Test Editor"
+text = "   Test Editor"
+icon = ExtResource("1_bprh4")
 alignment = 0
+expand_icon = true
 
 [node name="RunTestButton" type="Button" parent="MarginContainer/MenuVBox"]
 custom_minimum_size = Vector2(500, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Run Test"
+text = "    Run Test"
+icon = ExtResource("2_pbbiw")
 alignment = 0
+expand_icon = true
 
 [node name="RandomizeTestButton" type="Button" parent="MarginContainer/MenuVBox"]
 custom_minimum_size = Vector2(500, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Randomize Test"
+text = "    Randomize Test"
+icon = ExtResource("3_icqq6")
 alignment = 0
+expand_icon = true

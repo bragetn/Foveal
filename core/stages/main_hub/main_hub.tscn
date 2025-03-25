@@ -1,19 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwgan8e5wefxx"]
+[gd_scene load_steps=7 format=3 uid="uid://bcskthtw74py2"]
 
-[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_ljhvx"]
-[ext_resource type="PackedScene" uid="uid://cewnyms3lxqwo" path="res://core/entities/player/player.tscn" id="2_ljhvx"]
+[ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_5vbp8"]
+[ext_resource type="Texture2D" uid="uid://cfg6dmmc1p18b" path="res://core/assets/skybox/skybox.hdr" id="2_5vbp8"]
+[ext_resource type="PackedScene" uid="uid://bhhwl1c052tya" path="res://core/interface/main_menu/main_menu.tscn" id="3_5vbp8"]
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_h16oy"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_h16oy"]
+panorama = ExtResource("2_5vbp8")
 
-[node name="MainHub" type="Node3D"]
+[sub_resource type="Sky" id="Sky_5vbp8"]
+sky_material = SubResource("PanoramaSkyMaterial_h16oy")
 
-[node name="StartXR" parent="." instance=ExtResource("1_ljhvx")]
+[sub_resource type="Environment" id="Environment_bmhke"]
+background_mode = 2
+sky = SubResource("Sky_5vbp8")
+tonemap_mode = 2
+glow_enabled = true
 
-[node name="WorldBoundary" type="StaticBody3D" parent="."]
+[node name="MainHub" instance=ExtResource("1_5vbp8")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldBoundary"]
-shape = SubResource("WorldBoundaryShape3D_h16oy")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = SubResource("Environment_bmhke")
 
-[node name="Player" parent="." instance=ExtResource("2_ljhvx")]
+[node name="SubViewport" type="Window" parent="." index="2"]
+auto_translate_mode = 1
+disable_3d = true
+initial_position = 1
+size = Vector2i(1145, 650)
 
-[editable path="Player"]
+[node name="MainMenu" parent="SubViewport" index="0" instance=ExtResource("3_5vbp8")]

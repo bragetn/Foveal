@@ -3,12 +3,12 @@ using System;
 
 public partial class CoreRadio : Node
 {
-    // Player Menu
+    [Signal] public delegate void LoadSceneEventHandler(String path);
+    
     [Signal] public delegate void ResetPlayerPositionEventHandler();
     [Signal] public delegate void ToggleGazeDotEventHandler();
     [Signal] public delegate void AddTargetEventHandler();
     
-    // Target Menu
     [Signal] public delegate void AssignTargetToMenuEventHandler(TargetMenu targetMenu);
     [Signal] public delegate void ExitTargetMenuEventHandler();
     

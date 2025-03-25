@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhhwl1c052tya"]
+[gd_scene load_steps=8 format=3 uid="uid://bhhwl1c052tya"]
 
+[ext_resource type="Script" uid="uid://bxrqhqbdrv2xd" path="res://core/interface/main_menu/MainMenu.cs" id="1_4csak"]
 [ext_resource type="PackedScene" uid="uid://scoafeh8eoef" path="res://modules/eye_tracking/interface/module_menu/module_menu.tscn" id="1_7mj28"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mj28"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4csak"]
 bg_color = Color(1, 1, 1, 0.15)
@@ -19,6 +22,7 @@ corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
 [sub_resource type="Theme" id="Theme_ovpse"]
+Button/styles/focus = SubResource("StyleBoxEmpty_7mj28")
 Button/styles/hover = SubResource("StyleBoxFlat_4csak")
 Button/styles/normal = SubResource("StyleBoxEmpty_1vrja")
 Button/styles/pressed = null
@@ -32,6 +36,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_ovpse")
+script = ExtResource("1_4csak")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
