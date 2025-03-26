@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bdy56utqcoj78"]
+[gd_scene load_steps=19 format=3 uid="uid://bdy56utqcoj78"]
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_d2rny"]
 [ext_resource type="Shader" uid="uid://brq6fbyudbflp" path="res://core/common/shaders/checkerboard.gdshader" id="3_sx8fd"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="8_r6spv"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="9_pg8gk"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="9_vdbg0"]
-[ext_resource type="Script" uid="uid://3akucoox0fs0" path="res://addons/godot-xr-tools/player/player_body.gd" id="10_xoixa"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2pev7"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -67,13 +66,7 @@ laser_length = 1
 [node name="EyeTracker" parent="XROrigin3D" index="3" node_paths=PackedStringArray("Camera") instance=ExtResource("4_7pgfd")]
 Camera = NodePath("../XRCamera3D")
 
-[node name="PlayerBody" type="CharacterBody3D" parent="XROrigin3D" index="4" groups=["player_body"] instance=ExtResource("9_vdbg0")]
-process_priority = -100
-process_physics_priority = -100
-top_level = true
-collision_layer = 524288
-collision_mask = 1023
-script = ExtResource("10_xoixa")
+[node name="PlayerBody" parent="XROrigin3D" index="4" instance=ExtResource("9_vdbg0")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 10, 0)
