@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://dnxmh5pikkt3m"]
+[gd_scene load_steps=13 format=3 uid="uid://dnxmh5pikkt3m"]
 
 [ext_resource type="Script" uid="uid://bkbbdx4rv3qdb" path="res://modules/eye_tracking/entities/target_box/TargetBox.cs" id="1_b26oo"]
+[ext_resource type="Material" uid="uid://ctn1gprr08wjk" path="res://modules/eye_tracking/entities/target_box/target_box.tres" id="2_r56bc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b26oo"]
 size = Vector3(4, 4, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_r56bc"]
+material = ExtResource("2_r56bc")
 size = Vector2(4, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xx3sn"]
@@ -58,6 +60,7 @@ transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4, 0, 0)
 shape = SubResource("BoxShape3D_xx3sn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RightWall"]
+material_override = ExtResource("2_r56bc")
 mesh = SubResource("QuadMesh_exefo")
 skeleton = NodePath("../..")
 
@@ -68,6 +71,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 shape = SubResource("BoxShape3D_q3fxb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="BackWall"]
+material_override = ExtResource("2_r56bc")
 mesh = SubResource("QuadMesh_uanm6")
 skeleton = NodePath("../..")
 
@@ -78,6 +82,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2,
 shape = SubResource("BoxShape3D_8n8dd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FloorWall"]
+material_override = ExtResource("2_r56bc")
 mesh = SubResource("QuadMesh_icuhh")
 skeleton = NodePath("../..")
 
@@ -88,5 +93,6 @@ transform = Transform3D(1, 0, 0, 0, 1.31134e-07, -1, 0, 1, 1.31134e-07, 0, 2, 0)
 shape = SubResource("BoxShape3D_iihhl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CeilingWall"]
+material_override = ExtResource("2_r56bc")
 mesh = SubResource("QuadMesh_ical4")
 skeleton = NodePath("../..")

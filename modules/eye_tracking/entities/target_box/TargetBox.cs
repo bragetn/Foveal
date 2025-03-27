@@ -75,9 +75,13 @@ public partial class TargetBox : Node3D
             shape.Size = new Vector3(x, y, 0);
         }
         
-        if (wall.GetNode<MeshInstance3D>("MeshInstance3D").Mesh is QuadMesh mesh)
+        if (wall.GetNode<MeshInstance3D>("MeshInstance3D") is MeshInstance3D meshInstance)
         {
-            mesh.Size = new Vector2(x, y);
+            meshInstance.SetInstanceShaderParameter("size", new Vector2(x, y));
+            if (wall.GetNode<MeshInstance3D>("MeshInstance3D").Mesh is QuadMesh mesh)
+            {
+                mesh.Size = new Vector2(x, y);
+            }
         }
     }
 }
