@@ -101,14 +101,14 @@ public partial class Player : XROrigin3D
             switch (pointerEvent.EventType)
             {
                 case PointerUtil.EventType.Pressed:
-                    gazeTarget.Grab(pointerEvent);
+                    gazeTarget.OnGrabEnter(pointerEvent);
                     _movementTurn.Set("enabled", false);
                     _isGrabbing = true;
                     _grabbedTarget = gazeTarget;
                     SetMenu(_targetMenuScene);
                     break;
                 case PointerUtil.EventType.Released:
-                    gazeTarget.Release();
+                    gazeTarget.OnGrabExit();
                     _movementTurn.Set("enabled", true);
                     _isGrabbing = false;
                     break;

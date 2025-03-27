@@ -16,7 +16,7 @@ public partial class MenuController : Node
     {
         LeftHand.ButtonPressed += LeftHandButtonPressed;
         EyeTrackingRadio.Instance.ResetPlayerPosition += ResetPlayerPosition;
-        
+        CoreRadio.Instance.GrabEntered += (() => SetMenu(_targetMenuScene));
         SetMenu(_playerMenuScene);
         PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
         PlayerMenu.Visible = false;

@@ -42,7 +42,6 @@ collision_layer = 5242880
 input_keyboard = false
 unshaded = true
 filter = false
-scene_properties_keys = PackedStringArray()
 
 [node name="RightHand" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)

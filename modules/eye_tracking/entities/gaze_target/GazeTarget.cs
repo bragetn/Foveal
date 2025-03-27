@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class GazeTarget : StaticBody3D, IGazeable
+public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 {
     [Export] public float Seconds { get; set; } = 1.0f;
     [Export] public float Radius { get; set; } = 0.1f * MathF.Pow(2, 0.5f * 1.5f);
@@ -27,8 +27,9 @@ public partial class GazeTarget : StaticBody3D, IGazeable
 
     public override void _PhysicsProcess(double delta)
     {
-        ProcessGrab();
-        // ProcessEyeGaze(delta);
+        if (!_isGrabbed) return;
+        
+        GlobalPosition = _pointer.GlobalPosition - _pointer.GlobalBasis.Z * _pointerDistance;
     }
 
     public void OnGazeExit()
@@ -55,18 +56,18 @@ public partial class GazeTarget : StaticBody3D, IGazeable
         }
     }
     
-    public void Grab(PointerUtil.PointerEvent pointerEvent)
+    public void OnGrabEnter(PointerUtil.PointerEvent pointerEvent)
     {
         _isGrabbed = true;
         _pointerDistance = pointerEvent.Pointer.GlobalPosition.DistanceTo(GlobalPosition);
         _pointer = pointerEvent.Pointer;
     }
-
-    public void Release()
+    
+    public void OnGrabExit()
     {
         _isGrabbed = false;
     }
-
+    
     public void UpdatePointerDistance(float value)
     {
         if (!_isGrabbed) return;
@@ -108,10 +109,4 @@ public partial class GazeTarget : StaticBody3D, IGazeable
         }
     }
 
-    private void ProcessGrab()
-    {
-        if (!_isGrabbed) return;
-        
-        GlobalPosition = _pointer.GlobalPosition - _pointer.GlobalBasis.Z * _pointerDistance;
-    }
 }
