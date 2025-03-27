@@ -1,5 +1,4 @@
 shader_type spatial;
-render_mode unshaded;
 
 uniform vec3 color_a: source_color = vec3(1.0);
 uniform vec3 color_b: source_color = vec3(0.0);

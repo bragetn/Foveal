@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bgohwu2kxayoc"]
+[gd_scene load_steps=20 format=3 uid="uid://bgohwu2kxayoc"]
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_q6rtj"]
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_y2q0g"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="9_q2eiv"]
 [ext_resource type="PackedScene" uid="uid://bmgc7qlit8rsa" path="res://core/common/extensions/eye_tracker/eye_tracker.tscn" id="10_n42i5"]
 [ext_resource type="Shader" uid="uid://brq6fbyudbflp" path="res://core/common/shaders/checkerboard.gdshader" id="11_n42i5"]
-[ext_resource type="Script" uid="uid://bkbbdx4rv3qdb" path="res://modules/eye_tracking/stages/test_editor/TargetBox.cs" id="12_m5et8"]
+[ext_resource type="PackedScene" uid="uid://dnxmh5pikkt3m" path="res://modules/eye_tracking/entities/target_box/target_box.tscn" id="13_dj6vh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uahf1"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -41,21 +41,6 @@ size = Vector3(7, 1, 7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jkaxw"]
 size = Vector3(7, 1, 7)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gdtd6"]
-render_priority = 0
-shader = ExtResource("11_n42i5")
-shader_parameter/color_a = Color(0.705882, 0.705882, 0.705882, 1)
-shader_parameter/color_b = Color(0.764706, 0.764706, 0.764706, 1)
-shader_parameter/scale = 1.0
-shader_parameter/offset = Vector3(0, 0, 0)
-
-[sub_resource type="BoxMesh" id="BoxMesh_xj7uk"]
-material = SubResource("ShaderMaterial_gdtd6")
-size = Vector3(8, 4, -4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_n42i5"]
-size = Vector3(8, 4, 4)
 
 [node name="TestEditor" instance=ExtResource("1_q6rtj")]
 
@@ -110,13 +95,5 @@ mesh = SubResource("BoxMesh_dj6vh")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" index="0"]
 shape = SubResource("BoxShape3D_jkaxw")
 
-[node name="TargetBox" type="MeshInstance3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8.5)
-mesh = SubResource("BoxMesh_xj7uk")
-skeleton = NodePath("../Ground")
-script = ExtResource("12_m5et8")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="TargetBox" index="0"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetBox/StaticBody3D" index="0"]
-shape = SubResource("BoxShape3D_n42i5")
+[node name="TargetBox" parent="." index="3" instance=ExtResource("13_dj6vh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68517, -7.63735)
