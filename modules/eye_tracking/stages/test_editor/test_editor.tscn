@@ -45,9 +45,6 @@ size = Vector3(7, 1, 7)
 
 [node name="TestEditor" instance=ExtResource("1_q6rtj")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
-environment = SubResource("Environment_7id5q")
-
 [node name="LeftHand" parent="XROrigin3D/LeftHand" index="0" instance=ExtResource("2_y2q0g")]
 
 [node name="MovementDirect" parent="XROrigin3D/LeftHand" index="1" instance=ExtResource("3_n42i5")]
@@ -92,7 +89,14 @@ PlayerBody = NodePath("../PlayerBody")
 LeftHand = NodePath("../LeftHand")
 MenuScale = 0.25
 
-[node name="Ground" type="MeshInstance3D" parent="." index="2"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = SubResource("Environment_7id5q")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 mesh = SubResource("BoxMesh_dj6vh")
 
@@ -101,5 +105,5 @@ mesh = SubResource("BoxMesh_dj6vh")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" index="0"]
 shape = SubResource("BoxShape3D_jkaxw")
 
-[node name="TargetBox" parent="." index="3" instance=ExtResource("13_dj6vh")]
+[node name="TargetBox" parent="." index="4" instance=ExtResource("13_dj6vh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)

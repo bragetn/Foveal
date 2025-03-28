@@ -15,7 +15,7 @@ public partial class TargetMenu : Control
 
     public override void _EnterTree()
     {
-        CoreRadio.Instance.EmitSignal("AssignTargetToMenu", this);
+        EyeTrackingRadio.Instance.EmitSignal("AssignTargetToMenu", this);
     }
 
     public override void _Ready()
@@ -31,7 +31,7 @@ public partial class TargetMenu : Control
         _subtractDelayButton.Pressed += () => UpdateDelay(true);
         _deleteTargetButton.Pressed += DeleteTarget;
         _sizeSlider.ValueChanged += UpdateSize;
-        _exitButton.Pressed += () => CoreRadio.Instance.EmitSignal("ExitTargetMenu");
+        _exitButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("ExitTargetMenu");
 
         
         _delayLabel.Text = Target.Delay.ToString("n2");
@@ -52,7 +52,7 @@ public partial class TargetMenu : Control
 
     private void DeleteTarget()
     {
-        CoreRadio.Instance.EmitSignal("ExitTargetMenu");
+        EyeTrackingRadio.Instance.EmitSignal("ExitTargetMenu");
         Target.QueueFree();
     }
 }

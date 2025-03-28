@@ -12,11 +12,17 @@ public partial class MenuController : Node
     private PackedScene _playerMenuScene = GD.Load<PackedScene>("uid://dnrjqga7ascle");
     private PackedScene _targetMenuScene = GD.Load<PackedScene>("uid://d1tqqk3ddggtd");
     
+    private GazeTarget _grabbedTarget;
+    
     public override void _Ready()
     {
         LeftHand.ButtonPressed += LeftHandButtonPressed;
+        CoreRadio.Instance.GrabEntered += GrabEntered;
+        
         EyeTrackingRadio.Instance.ResetPlayerPosition += ResetPlayerPosition;
-        CoreRadio.Instance.GrabEntered += (() => SetMenu(_targetMenuScene));
+        EyeTrackingRadio.Instance.AssignTargetToMenu += AssignTargetToMenu;
+        EyeTrackingRadio.Instance.ExitTargetMenu += ExitTargetMenu;
+        
         SetMenu(_playerMenuScene);
         PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
         PlayerMenu.Visible = false;
@@ -61,9 +67,28 @@ public partial class MenuController : Node
         PlayerMenu.Set("viewport_size", viewportSize);
         PlayerMenu.Set("screen_size", screenSize);
     }
+
+    private void GrabEntered(Node grabbedNode)
+    {
+        if (grabbedNode is GazeTarget gazeTarget)
+        {
+            _grabbedTarget = gazeTarget;
+        }
+        SetMenu(_targetMenuScene);
+    }
     
     private void ResetPlayerPosition()
     {
         PlayerBody.Call("teleport", new Transform3D(new Basis(Vector3.Up, Mathf.DegToRad(0)), new Vector3(0, 0, 0)));
+    }
+    
+    private void AssignTargetToMenu(TargetMenu targetMenu)
+    {
+        targetMenu.Target = _grabbedTarget;
+    }
+
+    private void ExitTargetMenu()
+    {
+        SetMenu(_playerMenuScene);
     }
 }

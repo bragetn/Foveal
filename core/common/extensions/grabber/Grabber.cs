@@ -36,7 +36,7 @@ public partial class Grabber : Node
             {
                 case PointerUtil.EventType.Pressed:
                     gazeTarget.OnGrabEnter(pointerEvent);
-                    CoreRadio.Instance.EmitSignal("GrabEntered");
+                    CoreRadio.Instance.EmitSignal("GrabEntered", gazeTarget);
                     MovementTurn.Set("enabled", false);
                     _isGrabbing = true;
                     _grabbedTarget = gazeTarget;

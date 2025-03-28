@@ -5,7 +5,7 @@ public partial class CoreRadio : Node
 {
     [Signal] public delegate void LoadSceneEventHandler(String path);
     [Signal] public delegate void ToggleGazeDotEventHandler();
-    [Signal] public delegate void GrabEnteredEventHandler();
+    [Signal] public delegate void GrabEnteredEventHandler(Node grabbedNode);
     [Signal] public delegate void GrabExitedEventHandler();
     
     public static CoreRadio Instance { get; private set; }
