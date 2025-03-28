@@ -3,14 +3,15 @@ using System;
 
 public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 {
-    [Export] public float Seconds { get; set; } = 1.0f;
-    [Export] public float Radius { get; set; } = 0.1f * MathF.Pow(2, 0.5f * 1.5f);
-    [Export] public float Delay { get; set; } = 0.0f;
+    [Export] public float Seconds { get; set; }
+    [Export] public float Radius { get; set; }
+    [Export] public float Delay { get; set; }
+    
+    public Vector3 Bounds;
     
     private MeshInstance3D _meshInstance;
     private CollisionShape3D _collisionShape;
     private float _value;
-    private float _valueDelta;
     private bool _completed;
 
     private bool _isGrabbed;
@@ -27,9 +28,16 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!_isGrabbed) return;
+        if (_isGrabbed)
+        {
+            GlobalPosition = _pointer.GlobalPosition - _pointer.GlobalBasis.Z * _pointerDistance;
+        }
         
-        GlobalPosition = _pointer.GlobalPosition - _pointer.GlobalBasis.Z * _pointerDistance;
+        Position = new Vector3(
+            Mathf.Clamp(Position.X, -Bounds.X + Radius, Bounds.X - Radius),
+            Mathf.Clamp(Position.Y, -Bounds.Y + Radius, Bounds.Y - Radius),
+            Mathf.Clamp(Position.Z, -Bounds.Z + Radius, Bounds.Z - Radius)
+        );
     }
 
     public void OnGazeExit()

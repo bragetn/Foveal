@@ -27,6 +27,7 @@ public partial class TargetBox : Node3D
     [Export] public StaticBody3D CeilingWall;
 
     private Vector3 _halfScale = new Vector3(4.0f, 2.0f, 2.0f);
+    private float _defaultRadius = 0.1f * MathF.Pow(2, 0.5f * 1.5f);
     
     public override void _Ready()
     {
@@ -43,13 +44,16 @@ public partial class TargetBox : Node3D
     private void AddTarget()
     {
         RandomNumberGenerator rng = new RandomNumberGenerator();
-        Node3D target = TargetScene.Instantiate<Node3D>();
+        GazeTarget target = TargetScene.Instantiate<GazeTarget>();
         
-        float x = rng.RandfRange(-_halfScale.X, _halfScale.X);
-        float y = rng.RandfRange(-_halfScale.Y, _halfScale.Y);
-        float z = rng.RandfRange(-_halfScale.Z, _halfScale.Z);
+        float x = rng.RandfRange(-_halfScale.X + _defaultRadius, _halfScale.X - _defaultRadius);
+        float y = rng.RandfRange(-_halfScale.Y + _defaultRadius, _halfScale.Y - _defaultRadius);
+        float z = rng.RandfRange(-_halfScale.Z + _defaultRadius, _halfScale.Z - _defaultRadius);
         
         target.Position = new Vector3(x, y, z);
+        target.Radius = _defaultRadius;
+        target.Seconds = 1.0f;
+        target.Bounds = _halfScale;
         AddChild(target);
     }
 

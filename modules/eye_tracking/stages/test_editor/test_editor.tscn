@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_q6rtj"]
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_y2q0g"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_n42i5"]
-[ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="4_m5et8"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="5_dj6vh"]
 [ext_resource type="Script" uid="uid://cjqouqci1i64v" path="res://modules/eye_tracking/stages/test_editor/MenuController.cs" id="6_dj6vh"]
 [ext_resource type="PackedScene" uid="uid://raeeicvvindd" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_hand.tscn" id="6_jkaxw"]
@@ -28,6 +27,9 @@ sky = SubResource("Sky_so3q1")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_jkaxw"]
+size = Vector3(7, 1, 7)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m5et8"]
 render_priority = 0
 shader = ExtResource("11_n42i5")
@@ -40,8 +42,7 @@ shader_parameter/offset = Vector3(0.5, 0.5, 0.5)
 material = SubResource("ShaderMaterial_m5et8")
 size = Vector3(7, 1, 7)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jkaxw"]
-size = Vector3(7, 1, 7)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jkaxw"]
 
 [node name="TestEditor" instance=ExtResource("1_q6rtj")]
 
@@ -51,11 +52,7 @@ size = Vector3(7, 1, 7)
 max_speed = 1.0
 strafe = true
 
-[node name="FunctionTeleport" parent="XROrigin3D/LeftHand" index="2" instance=ExtResource("4_m5et8")]
-rotation_action = ""
-strength = 2.5
-
-[node name="PlayerMenu" parent="XROrigin3D/LeftHand" index="3" instance=ExtResource("5_dj6vh")]
+[node name="PlayerMenu" parent="XROrigin3D/LeftHand" index="2" instance=ExtResource("5_dj6vh")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866026, 0, 0, 0)
 screen_size = Vector2(0.2, 0.4)
 collision_layer = 5242880
@@ -73,6 +70,7 @@ step_turn_angle = 30.0
 laser_length = 1
 
 [node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("9_q2eiv")]
+collision_mask = 3071
 
 [node name="EyeTracker" parent="XROrigin3D" index="4" node_paths=PackedStringArray("Camera") instance=ExtResource("10_n42i5")]
 Camera = NodePath("../XRCamera3D")
@@ -93,17 +91,42 @@ MenuScale = 0.25
 environment = SubResource("Environment_7id5q")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2"]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 0)
 shadow_enabled = true
 
-[node name="Ground" type="MeshInstance3D" parent="." index="3"]
+[node name="Platform" type="Node3D" parent="." index="3"]
+
+[node name="Ground" type="StaticBody3D" parent="Platform" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-mesh = SubResource("BoxMesh_dj6vh")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground" index="0"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform/Ground" index="0"]
 shape = SubResource("BoxShape3D_jkaxw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform/Ground" index="1"]
+mesh = SubResource("BoxMesh_dj6vh")
+skeleton = NodePath("../../..")
+
+[node name="WorldBoundary" type="StaticBody3D" parent="Platform" index="1"]
+collision_layer = 2048
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform/WorldBoundary" index="0"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -3.5, -50, 0)
+shape = SubResource("WorldBoundaryShape3D_jkaxw")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Platform/WorldBoundary" index="1"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 0, -50, 3.5)
+shape = SubResource("WorldBoundaryShape3D_jkaxw")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Platform/WorldBoundary" index="2"]
+transform = Transform3D(4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, 3.5, -50, 0)
+shape = SubResource("WorldBoundaryShape3D_jkaxw")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Platform/WorldBoundary" index="3"]
+transform = Transform3D(-5.73206e-15, 1.31134e-07, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, 1.31134e-07, 0, -50, -3.5)
+shape = SubResource("WorldBoundaryShape3D_jkaxw")
 
 [node name="TargetBox" parent="." index="4" instance=ExtResource("13_dj6vh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
+
+[node name="Viewport2Din3D" parent="." index="5" instance=ExtResource("5_dj6vh")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 1.5, 0)
