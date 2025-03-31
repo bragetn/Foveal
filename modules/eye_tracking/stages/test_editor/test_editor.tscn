@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bgohwu2kxayoc"]
+[gd_scene load_steps=22 format=3 uid="uid://bgohwu2kxayoc"]
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_q6rtj"]
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_y2q0g"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cub15t4ksfnhf" path="res://core/common/extensions/grabber/grabber.tscn" id="11_jkaxw"]
 [ext_resource type="Shader" uid="uid://brq6fbyudbflp" path="res://core/common/shaders/checkerboard.gdshader" id="11_n42i5"]
 [ext_resource type="PackedScene" uid="uid://dnxmh5pikkt3m" path="res://modules/eye_tracking/entities/target_box/target_box.tscn" id="13_dj6vh"]
+[ext_resource type="PackedScene" uid="uid://2yvsq8eb04nt" path="res://modules/eye_tracking/interface/editor_menu/editor_menu.tscn" id="14_jkaxw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uahf1"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -128,5 +129,8 @@ shape = SubResource("WorldBoundaryShape3D_jkaxw")
 [node name="TargetBox" parent="." index="4" instance=ExtResource("13_dj6vh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
 
-[node name="Viewport2Din3D" parent="." index="5" instance=ExtResource("5_dj6vh")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 1.5, 0)
+[node name="EditorMenu" parent="." index="5" instance=ExtResource("5_dj6vh")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4, 1.5, 0)
+scene = ExtResource("14_jkaxw")
+viewport_size = Vector2(900, 600)
+unshaded = true
