@@ -53,6 +53,6 @@ public partial class TargetMenu : Control
     private void DeleteTarget()
     {
         EyeTrackingRadio.Instance.EmitSignal("ExitTargetMenu");
-        Target.QueueFree();
+        Target.Delete();
     }
 }

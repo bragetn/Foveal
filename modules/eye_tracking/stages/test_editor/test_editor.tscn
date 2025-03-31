@@ -131,6 +131,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
 
 [node name="EditorMenu" parent="." index="5" instance=ExtResource("5_dj6vh")]
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4, 1.5, 0)
+screen_size = Vector2(4, 2)
 scene = ExtResource("14_jkaxw")
-viewport_size = Vector2(900, 600)
+viewport_size = Vector2(1200, 600)
 unshaded = true
+scene_properties_keys = PackedStringArray("EditorMenu")

@@ -101,6 +101,15 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         UpdateSize();
     }
 
+    public void Delete()
+    {
+        if (GetParent() is TargetBox targetBox)
+        {
+            targetBox.Targets.Remove(this);
+        }
+        QueueFree();
+    }
+
     private void UpdateSize()
     {
         if (_meshInstance.GetMesh().Duplicate() is SphereMesh mesh)

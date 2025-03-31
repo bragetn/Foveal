@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 [Tool]
 public partial class TargetBox : Node3D
@@ -25,9 +26,12 @@ public partial class TargetBox : Node3D
     [Export] public StaticBody3D BackWall;
     [Export] public StaticBody3D FloorWall;
     [Export] public StaticBody3D CeilingWall;
+    
+    public List<GazeTarget> Targets = [];
 
     private Vector3 _halfScale = new Vector3(4.0f, 2.0f, 2.0f);
     private float _defaultRadius = 0.1f * MathF.Pow(2, 0.5f * 1.5f);
+
     
     public override void _Ready()
     {
@@ -54,6 +58,8 @@ public partial class TargetBox : Node3D
         target.Radius = _defaultRadius;
         target.Seconds = 1.0f;
         target.Bounds = _halfScale;
+        
+        Targets.Add(target);
         AddChild(target);
     }
 

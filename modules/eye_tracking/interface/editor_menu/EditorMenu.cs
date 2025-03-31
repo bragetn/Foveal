@@ -14,7 +14,7 @@ public partial class EditorMenu : Control
         _newTestButton = GetNode<Button>("HBoxContainer/Panel/VBoxContainer/NewTestButton");
         _loadTestButton = GetNode<Button>("HBoxContainer/Panel/VBoxContainer/LoadTestButton");
         _mainMenuButton = GetNode<Button>("HBoxContainer/Panel/VBoxContainer/MainMenuButton");
-
+        
         _mainMenuButton.Pressed += ExitToMainMenu;
     }
 
