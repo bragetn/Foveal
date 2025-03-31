@@ -13,7 +13,6 @@ public partial class SceneLoader : Node
 
     private void _loadScene(String path)
     {
-        GD.Print("Loading Scene");
         _parent.Call("load_scene", path);
     }
 }
