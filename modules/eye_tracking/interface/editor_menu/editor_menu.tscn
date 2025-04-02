@@ -47,38 +47,47 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
-text = "Test Menu"
+text = "Test Meny"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ButtonPanel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="SaveTestButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
+[node name="NewButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(300, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 25
-text = "Lagre Test"
+text = "Ny"
 alignment = 0
 
-[node name="NewTestButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(300, 75)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 25
-text = "Ny Test"
-alignment = 0
-
-[node name="LoadTestButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
+[node name="OpenButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(300, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 25
-text = "Last Inn Test
+text = "Åpne
 "
+alignment = 0
+
+[node name="SaveButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+text = "Lagre"
+alignment = 0
+
+[node name="SaveAsButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+text = "Lagre som"
 alignment = 0
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
@@ -97,19 +106,3 @@ alignment = 0
 [node name="Panel2" type="Panel" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 35
-alignment = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/Panel2/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 76
-text = "\"Tutorial\""
-horizontal_alignment = 1

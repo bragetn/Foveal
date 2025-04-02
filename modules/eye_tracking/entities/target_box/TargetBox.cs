@@ -37,7 +37,8 @@ public partial class TargetBox : Node3D
     {
         if (Engine.IsEditorHint()) return;
         
-        EyeTrackingRadio.Instance.AddTarget += AddTarget;
+        EyeTrackingRadio.Instance.AddTarget += AddRandomTarget;
+        EyeTrackingRadio.Instance.ClearTargets += ClearTargets;
         UpdateBoxScale();
         
         // Target Menu
@@ -45,7 +46,7 @@ public partial class TargetBox : Node3D
         // Radio.Instance.ExitTargetMenu += ExitTargetMenu;
     }
     
-    private void AddTarget()
+    private void AddRandomTarget()
     {
         RandomNumberGenerator rng = new RandomNumberGenerator();
         GazeTarget target = TargetScene.Instantiate<GazeTarget>();
@@ -61,6 +62,27 @@ public partial class TargetBox : Node3D
         
         Targets.Add(target);
         AddChild(target);
+    }
+    
+    public void AddTarget(Vector3 targetPosition, float targetRadius, float targetDelay)
+    {
+        GazeTarget target = TargetScene.Instantiate<GazeTarget>();
+        target.Position = targetPosition;
+        target.Radius = targetRadius;
+        target.Delay = targetDelay;
+        target.Bounds = _halfScale;
+        
+        Targets.Add(target);
+        AddChild(target);
+    }
+
+    public void ClearTargets()
+    {
+        foreach (GazeTarget target in Targets)
+        {
+            target.QueueFree();
+        }
+        Targets.Clear();
     }
 
     private void UpdateBoxScale()
