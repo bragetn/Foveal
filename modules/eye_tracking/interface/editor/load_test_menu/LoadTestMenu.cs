@@ -7,12 +7,15 @@ using System.Text.Json;
 public partial class LoadTestMenu : Control
 {
     const String DataPath = "data/eye_tracking/tests/";
+    
+    private PackedScene _gazeTestItemPackedScene = ResourceLoader.Load<PackedScene>("uid://yscns1tbnrae");
+    
     private Control _container;
     private List<GazeTestData> _testDataList;
 
     public override void _Ready()
     {
-        _container = GetNode<Control>("ScrollContainer/VBoxContainer");
+        _container = GetNode<Control>("ScrollContainer/MarginContainer/VBoxContainer");
         _testDataList = new List<GazeTestData>();
         foreach (string filePath in Directory.GetFiles(DataPath))
         {
@@ -23,10 +26,9 @@ public partial class LoadTestMenu : Control
 
         foreach (GazeTestData testData in _testDataList)
         {
-            Button TestDataButton = new Button();
-            TestDataButton.Text = testData.Name;
-            TestDataButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("LoadTestFile", testData.Name);
-            _container.AddChild(TestDataButton);
+            GazeTestItem testItem = _gazeTestItemPackedScene.Instantiate<GazeTestItem>();
+            testItem.TestData = testData;
+            _container.AddChild(testItem);
         }
     }
 }

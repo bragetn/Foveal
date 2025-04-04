@@ -1,18 +1,56 @@
-[gd_scene format=3 uid="uid://yscns1tbnrae"]
+[gd_scene load_steps=6 format=3 uid="uid://yscns1tbnrae"]
+
+[ext_resource type="Texture2D" uid="uid://nxwgh5ao4myt" path="res://core/assets/icons/play_arrow.svg" id="1_1bo2o"]
+[ext_resource type="Script" uid="uid://re6gfby7kjtr" path="res://modules/eye_tracking/entities/gaze_test_item/GazeTestItem.cs" id="1_knvsr"]
+[ext_resource type="Texture2D" uid="uid://cbge71o1y7e4w" path="res://core/assets/icons/edit.svg" id="1_nn2sp"]
+[ext_resource type="Texture2D" uid="uid://cs5nvy078e8bd" path="res://core/assets/icons/delete.svg" id="2_1bo2o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bo2o"]
+bg_color = Color(1, 1, 1, 0.0588235)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="GazeTestItem" type="Control"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
+script = ExtResource("1_knvsr")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1bo2o")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-offset_right = 153.0
-offset_bottom = 23.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="SelectButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_horizontal = 3
+text = "Test Name"
+icon = ExtResource("1_1bo2o")
+
+[node name="RenameButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("1_nn2sp")
+alignment = 0
+
+[node name="DeleteButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_1bo2o")
+alignment = 0

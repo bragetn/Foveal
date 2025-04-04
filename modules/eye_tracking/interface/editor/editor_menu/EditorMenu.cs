@@ -22,11 +22,11 @@ public partial class EditorMenu : Control
 
     public override void _Ready()
     {
-        _newButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/NewButton");
-        _openButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/OpenButton");
-        _saveButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/SaveButton");
-        _saveAsButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/SaveAsButton");
-        _mainMenuButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/MainMenuButton");
+        _newButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer/NewButton");
+        _openButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer/OpenButton");
+        _saveButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer/SaveButton");
+        _saveAsButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer/SaveAsButton");
+        _mainMenuButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer/MainMenuButton");
         _sidePanel = GetNode<Panel>("HBoxContainer/SidePanel");
 
         _newButton.Pressed += NewTest;
