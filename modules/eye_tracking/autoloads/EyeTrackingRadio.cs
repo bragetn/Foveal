@@ -14,6 +14,9 @@ public partial class EyeTrackingRadio : Node
     [Signal] public delegate void ShowKeyboardEventHandler();
     [Signal] public delegate void HideKeyboardEventHandler();
     
+    [Signal] public delegate void PreviewTestEventHandler(bool running);
+    [Signal] public delegate void PreviewEndedEventHandler();
+    
     public static EyeTrackingRadio Instance { get; private set; }
     
     public override void _Ready()

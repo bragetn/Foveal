@@ -22,3 +22,7 @@ mesh = SubResource("SphereMesh_dm85m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ref4b")
+
+[node name="TestTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true

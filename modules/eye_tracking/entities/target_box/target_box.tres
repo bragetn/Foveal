@@ -5,6 +5,7 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_df5lm")
-shader_parameter/color_a = Color(0.262932, 0.262932, 0.262932, 1)
-shader_parameter/color_b = Color(0.171637, 0.171637, 0.171637, 1)
-shader_parameter/scale = 8
+shader_parameter/color_a = Color(0.794827, 0.794829, 0.794828, 1)
+shader_parameter/color_b = Color(0.727544, 0.350816, 0.241851, 1)
+shader_parameter/scale = 6
+shader_parameter/line_width = 0.02

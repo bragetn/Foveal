@@ -11,8 +11,11 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
     
     private MeshInstance3D _meshInstance;
     private CollisionShape3D _collisionShape;
-    private float _value;
+    private Timer _testTimer;
+
+    private bool _running;
     private bool _completed;
+    private float _value;
 
     private bool _isGrabbed;
     private float _pointerDistance;
@@ -23,11 +26,16 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
     {
         _meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
         _collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+        _testTimer = GetNode<Timer>("TestTimer");
+
+        _testTimer.Timeout += SetRunning;
         UpdateSize();
     }
 
     public override void _PhysicsProcess(double delta)
     {
+        if (_running) return;
+        
         if (_isGrabbed)
         {
             GlobalPosition = _pointer.GlobalPosition - _pointer.GlobalBasis.Z * _pointerDistance;
@@ -49,6 +57,8 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 
     public void OnGazeStay(double delta)
     {
+        if (!_running) return;
+        
         _value += (float) delta;
         
         if (_value > Seconds)
@@ -108,6 +118,41 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
             targetBox.Targets.Remove(this);
         }
         QueueFree();
+    }
+
+    public void StartTest()
+    {
+        Visible = false;
+        _collisionShape.Disabled = true;
+
+        if (Delay > 0)
+        {
+            _testTimer.WaitTime = Delay;
+            _testTimer.Start();
+        }
+        else
+        {
+            SetRunning();
+        }
+    }
+
+    public void StopTest()
+    {
+        _running = false;
+        Visible = true;
+        _collisionShape.Disabled = false;
+        _value = 0.0f;
+        _completed = false;
+        _testTimer.Stop();
+        _meshInstance.SetInstanceShaderParameter("completed", false);
+        _meshInstance.SetInstanceShaderParameter("t", 0);
+    }
+
+    private void SetRunning()
+    {
+        _running = true;
+        Visible = true;
+        _collisionShape.Disabled = false;
     }
 
     private void UpdateSize()

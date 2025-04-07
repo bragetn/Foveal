@@ -28,24 +28,31 @@ public partial class TargetBox : Node3D
     [Export] public StaticBody3D CeilingWall;
     
     public List<GazeTarget> Targets = [];
-
+    
     private Vector3 _halfScale = new Vector3(4.0f, 2.0f, 2.0f);
     private float _defaultRadius = 0.1f * MathF.Pow(2, 0.5f * 1.5f);
 
-    
+
     public override void _Ready()
     {
         if (Engine.IsEditorHint()) return;
-        
+
         EyeTrackingRadio.Instance.AddTarget += AddRandomTarget;
         EyeTrackingRadio.Instance.ClearTargets += ClearTargets;
+        EyeTrackingRadio.Instance.PreviewTest += running =>
+        {
+            if (running)
+            {
+                StartTest();
+            }
+            else
+            {
+                StopTest();
+            }
+        };
         UpdateBoxScale();
-        
-        // Target Menu
-        // Radio.Instance.AssignTargetToMenu += AssignTargetToMenu;
-        // Radio.Instance.ExitTargetMenu += ExitTargetMenu;
     }
-    
+
     private void AddRandomTarget()
     {
         RandomNumberGenerator rng = new RandomNumberGenerator();
@@ -116,4 +123,21 @@ public partial class TargetBox : Node3D
             }
         }
     }
+
+    private void StartTest()
+    {
+        foreach (GazeTarget target in Targets)
+        {
+            target.StartTest();
+        }
+    }
+
+    private void StopTest()
+    {
+        foreach (GazeTarget target in Targets)
+        {
+            target.StopTest();
+        }
+    }
+    
 }
