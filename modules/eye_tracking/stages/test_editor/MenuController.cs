@@ -89,8 +89,6 @@ public partial class MenuController : Node
 
     private void SetMenu(PackedScene menuScene)
     {
-        if (!_menuEnabled) return;
-        
         PlayerMenu.Set("scene", menuScene);
         
         var menu = PlayerMenu.Get("scene_node").As<Control>();

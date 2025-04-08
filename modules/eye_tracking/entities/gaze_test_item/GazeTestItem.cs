@@ -17,5 +17,7 @@ public partial class GazeTestItem : Control
         
         _selectButton.Text = TestData.Name;
         _selectButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("LoadTestFile", TestData.Name);
+        _renameButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("RenameTestFile", TestData.Name);
+        _deleteButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("DeleteTestFile", TestData.Name);
     }
 }

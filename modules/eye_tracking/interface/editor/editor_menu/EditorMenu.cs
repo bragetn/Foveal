@@ -56,6 +56,31 @@ public partial class EditorMenu : Control
                 defaultMenu.SetFeedbackLabel(name + " ble lastet inn!");
             }
         };
+
+        EyeTrackingRadio.Instance.DeleteTestFile += name =>
+        {
+            SetSidePanel(_confirmationPackedScene);
+            
+            if (_currentScene is ConfirmationMenu confirmationMenu)
+            {
+                confirmationMenu.SetPrompt("Er du sikker på at du vil slette \"" + name + "\"?");
+                confirmationMenu.ConfirmationYes += () =>
+                {
+                    if (_testName == name)
+                    {
+                        _testName = "";
+                        EyeTrackingRadio.Instance.EmitSignal("ClearTargets");
+                    }
+                    
+                    SetSidePanel(_defaultPackedScene);
+                    if (_currentScene is DefaultMenu defaultMenu)
+                    {
+                        defaultMenu.SetFeedbackLabel("\"" + name + "\" ble slettet.");
+                    }
+                };
+                confirmationMenu.ConfirmationNo += () => SetSidePanel(_loadTestPackedScene);
+            }
+        };
         
         SetSidePanel(_defaultPackedScene);
     }
@@ -90,7 +115,7 @@ public partial class EditorMenu : Control
         }
         else
         {
-            EyeTrackingRadio.Instance.EmitSignal("SaveTestFile", "");
+            EyeTrackingRadio.Instance.EmitSignal("SaveTestFile", _testName);
         }
     }
 

@@ -15,8 +15,11 @@ public partial class FileHandler : Node
     public override void _Ready()
     {
         _targetBox = GetNode<TargetBox>("../TargetBox");
+        
+        EyeTrackingRadio.Instance.ClearTargets += () => FileName = null;
         EyeTrackingRadio.Instance.SaveTestFile += SaveTestFile;
         EyeTrackingRadio.Instance.LoadTestFile += LoadTestFile;
+        EyeTrackingRadio.Instance.DeleteTestFile += DeleteTestFile;
     }
 
     private void SaveTestFile(string fileName)
@@ -58,7 +61,7 @@ public partial class FileHandler : Node
         }
         string jsonString = JsonSerializer.Serialize(data);
         Directory.CreateDirectory(DataPath);
-        File.WriteAllText(DataPath + fileName + ".json", jsonString);
+        File.WriteAllText(DataPath + FileName + ".json", jsonString);
         _testData = jsonString;
     }
 
@@ -72,6 +75,10 @@ public partial class FileHandler : Node
         {
             _targetBox.AddTarget(new Vector3(target.X, target.Y, target.Z), target.Radius, target.Delay);
         }
-        
+    }
+
+    private void DeleteTestFile(string fileName)
+    {
+        File.Delete(DataPath + fileName + ".json");
     }
 }
