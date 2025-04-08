@@ -14,6 +14,9 @@ public partial class MenuController : Node
     
     private GazeTarget _grabbedTarget;
     
+    private bool _menuEnabled = true;
+    private bool _menuVisible = false;
+    
     public override void _Ready()
     {
         LeftHand.ButtonPressed += LeftHandButtonPressed;
@@ -23,6 +26,36 @@ public partial class MenuController : Node
         EyeTrackingRadio.Instance.AssignTargetToMenu += AssignTargetToMenu;
         EyeTrackingRadio.Instance.ExitTargetMenu += ExitTargetMenu;
         
+        EyeTrackingRadio.Instance.LoadTestFile += name => SetMenu(_playerMenuScene);
+        EyeTrackingRadio.Instance.ClearTargets += () => SetMenu(_playerMenuScene);
+        
+        EyeTrackingRadio.Instance.PreviewTest += running =>
+        {
+            if (running)
+            {
+                _menuEnabled = false;
+                PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
+                PlayerMenu.Visible = false;
+            }
+            else
+            {
+                _menuEnabled = true;
+                
+                if (!_menuVisible)
+                {
+                    PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
+                    PlayerMenu.Visible = false;
+                    _menuVisible = false;
+                }
+                else
+                {
+                    PlayerMenu.ProcessMode = ProcessModeEnum.Inherit;
+                    PlayerMenu.Visible = true;
+                    _menuVisible = true;
+                }
+            }
+        };
+        
         SetMenu(_playerMenuScene);
         PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
         PlayerMenu.Visible = false;
@@ -30,17 +63,21 @@ public partial class MenuController : Node
     
     private void LeftHandButtonPressed(string name)
     {
+        if (!_menuEnabled) return;
+        
         if (name == "ax_button")
         {
-            if (PlayerMenu.ProcessMode == ProcessModeEnum.Inherit)
+            if (_menuVisible)
             {
                 PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
                 PlayerMenu.Visible = false;
+                _menuVisible = false;
             }
             else
             {
                 PlayerMenu.ProcessMode = ProcessModeEnum.Inherit;
                 PlayerMenu.Visible = true;
+                _menuVisible = true;
             }
         }
         else
@@ -52,6 +89,8 @@ public partial class MenuController : Node
 
     private void SetMenu(PackedScene menuScene)
     {
+        if (!_menuEnabled) return;
+        
         PlayerMenu.Set("scene", menuScene);
         
         var menu = PlayerMenu.Get("scene_node").As<Control>();
@@ -70,6 +109,8 @@ public partial class MenuController : Node
 
     private void GrabEntered(Node grabbedNode)
     {
+        if (!_menuEnabled) return;
+        
         if (grabbedNode is GazeTarget gazeTarget)
         {
             _grabbedTarget = gazeTarget;
@@ -82,13 +123,14 @@ public partial class MenuController : Node
         PlayerBody.Call("teleport", new Transform3D(new Basis(Vector3.Up, Mathf.DegToRad(0)), new Vector3(0, 0, 0)));
     }
     
-    private void AssignTargetToMenu(TargetMenu targetMenu)
-    {
-        targetMenu.Target = _grabbedTarget;
-    }
-
     private void ExitTargetMenu()
     {
         SetMenu(_playerMenuScene);
+    }
+    
+    private void AssignTargetToMenu(TargetMenu targetMenu)
+    {
+        if (!_menuEnabled) return;
+        targetMenu.Target = _grabbedTarget;
     }
 }

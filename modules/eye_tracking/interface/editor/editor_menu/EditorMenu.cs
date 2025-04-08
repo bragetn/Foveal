@@ -20,6 +20,8 @@ public partial class EditorMenu : Control
 
     private Node _currentScene;
 
+    private string _testName;
+
     public override void _Ready()
     {
         _newButton = GetNode<Button>("HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer/NewButton");
@@ -40,6 +42,7 @@ public partial class EditorMenu : Control
             SetSidePanel(_defaultPackedScene);
             if (_currentScene is DefaultMenu defaultMenu)
             {
+                _testName = name;
                 defaultMenu.SetFeedbackLabel(name + " ble lagret!");
             }
         };
@@ -49,6 +52,7 @@ public partial class EditorMenu : Control
             SetSidePanel(_defaultPackedScene);
             if (_currentScene is DefaultMenu defaultMenu)
             {
+                _testName = name;
                 defaultMenu.SetFeedbackLabel(name + " ble lastet inn!");
             }
         };
@@ -62,9 +66,10 @@ public partial class EditorMenu : Control
 
         if (_currentScene is ConfirmationMenu confirmationMenu)
         {
-            confirmationMenu.SetPrompt("Er du sikker?");
+            confirmationMenu.SetPrompt("Er du sikker på at du vil lage en ny test?");
             confirmationMenu.ConfirmationYes += () =>
             {
+                _testName = "";
                 EyeTrackingRadio.Instance.EmitSignal("ClearTargets");
                 SetSidePanel(_defaultPackedScene);
             };
@@ -79,7 +84,14 @@ public partial class EditorMenu : Control
     
     private void SaveTest()
     {
-        EyeTrackingRadio.Instance.EmitSignal("SaveTestFile", "");
+        if (string.IsNullOrEmpty(_testName))
+        {
+            SaveAsTest();
+        }
+        else
+        {
+            EyeTrackingRadio.Instance.EmitSignal("SaveTestFile", "");
+        }
     }
 
     private void SaveAsTest()
@@ -93,7 +105,7 @@ public partial class EditorMenu : Control
 
         if (_currentScene is ConfirmationMenu confirmationMenu)
         {
-            confirmationMenu.SetPrompt("Er du sikker?");
+            confirmationMenu.SetPrompt("Er du sikker på at du vil gå tilbake til hovedmenyen?");
             confirmationMenu.ConfirmationYes += () => CoreRadio.Instance.EmitSignal("LoadScene", "uid://bcskthtw74py2");
             confirmationMenu.ConfirmationNo += () => SetSidePanel(_defaultPackedScene);
         }

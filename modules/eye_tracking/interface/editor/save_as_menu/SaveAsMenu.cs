@@ -25,7 +25,14 @@ public partial class SaveAsMenu : Control
 
         if (IsValidFileName(fileName))
         {
-            EyeTrackingRadio.Instance.EmitSignal("SaveTestFile", _textEdit.Text);
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                _feedbackLabel.Text = "Filnavnet kan ikke være tomt.";
+            }
+            else
+            {
+                EyeTrackingRadio.Instance.EmitSignal("SaveTestFile", _textEdit.Text);
+            }
         }
         else
         {

@@ -21,17 +21,29 @@ public partial class FileHandler : Node
 
     private void SaveTestFile(string fileName)
     {
-        if (string.IsNullOrEmpty(fileName))
+        if (string.IsNullOrEmpty(FileName))
         {
-            fileName = FileName;
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return;
+            }
+            FileName = fileName;
         }
-        FileName = fileName;
+        else
+        {
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                FileName = fileName;
+            }
+        }
+        
         GazeTestData data = new GazeTestData
         {
             Name = FileName,
             GazeTime = 5f,
             Targets = new List<GazeTargetData>{}
         };
+        
         foreach (var target in _targetBox.Targets)
         {
             GazeTargetData newTarget = new GazeTargetData
