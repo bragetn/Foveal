@@ -34,6 +34,26 @@ public partial class EditorMenu : Control
         _saveButton.Pressed += SaveTest;
         _saveAsButton.Pressed += SaveAsTest;
         _mainMenuButton.Pressed += ExitToMainMenu;
+
+        EyeTrackingRadio.Instance.SaveTestFile += name =>
+        {
+            SetSidePanel(_defaultPackedScene);
+            if (_currentScene is DefaultMenu defaultMenu)
+            {
+                defaultMenu.SetFeedbackLabel(name + " ble lagret!");
+            }
+        };
+
+        EyeTrackingRadio.Instance.LoadTestFile += name =>
+        {
+            SetSidePanel(_defaultPackedScene);
+            if (_currentScene is DefaultMenu defaultMenu)
+            {
+                defaultMenu.SetFeedbackLabel(name + " ble lastet inn!");
+            }
+        };
+        
+        SetSidePanel(_defaultPackedScene);
     }
 
     private void NewTest()
@@ -81,6 +101,7 @@ public partial class EditorMenu : Control
 
     private void SetSidePanel(PackedScene newSidePanelMenu)
     {
+        EyeTrackingRadio.Instance.EmitSignal("PreviewEnded");
         _currentScene?.QueueFree();
         _currentScene = newSidePanelMenu.Instantiate();
         _sidePanel.AddChild(_currentScene);

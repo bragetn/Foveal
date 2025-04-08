@@ -9,7 +9,7 @@ public partial class EyeTrackingRadio : Node
     [Signal] public delegate void AssignTargetToMenuEventHandler(TargetMenu targetMenu);
     [Signal] public delegate void ExitTargetMenuEventHandler();
     [Signal] public delegate void SaveTestFileEventHandler(String fileName);
-    [Signal] public delegate void LoadTestFileEventHandler(String filePath);
+    [Signal] public delegate void LoadTestFileEventHandler(String fileName);
     [Signal] public delegate void ClearTargetsEventHandler();
     [Signal] public delegate void ShowKeyboardEventHandler();
     [Signal] public delegate void HideKeyboardEventHandler();
