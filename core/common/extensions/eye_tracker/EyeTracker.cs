@@ -20,7 +20,7 @@ public partial class EyeTracker : XRController3D
         Vector3 viewDir = _gazeDot.GlobalPosition - Camera.GlobalPosition;
         
         PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-        PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(Camera.GlobalPosition, _gazeDot.GlobalPosition);
+        PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(Camera.GlobalPosition, _gazeDot.GlobalPosition, 1 << 10);
         Dictionary result = spaceState.IntersectRay(query);
 
         if (result.Count <= 0)

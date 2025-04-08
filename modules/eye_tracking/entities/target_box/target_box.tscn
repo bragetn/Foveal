@@ -1,0 +1,98 @@
+[gd_scene load_steps=13 format=3 uid="uid://dnxmh5pikkt3m"]
+
+[ext_resource type="Script" uid="uid://bkbbdx4rv3qdb" path="res://modules/eye_tracking/entities/target_box/TargetBox.cs" id="1_b26oo"]
+[ext_resource type="Material" uid="uid://ctn1gprr08wjk" path="res://modules/eye_tracking/entities/target_box/target_box.tres" id="2_r56bc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b26oo"]
+size = Vector3(4, 4, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_r56bc"]
+material = ExtResource("2_r56bc")
+size = Vector2(4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xx3sn"]
+size = Vector3(4, 4, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_exefo"]
+size = Vector2(4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q3fxb"]
+size = Vector3(8, 4, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_uanm6"]
+size = Vector2(8, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8n8dd"]
+size = Vector3(8, 4, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_icuhh"]
+size = Vector2(8, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iihhl"]
+size = Vector3(8, 4, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ical4"]
+size = Vector2(8, 4)
+
+[node name="TargetBox" type="Node3D" node_paths=PackedStringArray("LeftWall", "RightWall", "BackWall", "FloorWall", "CeilingWall")]
+script = ExtResource("1_b26oo")
+BoxScale = Vector3(8, 4, 4)
+LeftWall = NodePath("LeftWall")
+RightWall = NodePath("RightWall")
+BackWall = NodePath("BackWall")
+FloorWall = NodePath("FloorWall")
+CeilingWall = NodePath("CeilingWall")
+
+[node name="LeftWall" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftWall"]
+shape = SubResource("BoxShape3D_b26oo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LeftWall"]
+mesh = SubResource("QuadMesh_r56bc")
+skeleton = NodePath("../..")
+
+[node name="RightWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightWall"]
+shape = SubResource("BoxShape3D_xx3sn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RightWall"]
+material_override = ExtResource("2_r56bc")
+mesh = SubResource("QuadMesh_exefo")
+skeleton = NodePath("../..")
+
+[node name="BackWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWall"]
+shape = SubResource("BoxShape3D_q3fxb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BackWall"]
+material_override = ExtResource("2_r56bc")
+mesh = SubResource("QuadMesh_uanm6")
+skeleton = NodePath("../..")
+
+[node name="FloorWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorWall"]
+shape = SubResource("BoxShape3D_8n8dd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FloorWall"]
+material_override = ExtResource("2_r56bc")
+mesh = SubResource("QuadMesh_icuhh")
+skeleton = NodePath("../..")
+
+[node name="CeilingWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.31134e-07, -1, 0, 1, 1.31134e-07, 0, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CeilingWall"]
+shape = SubResource("BoxShape3D_iihhl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CeilingWall"]
+material_override = ExtResource("2_r56bc")
+mesh = SubResource("QuadMesh_ical4")
+skeleton = NodePath("../..")

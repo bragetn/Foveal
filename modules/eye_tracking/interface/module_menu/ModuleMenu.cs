@@ -11,8 +11,7 @@ public partial class ModuleMenu : VBoxContainer
 
         _testEditorButton.Pressed += () =>
         {
-            GD.Print("Pressing button");
-            CoreRadio.Instance.EmitSignal("LoadScene", "res://core/stages/playground/playground.tscn");
+            CoreRadio.Instance.EmitSignal("LoadScene", "uid://bgohwu2kxayoc");
         };
     }
 }

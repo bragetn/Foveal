@@ -12,7 +12,7 @@ height = 0.4
 radius = 0.2
 
 [node name="GazeTarget" type="StaticBody3D"]
-collision_layer = 1048576
+collision_layer = 1049600
 script = ExtResource("1_ref4b")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -22,3 +22,7 @@ mesh = SubResource("SphereMesh_dm85m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ref4b")
+
+[node name="TestTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true

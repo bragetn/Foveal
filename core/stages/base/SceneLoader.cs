@@ -3,7 +3,7 @@ using System;
 
 public partial class SceneLoader : Node
 {
-    public Node3D _parent;
+    private Node3D _parent;
     
     public override void _Ready()
     {
@@ -13,7 +13,6 @@ public partial class SceneLoader : Node
 
     private void _loadScene(String path)
     {
-        GD.Print("Loading Scene");
         _parent.Call("load_scene", path);
     }
 }

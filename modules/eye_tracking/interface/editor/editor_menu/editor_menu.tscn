@@ -1,0 +1,121 @@
+[gd_scene load_steps=9 format=3 uid="uid://2yvsq8eb04nt"]
+
+[ext_resource type="Theme" uid="uid://bwg1dpg6kww6v" path="res://core/assets/themes/menu_theme.tres" id="1_f30kq"]
+[ext_resource type="Script" uid="uid://ctgq3wjy15xl1" path="res://modules/eye_tracking/interface/editor/editor_menu/EditorMenu.cs" id="2_e0v0x"]
+[ext_resource type="Texture2D" uid="uid://b51elmqqn4uxw" path="res://core/assets/icons/file_add.svg" id="3_bq63q"]
+[ext_resource type="Texture2D" uid="uid://ci2fw6lqcrs3e" path="res://core/assets/icons/file_open.svg" id="4_dmxy8"]
+[ext_resource type="Texture2D" uid="uid://dvcl8p1778j0u" path="res://core/assets/icons/save.svg" id="5_l35xa"]
+[ext_resource type="Texture2D" uid="uid://cf70ybtiy0fr8" path="res://core/assets/icons/save_as.svg" id="6_24djo"]
+[ext_resource type="Texture2D" uid="uid://bq6d2ape0wxat" path="res://core/assets/icons/home.svg" id="7_14vpp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e0v0x"]
+
+[node name="EditorMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_f30kq")
+script = ExtResource("2_e0v0x")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ButtonPanel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ButtonPanel"]
+custom_minimum_size = Vector2(0.395, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ButtonPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Test Meny"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="NewButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 15
+theme_override_font_sizes/font_size = 25
+text = "Ny"
+icon = ExtResource("3_bq63q")
+alignment = 0
+
+[node name="OpenButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_font_sizes/font_size = 25
+text = "Åpne
+"
+icon = ExtResource("4_dmxy8")
+alignment = 0
+
+[node name="SaveButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 15
+theme_override_font_sizes/font_size = 25
+text = "Lagre"
+icon = ExtResource("5_l35xa")
+alignment = 0
+
+[node name="SaveAsButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 15
+theme_override_font_sizes/font_size = 25
+text = "Lagre som"
+icon = ExtResource("6_24djo")
+alignment = 0
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+theme_override_styles/separator = SubResource("StyleBoxEmpty_e0v0x")
+
+[node name="MainMenuButton" type="Button" parent="HBoxContainer/ButtonPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_font_sizes/font_size = 25
+text = "Hovedmeny"
+icon = ExtResource("7_14vpp")
+alignment = 0
+
+[node name="SidePanel" type="Panel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
