@@ -43,7 +43,7 @@ public partial class EditorMenu : Control
             if (_currentScene is DefaultMenu defaultMenu)
             {
                 _testName = name;
-                defaultMenu.SetFeedbackLabel(name + " ble lagret!");
+                defaultMenu.SetFeedbackLabel("\"" + name + "\" ble lagret!");
             }
         };
 
@@ -53,19 +53,42 @@ public partial class EditorMenu : Control
             if (_currentScene is DefaultMenu defaultMenu)
             {
                 _testName = name;
-                defaultMenu.SetFeedbackLabel(name + " ble lastet inn!");
+                defaultMenu.SetFeedbackLabel("\"" + name + "\" ble lastet inn!");
+            }
+        };
+
+        EyeTrackingRadio.Instance.RenameTestFile += name =>
+        {
+            SetSidePanel(_saveAsPackedScene);
+            if (_currentScene is SaveAsMenu saveAsMenu)
+            {
+                saveAsMenu.SetPreviousName(name);
+            }
+        };
+        
+        EyeTrackingRadio.Instance.RenameTestFileTo += (name, newName) =>
+        {
+            SetSidePanel(_defaultPackedScene);
+            if (_currentScene is DefaultMenu defaultMenu)
+            {
+                if (_testName == name)
+                {
+                    _testName = newName;
+                }
+                defaultMenu.SetFeedbackLabel("\"" + name + "\" ble endret til \"" + newName + "\".");
             }
         };
 
         EyeTrackingRadio.Instance.DeleteTestFile += name =>
         {
             SetSidePanel(_confirmationPackedScene);
-            
             if (_currentScene is ConfirmationMenu confirmationMenu)
             {
                 confirmationMenu.SetPrompt("Er du sikker på at du vil slette \"" + name + "\"?");
                 confirmationMenu.ConfirmationYes += () =>
                 {
+                    EyeTrackingRadio.Instance.EmitSignal("DeleteTestFileForReal", name);
+                    
                     if (_testName == name)
                     {
                         _testName = "";

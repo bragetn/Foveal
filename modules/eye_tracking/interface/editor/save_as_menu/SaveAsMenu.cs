@@ -8,6 +8,8 @@ public partial class SaveAsMenu : Control
     private Button _saveButton;
     private Label _feedbackLabel;
 
+    private string _previousName;
+    
     public override void _Ready()
     {
         _textEdit = GetNode<TextEdit>("MarginContainer/VBoxContainer/TextEdit");
@@ -17,6 +19,12 @@ public partial class SaveAsMenu : Control
         _textEdit.FocusEntered += (() => EyeTrackingRadio.Instance.EmitSignal("ShowKeyboard"));
         _textEdit.FocusExited += (() => EyeTrackingRadio.Instance.EmitSignal("HideKeyboard"));
         _saveButton.Pressed += HandleSave;
+    }
+    
+    public void SetPreviousName(string name)
+    {
+        _previousName = name;
+        _textEdit.Text = _previousName;
     }
 
     private void HandleSave()
@@ -31,7 +39,14 @@ public partial class SaveAsMenu : Control
             }
             else
             {
-                EyeTrackingRadio.Instance.EmitSignal("SaveTestFile", _textEdit.Text);
+                if (string.IsNullOrEmpty(_previousName))
+                {
+                    EyeTrackingRadio.Instance.EmitSignal("SaveTestFile", _textEdit.Text);
+                }
+                else
+                {
+                    EyeTrackingRadio.Instance.EmitSignal("RenameTestFileTo", _previousName, _textEdit.Text);
+                }
             }
         }
         else
@@ -45,4 +60,5 @@ public partial class SaveAsMenu : Control
         string pattern = @"[<>;#)\\/\[\]:\""\|?*]";
         return !Regex.IsMatch(fileName, pattern);
     }
+
 }

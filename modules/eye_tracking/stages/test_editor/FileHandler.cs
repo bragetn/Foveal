@@ -19,7 +19,8 @@ public partial class FileHandler : Node
         EyeTrackingRadio.Instance.ClearTargets += () => FileName = null;
         EyeTrackingRadio.Instance.SaveTestFile += SaveTestFile;
         EyeTrackingRadio.Instance.LoadTestFile += LoadTestFile;
-        EyeTrackingRadio.Instance.DeleteTestFile += DeleteTestFile;
+        EyeTrackingRadio.Instance.RenameTestFileTo += RenameTestFileTo;
+        EyeTrackingRadio.Instance.DeleteTestFileForReal += DeleteTestFileForReal;
     }
 
     private void SaveTestFile(string fileName)
@@ -77,7 +78,26 @@ public partial class FileHandler : Node
         }
     }
 
-    private void DeleteTestFile(string fileName)
+    private void RenameTestFileTo(string fileName, string newName)
+    {
+        if (FileName == fileName)
+        {
+            FileName = newName;
+        }
+        
+        string loadedJson = File.ReadAllText(DataPath + fileName + ".json");
+        GazeTestData loadedGazeTestData = JsonSerializer.Deserialize<GazeTestData>(loadedJson);
+        
+        loadedGazeTestData.Name = newName;
+        string jsonString = JsonSerializer.Serialize(loadedGazeTestData);
+        Directory.CreateDirectory(DataPath);
+        File.WriteAllText(DataPath + newName + ".json", jsonString);
+        _testData = jsonString;
+        
+        DeleteTestFileForReal(fileName);
+    }
+
+    private void DeleteTestFileForReal(string fileName)
     {
         File.Delete(DataPath + fileName + ".json");
     }
