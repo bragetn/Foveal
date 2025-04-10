@@ -41,15 +41,3 @@ linux:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/linux
-
-android_debug:
-  stage: export
-  script:
-    - mkdir -v -p build/android
-    - EXPORT_DIR="$(readlink -f build)"
-    - cd $PROJECT_PATH
-    - godot --headless --verbose --export-debug "Android Debug" "$EXPORT_DIR/android/$EXPORT_NAME-debug.apk"
-  artifacts:
-    name: $EXPORT_NAME-$CI_JOB_NAME
-    paths:
-      - build/android
