@@ -12,6 +12,12 @@ stages:
 variables:
   EXPORT_NAME: foveal-godot
   PROJECT_PATH: .
+  GIT_DEPTH: 0
+
+before_script:
+  - mkdir -p build/version
+  - GIT_VERSION=$(git describe --tags --always)
+  - echo "$GIT_VERSION" > build/version/VERSION.txt
 
 import-assets:
   stage: setup
@@ -21,23 +27,29 @@ import-assets:
 windows:
   stage: export
   script:
-    - mkdir -v -p build/windows
+    - mkdir -p build/windows
     - EXPORT_DIR="$(readlink -f build)"
     - cd $PROJECT_PATH
     - godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$EXPORT_NAME.exe"
+    - cp build/version/VERSION.txt build/windows/
+    - cd build/windows
+    - zip -r "../${EXPORT_NAME}-windows.zip" ./*
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
-      - build/windows
+      - build/${EXPORT_NAME}-windows.zip
 
 linux:
   stage: export
   script:
-    - mkdir -v -p build/linux
+    - mkdir -p build/linux
     - EXPORT_DIR="$(readlink -f build)"
     - cd $PROJECT_PATH
     - godot --headless --verbose --export-release "Linux" "$EXPORT_DIR/linux/$EXPORT_NAME.x86_64"
+    - cp build/version/VERSION.txt build/linux/
+    - cd build/linux
+    - zip -r "../${EXPORT_NAME}-linux.zip" ./*
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
-      - build/linux
+      - build/${EXPORT_NAME}-linux.zip
