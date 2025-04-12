@@ -11,6 +11,7 @@ public partial class MenuController : Node
     
     private PackedScene _playerMenuScene = GD.Load<PackedScene>("uid://dnrjqga7ascle");
     private PackedScene _targetMenuScene = GD.Load<PackedScene>("uid://d1tqqk3ddggtd");
+    private PackedScene _testSettingsMenuScene = GD.Load<PackedScene>("uid://d08h8f6qx3wt5");
     
     private GazeTarget _grabbedTarget;
     
@@ -25,6 +26,9 @@ public partial class MenuController : Node
         EyeTrackingRadio.Instance.ResetPlayerPosition += ResetPlayerPosition;
         EyeTrackingRadio.Instance.AssignTargetToMenu += AssignTargetToMenu;
         EyeTrackingRadio.Instance.ExitTargetMenu += ExitTargetMenu;
+
+        EyeTrackingRadio.Instance.EnterTestSettings += () => SetMenu(_testSettingsMenuScene);
+        EyeTrackingRadio.Instance.ExitTestSettings += () => SetMenu(_playerMenuScene);
         
         EyeTrackingRadio.Instance.LoadTestFile += name => SetMenu(_playerMenuScene);
         EyeTrackingRadio.Instance.ClearTargets += () => SetMenu(_playerMenuScene);
