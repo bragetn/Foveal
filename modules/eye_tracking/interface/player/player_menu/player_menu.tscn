@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnrjqga7ascle"]
+[gd_scene load_steps=3 format=3 uid="uid://dnrjqga7ascle"]
 
 [ext_resource type="Script" uid="uid://b1ehj33e2nqup" path="res://modules/eye_tracking/interface/player/player_menu/PlayerMenu.cs" id="1_pgc4h"]
+[ext_resource type="Theme" uid="uid://b26dx2omna2g4" path="res://modules/eye_tracking/assets/themes/player_menu_theme.tres" id="2_d1y02"]
 
 [node name="PlayerMenu" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_d1y02")
 script = ExtResource("1_pgc4h")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -36,18 +38,20 @@ horizontal_alignment = 1
 [node name="AddTargetButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
 text = "Add Target
 "
 
 [node name="ToggleGazeDotButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
 text = "Toggle Gaze Dot"
 
 [node name="ResetPlayerPositionButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
 text = "Reset Player Position"
+
+[node name="TestSettingsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+text = "Test Settings"
