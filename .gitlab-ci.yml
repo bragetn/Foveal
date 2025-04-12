@@ -21,6 +21,7 @@ import-assets:
 
 windows:
   stage: export
+  needs: [import-assets]
   script:
     - mkdir -p build/windows
     - EXPORT_DIR="$(readlink -f build)"
@@ -31,6 +32,7 @@ windows:
 
 linux:
   stage: export
+  needs: [import-assets]
   script:
     - mkdir -p build/linux
     - EXPORT_DIR="$(readlink -f build)"
