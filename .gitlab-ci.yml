@@ -12,7 +12,6 @@ stages:
 variables:
   EXPORT_NAME: foveal-godot
   PROJECT_PATH: .
-  GIT_DEPTH: 0
 
 import-assets:
   stage: setup
