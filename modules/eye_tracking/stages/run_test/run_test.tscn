@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="3_8fov7"]
 [ext_resource type="PackedScene" uid="uid://bmgc7qlit8rsa" path="res://core/common/extensions/eye_tracker/eye_tracker.tscn" id="5_0tvwn"]
 [ext_resource type="Shader" uid="uid://brq6fbyudbflp" path="res://core/common/shaders/checkerboard.gdshader" id="6_8fov7"]
-[ext_resource type="Texture2D" uid="uid://cfg6dmmc1p18b" path="res://core/assets/skybox/skybox.hdr" id="7_44lo7"]
+[ext_resource type="Texture2D" uid="uid://cw30trkhjgwuh" path="res://core/assets/skybox/skybox.hdr" id="7_44lo7"]
 [ext_resource type="PackedScene" uid="uid://dnxmh5pikkt3m" path="res://modules/eye_tracking/entities/target_box/target_box.tscn" id="8_0tvwn"]
 [ext_resource type="Script" uid="uid://bjucwoxdhqwa2" path="res://modules/eye_tracking/stages/test_editor/FileHandler.cs" id="9_odnva"]
 [ext_resource type="PackedScene" uid="uid://dkjyrf4bgbw6w" path="res://modules/eye_tracking/interface/run_test_menu/runTestMenu.tscn" id="9_vg00v"]

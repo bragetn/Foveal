@@ -11,6 +11,7 @@ public partial class EyeTrackingRadio : Node
     
     [Signal] public delegate void SaveTestFileEventHandler(string fileName);
     [Signal] public delegate void LoadTestFileEventHandler(string fileName);
+    [Signal] public delegate void LoadTestsEditableEventHandler(bool editable);
     [Signal] public delegate void RenameTestFileEventHandler(string fileName);
     [Signal] public delegate void RenameTestFileToEventHandler(string fileName, string newName);
     [Signal] public delegate void DeleteTestFileEventHandler(string fileName);

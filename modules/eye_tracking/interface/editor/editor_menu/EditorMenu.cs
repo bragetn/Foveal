@@ -128,6 +128,7 @@ public partial class EditorMenu : Control
     private void OpenTest()
     {
         SetSidePanel(_loadTestPackedScene);
+        EyeTrackingRadio.Instance.EmitSignal("LoadTestsEditable", true);
     }
     
     private void SaveTest()
@@ -154,7 +155,10 @@ public partial class EditorMenu : Control
         if (_currentScene is ConfirmationMenu confirmationMenu)
         {
             confirmationMenu.SetPrompt("Er du sikker på at du vil gå tilbake til hovedmenyen?");
-            confirmationMenu.ConfirmationYes += () => CoreRadio.Instance.EmitSignal("LoadScene", "uid://bcskthtw74py2");
+            confirmationMenu.ConfirmationYes += () =>
+            {
+                CoreRadio.Instance.EmitSignal("LoadScene", "uid://bcskthtw74py2");
+            };
             confirmationMenu.ConfirmationNo += () => SetSidePanel(_defaultPackedScene);
         }
     }

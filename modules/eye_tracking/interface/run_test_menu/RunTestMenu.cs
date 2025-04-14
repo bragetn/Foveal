@@ -5,32 +5,41 @@ public partial class RunTestMenu : Control
 {
     private Button _openTestButton;
     private Button _runTestButton;
-    private LoadTestMenu _loadTestMenu;
+    private Button _toggleGazeDotButton;
+    private Panel _loadTestPanel;
     private bool _running = false;
     
     public override void _Ready()
     {
-        _openTestButton = GetNode<Button>("HBoxContainer/VBoxContainer/OpenTestButton");
-        _runTestButton = GetNode<Button>("HBoxContainer/VBoxContainer/RunTestButton");
-        _loadTestMenu = GetNode<LoadTestMenu>("HBoxContainer/LoadTestMenu");
+        _openTestButton = GetNode<Button>("HBoxContainer/MenuPanel/VBoxContainer/OpenTestButton");
+        _runTestButton = GetNode<Button>("HBoxContainer/MenuPanel/VBoxContainer/RunTestButton");
+        _toggleGazeDotButton = GetNode<Button>("HBoxContainer/MenuPanel/VBoxContainer/ToggleGazeDotButton");
+        _loadTestPanel = GetNode<Panel>("HBoxContainer/LoadTestPanel");
+
+        EyeTrackingRadio.Instance.LoadTestFile += name =>
+        {
+            if (_running) _toggleRunning();
+        };
+
+        EyeTrackingRadio.Instance.EmitSignal("LoadTestsEditable", false);
         
         _openTestButton.Pressed += () =>
         {
-            _loadTestMenu.Visible = true;
+            _loadTestPanel.Visible = true;
         };
-        _runTestButton.Pressed += () =>
+        _runTestButton.Pressed += _toggleRunning;
+        _toggleGazeDotButton.Pressed += () =>
         {
-            _loadTestMenu.Visible = false;
-            _running = !_running;
-            EyeTrackingRadio.Instance.EmitSignal("PreviewTest", _running);
-            if (_running)
-            {
-                _runTestButton.Text = "Avslutt";
-            }
-            else
-            {
-                _runTestButton.Text = "Start";
-            }
+            _loadTestPanel.Visible = false;
+            CoreRadio.Instance.EmitSignal("ToggleGazeDot");
         };
+    }
+
+    private void _toggleRunning()
+    {
+        _loadTestPanel.Visible = false;
+        _running = !_running;
+        EyeTrackingRadio.Instance.EmitSignal("PreviewTest", _running);
+        _runTestButton.Text = _running ? "Avslutt" : "Start";
     }
 }

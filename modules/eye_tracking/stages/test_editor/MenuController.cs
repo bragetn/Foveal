@@ -16,6 +16,8 @@ public partial class MenuController : Node
     
     private bool _menuEnabled = true;
     private bool _menuVisible = false;
+
+    private Callable _callable;
     
     public override void _Ready()
     {
@@ -25,9 +27,10 @@ public partial class MenuController : Node
         EyeTrackingRadio.Instance.ResetPlayerPosition += ResetPlayerPosition;
         EyeTrackingRadio.Instance.AssignTargetToMenu += AssignTargetToMenu;
         EyeTrackingRadio.Instance.ExitTargetMenu += ExitTargetMenu;
-        
-        EyeTrackingRadio.Instance.LoadTestFile += name => SetMenu(_playerMenuScene);
-        EyeTrackingRadio.Instance.ClearTargets += () => SetMenu(_playerMenuScene);
+        _callable = new Callable(this, "OnLoadTestFile");
+        EyeTrackingRadio.Instance.Connect("LoadTestFile", _callable);
+
+        EyeTrackingRadio.Instance.ClearTargets += OnClearTargets;
         
         EyeTrackingRadio.Instance.PreviewTest += running =>
         {
@@ -59,6 +62,17 @@ public partial class MenuController : Node
         SetMenu(_playerMenuScene);
         PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
         PlayerMenu.Visible = false;
+    }
+    
+    public override void _ExitTree()
+    {
+        EyeTrackingRadio.Instance.Disconnect("LoadTestFile",  _callable);
+        EyeTrackingRadio.Instance.ClearTargets -= OnClearTargets;
+    }
+
+    private void OnClearTargets()
+    {
+        SetMenu(_playerMenuScene);
     }
     
     private void LeftHandButtonPressed(string name)
@@ -131,4 +145,10 @@ public partial class MenuController : Node
         if (!_menuEnabled) return;
         targetMenu.Target = _grabbedTarget;
     }
+    
+    private void OnLoadTestFile(string name)
+    {
+        SetMenu(_playerMenuScene);
+    }
+
 }
