@@ -27,6 +27,11 @@ public partial class LoadTestMenu : Control
         }
     }
 
+    public override void _ExitTree()
+    {
+        EyeTrackingRadio.Instance.LoadTestsEditable -= _initializeChildren;
+    }
+
     private void _initializeChildren(bool editable)
     {
         foreach (GazeTestData testData in _testDataList)
@@ -36,11 +41,6 @@ public partial class LoadTestMenu : Control
             testItem.Editable = editable;
             _container.AddChild(testItem);
         }
-    }
-    
-    public override void _ExitTree()
-    {
-        EyeTrackingRadio.Instance.LoadTestsEditable -= _initializeChildren;
     }
 
 }

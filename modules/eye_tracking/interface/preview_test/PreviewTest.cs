@@ -15,11 +15,18 @@ public partial class PreviewTest : Control
             EyeTrackingRadio.Instance.EmitSignal("PreviewTest", _running);
         };
 
-        EyeTrackingRadio.Instance.PreviewEnded += () =>
-        {
-            if (_running) TogglePreview();
-            EyeTrackingRadio.Instance.EmitSignal("PreviewTest", false);
-        };
+        EyeTrackingRadio.Instance.PreviewEnded += OnPreviewEnded;
+    }
+
+    public override void _ExitTree()
+    {
+        EyeTrackingRadio.Instance.PreviewEnded -= OnPreviewEnded;
+    }
+
+    private void OnPreviewEnded()
+    {
+        if (_running) TogglePreview();
+        EyeTrackingRadio.Instance.EmitSignal("PreviewTest", false);
     }
 
     private void TogglePreview()

@@ -27,37 +27,9 @@ public partial class MenuController : Node
         EyeTrackingRadio.Instance.ResetPlayerPosition += ResetPlayerPosition;
         EyeTrackingRadio.Instance.AssignTargetToMenu += AssignTargetToMenu;
         EyeTrackingRadio.Instance.ExitTargetMenu += ExitTargetMenu;
-        _callable = new Callable(this, "OnLoadTestFile");
-        EyeTrackingRadio.Instance.Connect("LoadTestFile", _callable);
-
+        EyeTrackingRadio.Instance.LoadTestFile += OnLoadTestFile;
         EyeTrackingRadio.Instance.ClearTargets += OnClearTargets;
-        
-        EyeTrackingRadio.Instance.PreviewTest += running =>
-        {
-            if (running)
-            {
-                _menuEnabled = false;
-                PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
-                PlayerMenu.Visible = false;
-            }
-            else
-            {
-                _menuEnabled = true;
-                
-                if (!_menuVisible)
-                {
-                    PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
-                    PlayerMenu.Visible = false;
-                    _menuVisible = false;
-                }
-                else
-                {
-                    PlayerMenu.ProcessMode = ProcessModeEnum.Inherit;
-                    PlayerMenu.Visible = true;
-                    _menuVisible = true;
-                }
-            }
-        };
+        EyeTrackingRadio.Instance.PreviewTest += OnPreviewTest;
         
         SetMenu(_playerMenuScene);
         PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
@@ -66,8 +38,41 @@ public partial class MenuController : Node
     
     public override void _ExitTree()
     {
-        EyeTrackingRadio.Instance.Disconnect("LoadTestFile",  _callable);
+        LeftHand.ButtonPressed -= LeftHandButtonPressed;
+        CoreRadio.Instance.GrabEntered -= GrabEntered;
+        EyeTrackingRadio.Instance.ResetPlayerPosition -= ResetPlayerPosition;
+        EyeTrackingRadio.Instance.AssignTargetToMenu -= AssignTargetToMenu;
+        EyeTrackingRadio.Instance.ExitTargetMenu -= ExitTargetMenu;
+        EyeTrackingRadio.Instance.LoadTestFile -= OnLoadTestFile;
         EyeTrackingRadio.Instance.ClearTargets -= OnClearTargets;
+        EyeTrackingRadio.Instance.PreviewTest -= OnPreviewTest;
+    }
+
+    private void OnPreviewTest(bool running)
+    {
+        if (running)
+        {
+            _menuEnabled = false;
+            PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
+            PlayerMenu.Visible = false;
+        }
+        else
+        {
+            _menuEnabled = true;
+                
+            if (!_menuVisible)
+            {
+                PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
+                PlayerMenu.Visible = false;
+                _menuVisible = false;
+            }
+            else
+            {
+                PlayerMenu.ProcessMode = ProcessModeEnum.Inherit;
+                PlayerMenu.Visible = true;
+                _menuVisible = true;
+            }
+        }
     }
 
     private void OnClearTargets()

@@ -16,11 +16,25 @@ public partial class FileHandler : Node
     {
         _targetBox = GetNode<TargetBox>("../TargetBox");
         
-        EyeTrackingRadio.Instance.ClearTargets += () => FileName = null;
+        EyeTrackingRadio.Instance.ClearTargets += OnClearTargets;
         EyeTrackingRadio.Instance.SaveTestFile += SaveTestFile;
         EyeTrackingRadio.Instance.LoadTestFile += LoadTestFile;
         EyeTrackingRadio.Instance.RenameTestFileTo += RenameTestFileTo;
         EyeTrackingRadio.Instance.DeleteTestFileForReal += DeleteTestFileForReal;
+    }
+
+    public override void _ExitTree()
+    {
+        EyeTrackingRadio.Instance.ClearTargets -= OnClearTargets;
+        EyeTrackingRadio.Instance.SaveTestFile -= SaveTestFile;
+        EyeTrackingRadio.Instance.LoadTestFile -= LoadTestFile;
+        EyeTrackingRadio.Instance.RenameTestFileTo -= RenameTestFileTo;
+        EyeTrackingRadio.Instance.DeleteTestFileForReal -= DeleteTestFileForReal;
+    }
+
+    private void OnClearTargets()
+    {
+        FileName = null;
     }
 
     private void SaveTestFile(string fileName)

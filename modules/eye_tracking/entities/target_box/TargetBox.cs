@@ -31,6 +31,7 @@ public partial class TargetBox : Node3D
     
     private Vector3 _halfScale = new Vector3(4.0f, 2.0f, 2.0f);
     private float _defaultRadius = 0.1f * MathF.Pow(2, 0.5f * 1.5f);
+    
 
 
     public override void _Ready()
@@ -39,18 +40,15 @@ public partial class TargetBox : Node3D
 
         EyeTrackingRadio.Instance.AddTarget += AddRandomTarget;
         EyeTrackingRadio.Instance.ClearTargets += ClearTargets;
-        EyeTrackingRadio.Instance.PreviewTest += running =>
-        {
-            if (running)
-            {
-                StartTest();
-            }
-            else
-            {
-                StopTest();
-            }
-        };
+        EyeTrackingRadio.Instance.PreviewTest += OnPreviewTest;
         UpdateBoxScale();
+    }
+
+    public override void _ExitTree()
+    {
+        EyeTrackingRadio.Instance.AddTarget -= AddRandomTarget;
+        EyeTrackingRadio.Instance.ClearTargets -= ClearTargets;
+        EyeTrackingRadio.Instance.PreviewTest -= OnPreviewTest;
     }
 
     private void AddRandomTarget()
@@ -139,5 +137,16 @@ public partial class TargetBox : Node3D
             target.StopTest();
         }
     }
-    
+
+    private void OnPreviewTest(bool running)
+    {
+        if (running)
+        {
+            StartTest();
+        }
+        else
+        {
+            StopTest();
+        }
+    }
 }

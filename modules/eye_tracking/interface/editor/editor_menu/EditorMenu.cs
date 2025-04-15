@@ -37,75 +37,80 @@ public partial class EditorMenu : Control
         _saveAsButton.Pressed += SaveAsTest;
         _mainMenuButton.Pressed += ExitToMainMenu;
 
-        EyeTrackingRadio.Instance.SaveTestFile += name =>
-        {
-            SetSidePanel(_defaultPackedScene);
-            if (_currentScene is DefaultMenu defaultMenu)
-            {
-                _testName = name;
-                defaultMenu.SetFeedbackLabel("\"" + name + "\" ble lagret!");
-            }
-        };
-
-        EyeTrackingRadio.Instance.LoadTestFile += name =>
-        {
-            SetSidePanel(_defaultPackedScene);
-            if (_currentScene is DefaultMenu defaultMenu)
-            {
-                _testName = name;
-                defaultMenu.SetFeedbackLabel("\"" + name + "\" ble lastet inn!");
-            }
-        };
-
-        EyeTrackingRadio.Instance.RenameTestFile += name =>
-        {
-            SetSidePanel(_saveAsPackedScene);
-            if (_currentScene is SaveAsMenu saveAsMenu)
-            {
-                saveAsMenu.SetPreviousName(name);
-            }
-        };
-        
-        EyeTrackingRadio.Instance.RenameTestFileTo += (name, newName) =>
-        {
-            SetSidePanel(_defaultPackedScene);
-            if (_currentScene is DefaultMenu defaultMenu)
-            {
-                if (_testName == name)
-                {
-                    _testName = newName;
-                }
-                defaultMenu.SetFeedbackLabel("\"" + name + "\" ble endret til \"" + newName + "\".");
-            }
-        };
-
-        EyeTrackingRadio.Instance.DeleteTestFile += name =>
-        {
-            SetSidePanel(_confirmationPackedScene);
-            if (_currentScene is ConfirmationMenu confirmationMenu)
-            {
-                confirmationMenu.SetPrompt("Er du sikker på at du vil slette \"" + name + "\"?");
-                confirmationMenu.ConfirmationYes += () =>
-                {
-                    EyeTrackingRadio.Instance.EmitSignal("DeleteTestFileForReal", name);
-                    
-                    if (_testName == name)
-                    {
-                        _testName = "";
-                        EyeTrackingRadio.Instance.EmitSignal("ClearTargets");
-                    }
-                    
-                    SetSidePanel(_defaultPackedScene);
-                    if (_currentScene is DefaultMenu defaultMenu)
-                    {
-                        defaultMenu.SetFeedbackLabel("\"" + name + "\" ble slettet.");
-                    }
-                };
-                confirmationMenu.ConfirmationNo += () => SetSidePanel(_loadTestPackedScene);
-            }
-        };
+        EyeTrackingRadio.Instance.SaveTestFile += OnSaveTestFile;
+        EyeTrackingRadio.Instance.LoadTestFile += OnLoadTestFile;
+        EyeTrackingRadio.Instance.RenameTestFile += OnRenameTestFile;
+        EyeTrackingRadio.Instance.RenameTestFileTo += OnRenameTestFileTo;
+        EyeTrackingRadio.Instance.DeleteTestFile += OnDeleteTestFile;
         
         SetSidePanel(_defaultPackedScene);
+    }
+
+    public override void _ExitTree()
+    {
+        EyeTrackingRadio.Instance.SaveTestFile -= OnSaveTestFile;
+        EyeTrackingRadio.Instance.LoadTestFile -= OnLoadTestFile;
+        EyeTrackingRadio.Instance.RenameTestFile -= OnRenameTestFile;
+        EyeTrackingRadio.Instance.RenameTestFileTo -= OnRenameTestFileTo;
+        EyeTrackingRadio.Instance.DeleteTestFile -= OnDeleteTestFile;
+    }
+
+    private void OnSaveTestFile(string name)
+    {
+        SetSidePanel(_defaultPackedScene);
+        if (_currentScene is DefaultMenu defaultMenu)
+        {
+            _testName = name;
+            defaultMenu.SetFeedbackLabel("\"" + name + "\" ble lagret!");
+        }
+    }
+
+    private void OnRenameTestFile(string name)
+    {
+        SetSidePanel(_saveAsPackedScene);
+        if (_currentScene is SaveAsMenu saveAsMenu)
+        {
+            saveAsMenu.SetPreviousName(name);
+        }
+    }
+
+    private void OnRenameTestFileTo(string name, string newName)
+    {
+        SetSidePanel(_defaultPackedScene);
+        if (_currentScene is DefaultMenu defaultMenu)
+        {
+            if (_testName == name)
+            {
+                _testName = newName;
+            }
+            defaultMenu.SetFeedbackLabel("\"" + name + "\" ble endret til \"" + newName + "\".");
+        }
+    }
+
+    private void OnDeleteTestFile(string name)
+    {
+        SetSidePanel(_confirmationPackedScene);
+        if (_currentScene is ConfirmationMenu confirmationMenu)
+        {
+            confirmationMenu.SetPrompt("Er du sikker på at du vil slette \"" + name + "\"?");
+            confirmationMenu.ConfirmationYes += () =>
+            {
+                EyeTrackingRadio.Instance.EmitSignal("DeleteTestFileForReal", name);
+                    
+                if (_testName == name)
+                {
+                    _testName = "";
+                    EyeTrackingRadio.Instance.EmitSignal("ClearTargets");
+                }
+                    
+                SetSidePanel(_defaultPackedScene);
+                if (_currentScene is DefaultMenu defaultMenu)
+                {
+                    defaultMenu.SetFeedbackLabel("\"" + name + "\" ble slettet.");
+                }
+            };
+            confirmationMenu.ConfirmationNo += () => SetSidePanel(_loadTestPackedScene);
+        }
     }
 
     private void NewTest()
@@ -169,5 +174,15 @@ public partial class EditorMenu : Control
         _currentScene?.QueueFree();
         _currentScene = newSidePanelMenu.Instantiate();
         _sidePanel.AddChild(_currentScene);
+    }
+
+    private void OnLoadTestFile(string name)
+    {
+        SetSidePanel(_defaultPackedScene);
+        if (_currentScene is DefaultMenu defaultMenu)
+        {
+            _testName = name;
+            defaultMenu.SetFeedbackLabel("\"" + name + "\" ble lastet inn!");
+        }
     }
 }

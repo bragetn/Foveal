@@ -48,6 +48,11 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         );
     }
 
+    public override void _ExitTree()
+    {
+        _testTimer.Timeout -= SetRunning;
+    }
+
     public void OnGazeExit()
     {
         if (_completed) return;
