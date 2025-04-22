@@ -44,7 +44,8 @@ public partial class FileHandler : Node
         GazeTestData data = new GazeTestData
         {
             Name = FileName,
-            GazeTime = 5f,
+            GazeTime = _targetBox.GazeTime,
+            ColliderSize = _targetBox.ColliderSize,
             Targets = new List<GazeTargetData>{}
         };
         
@@ -72,10 +73,16 @@ public partial class FileHandler : Node
         string loadedJson = File.ReadAllText(DataPath + fileName + ".json");
         GazeTestData loadedGazeTestData = JsonSerializer.Deserialize<GazeTestData>(loadedJson);
         FileName = loadedGazeTestData.Name;
+
+        _targetBox.GazeTime = loadedGazeTestData.GazeTime;
+        _targetBox.ColliderSize = loadedGazeTestData.ColliderSize;
+
         foreach (var target in loadedGazeTestData.Targets)
         {
             _targetBox.AddTarget(new Vector3(target.X, target.Y, target.Z), target.Radius, target.Delay);
         }
+
+        _targetBox.UpdateColliderSize();
     }
 
     private void RenameTestFileTo(string fileName, string newName)
