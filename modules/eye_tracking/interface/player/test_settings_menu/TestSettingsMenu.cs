@@ -3,12 +3,19 @@ using System;
 
 public partial class TestSettingsMenu : Control
 {
+    public TargetBox TBox { get; set; }
+
     private Label _timeLabel;
     private Button _addTimeButton;
     private Button _subtractTimeButton; 
     private Slider _sizeSlider;
     private Button _toggleButton;
     private Button _exitButton;
+
+    public override void _EnterTree()
+    {
+        EyeTrackingRadio.Instance.EmitSignal("AssignTargetBoxToMenu", this);
+    }
 
     public override void _Ready()
     {
@@ -28,20 +35,21 @@ public partial class TestSettingsMenu : Control
 
     private void UpdateTime(bool sign)
     {
-        // Target.Delay += sign ? -0.5f : 0.5f;
-        // Target.Delay = MathF.Max(Target.Delay, 0.0f);
-        // _timeLabel.Text = Target.Delay.ToString("n2");
+        TBox.GazeTime += sign ? -0.5f : 0.5f;
+        TBox.GazeTime = MathF.Max(TBox.GazeTime, 0.0f);
+        TBox.UpdateGazeTime();
+
+        _timeLabel.Text = TBox.GazeTime.ToString("n2");
     }
 
     private void UpdateColliderSize(double value)
     {
-        // Target.SetSize((float) value);
+        TBox.ColliderSize = (float) value;
+        TBox.UpdateColliderSize();
     }
 
     private void ToggleColliderVisualization()
     {
-        return;
+        TBox.ToggleColliderVisualization();
     }
-
-
 }

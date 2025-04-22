@@ -28,6 +28,12 @@ public partial class TargetBox : Node3D
     [Export] public StaticBody3D CeilingWall;
     
     public List<GazeTarget> Targets = [];
+
+    public float GazeTime { get; set; } = 1.0f;
+    public float ColliderSize { get; set; } = 1.0f;
+    public bool VisualizeCollider { get; set; } = false;
+
+    private ShaderMaterial _colliderMaterial = GD.Load<ShaderMaterial>("uid://bubrshfvrabhd");
     
     private Vector3 _halfScale = new Vector3(4.0f, 2.0f, 2.0f);
     private float _defaultRadius = 0.1f * MathF.Pow(2, 0.5f * 1.5f);
@@ -39,6 +45,7 @@ public partial class TargetBox : Node3D
 
         EyeTrackingRadio.Instance.AddTarget += AddRandomTarget;
         EyeTrackingRadio.Instance.ClearTargets += ClearTargets;
+        EyeTrackingRadio.Instance.AssignTargetBoxToMenu += AssignTargetBoxToMenu;
         EyeTrackingRadio.Instance.PreviewTest += running =>
         {
             if (running)
@@ -64,7 +71,7 @@ public partial class TargetBox : Node3D
         
         target.Position = new Vector3(x, y, z);
         target.Radius = _defaultRadius;
-        target.Seconds = 1.0f;
+        target.GazeTime = GazeTime;
         target.Bounds = _halfScale;
         
         Targets.Add(target);
@@ -77,6 +84,7 @@ public partial class TargetBox : Node3D
         target.Position = targetPosition;
         target.Radius = targetRadius;
         target.Delay = targetDelay;
+        target.GazeTime = GazeTime;
         target.Bounds = _halfScale;
         
         Targets.Add(target);
@@ -90,6 +98,35 @@ public partial class TargetBox : Node3D
             target.QueueFree();
         }
         Targets.Clear();
+    }
+
+    public void UpdateGazeTime()
+    {
+        foreach (GazeTarget target in Targets)
+        {
+            target.GazeTime = GazeTime;
+        }
+    }
+
+    public void UpdateColliderSize()
+    {
+        _colliderMaterial.SetShaderParameter("collider_scale", ColliderSize);
+
+        foreach (GazeTarget target in Targets)
+        {
+            target.SetColliderSize(ColliderSize);
+        }
+    }
+
+    public void ToggleColliderVisualization()
+    {
+        VisualizeCollider = !VisualizeCollider;
+        _colliderMaterial.SetShaderParameter("enabled", VisualizeCollider);
+    }
+
+    private void AssignTargetBoxToMenu(TestSettingsMenu settingsMenu)
+    {
+        settingsMenu.TBox = this;
     }
 
     private void UpdateBoxScale()

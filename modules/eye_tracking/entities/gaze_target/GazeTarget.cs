@@ -3,7 +3,7 @@ using System;
 
 public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 {
-    [Export] public float Seconds { get; set; }
+    [Export] public float GazeTime { get; set; }
     [Export] public float Radius { get; set; }
     [Export] public float Delay { get; set; }
     
@@ -61,16 +61,16 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         
         _value += (float) delta;
         
-        if (_value > Seconds)
+        if (_value > GazeTime)
         {
-            _value = Seconds;
+            _value = GazeTime;
             _completed = true;
             _meshInstance.SetInstanceShaderParameter("completed", true);
         }
         
-        if (Seconds > 0.0f)
+        if (GazeTime > 0.0f)
         {
-            _meshInstance.SetInstanceShaderParameter("t", _value / Seconds);
+            _meshInstance.SetInstanceShaderParameter("t", _value / GazeTime);
         }
     }
     
@@ -109,6 +109,14 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         // radius(t) = 0.1 * 2^(2t)
         Radius = 0.1f * MathF.Pow(2, value * 1.5f);
         UpdateSize();
+    }
+
+    public void SetColliderSize(float value) {
+        if (_collisionShape.GetShape().Duplicate() is SphereShape3D shape)
+        {
+            shape.Radius = Radius * value;
+            _collisionShape.Shape = shape;
+        }
     }
 
     public void Delete()
