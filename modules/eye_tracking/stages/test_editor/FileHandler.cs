@@ -18,6 +18,7 @@ public partial class FileHandler : Node
         
         EyeTrackingRadio.Instance.ClearTargets += OnClearTargets;
         EyeTrackingRadio.Instance.SaveTestFile += SaveTestFile;
+        EyeTrackingRadio.Instance.SaveTestResults += SaveTestResults;
         EyeTrackingRadio.Instance.LoadTestFile += LoadTestFile;
         EyeTrackingRadio.Instance.RenameTestFileTo += RenameTestFileTo;
         EyeTrackingRadio.Instance.DeleteTestFileForReal += DeleteTestFileForReal;
@@ -27,6 +28,7 @@ public partial class FileHandler : Node
     {
         EyeTrackingRadio.Instance.ClearTargets -= OnClearTargets;
         EyeTrackingRadio.Instance.SaveTestFile -= SaveTestFile;
+        EyeTrackingRadio.Instance.SaveTestResults -= SaveTestResults;
         EyeTrackingRadio.Instance.LoadTestFile -= LoadTestFile;
         EyeTrackingRadio.Instance.RenameTestFileTo -= RenameTestFileTo;
         EyeTrackingRadio.Instance.DeleteTestFileForReal -= DeleteTestFileForReal;
@@ -78,6 +80,12 @@ public partial class FileHandler : Node
         Directory.CreateDirectory(DataPath);
         File.WriteAllText(DataPath + FileName + ".json", jsonString);
         _testData = jsonString;
+    }
+
+    private void SaveTestResults(string fileName)
+    {
+        GD.Print(fileName);
+        //magi
     }
 
     private void LoadTestFile(string fileName)

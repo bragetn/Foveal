@@ -137,7 +137,7 @@ public partial class MenuController : Node
     
     private void ResetPlayerPosition()
     {
-        PlayerBody.Call("teleport", new Transform3D(new Basis(Vector3.Up, Mathf.DegToRad(0)), new Vector3(0, 0, 0)));
+        PlayerBody.Call("teleport", new Transform3D(PlayerBody.GlobalTransform.Basis, Vector3.Zero));
     }
     
     private void ExitTargetMenu()

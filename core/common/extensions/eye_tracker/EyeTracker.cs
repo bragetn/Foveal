@@ -52,6 +52,11 @@ public partial class EyeTracker : XRController3D
         }
     }
 
+    public override void _ExitTree()
+    {
+        CoreRadio.Instance.ToggleGazeDot -= ToggleGazeDot;
+    }
+
     private void ToggleGazeDot()
     {
         _gazeDot.Visible = !_gazeDot.Visible;

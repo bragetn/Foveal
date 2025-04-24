@@ -1,11 +1,11 @@
 [gd_scene load_steps=18 format=3 uid="uid://c0c1k3sfkkta4"]
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_tpk51"]
-[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_vg00v"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="2_vrkii"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="3_8fov7"]
 [ext_resource type="PackedScene" uid="uid://bmgc7qlit8rsa" path="res://core/common/extensions/eye_tracker/eye_tracker.tscn" id="5_0tvwn"]
 [ext_resource type="Shader" uid="uid://brq6fbyudbflp" path="res://core/common/shaders/checkerboard.gdshader" id="6_8fov7"]
+[ext_resource type="Script" uid="uid://c6qrtq3pnd76p" path="res://modules/eye_tracking/stages/run_test/PlayerController.cs" id="6_ijqlh"]
 [ext_resource type="Texture2D" uid="uid://cw30trkhjgwuh" path="res://core/assets/skybox/skybox.hdr" id="7_44lo7"]
 [ext_resource type="PackedScene" uid="uid://dnxmh5pikkt3m" path="res://modules/eye_tracking/entities/target_box/target_box.tscn" id="8_0tvwn"]
 [ext_resource type="Script" uid="uid://bjucwoxdhqwa2" path="res://modules/eye_tracking/stages/test_editor/FileHandler.cs" id="9_odnva"]
@@ -42,10 +42,6 @@ size = Vector3(7, 1, 7)
 
 [node name="SceneBase" instance=ExtResource("1_tpk51")]
 
-[node name="MovementDirect" parent="XROrigin3D/LeftHand" index="0" instance=ExtResource("2_vg00v")]
-max_speed = 1.0
-strafe = true
-
 [node name="MovementTurn" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("2_vrkii")]
 turn_mode = 1
 step_turn_angle = 30.0
@@ -55,6 +51,10 @@ collision_mask = 3071
 
 [node name="EyeTracker" parent="XROrigin3D" index="4" node_paths=PackedStringArray("Camera") instance=ExtResource("5_0tvwn")]
 Camera = NodePath("../XRCamera3D")
+
+[node name="PlayerController" type="Node" parent="XROrigin3D" index="5" node_paths=PackedStringArray("PlayerBody")]
+script = ExtResource("6_ijqlh")
+PlayerBody = NodePath("../PlayerBody")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_odnva")
