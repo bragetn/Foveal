@@ -23,6 +23,8 @@ public partial class EyeTrackingRadio : Node
     [Signal] public delegate void ShowKeyboardEventHandler();
     [Signal] public delegate void HideKeyboardEventHandler();
     
+    [Signal] public delegate void StartTestEventHandler();
+    [Signal] public delegate void StopTestEventHandler();
     [Signal] public delegate void PreviewTestEventHandler(bool running);
     [Signal] public delegate void PreviewEndedEventHandler();
     

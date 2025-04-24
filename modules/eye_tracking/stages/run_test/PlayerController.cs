@@ -4,14 +4,23 @@ using System;
 public partial class PlayerController : Node
 {
     [Export] public Node3D PlayerBody;
+    
+    private GazeSampler _sampler;
+    
     public override void _Ready()
     {
+        _sampler = GetNode<GazeSampler>("../GazeSampler");
+        
         EyeTrackingRadio.Instance.ChangePlayerDistance += MovePlayer;
+        EyeTrackingRadio.Instance.StartTest += _sampler.Start;
+        EyeTrackingRadio.Instance.StopTest += _sampler.Stop;
     }
 
     public override void _ExitTree()
     {
         EyeTrackingRadio.Instance.ChangePlayerDistance -= MovePlayer;
+        EyeTrackingRadio.Instance.StartTest -= _sampler.Start;
+        EyeTrackingRadio.Instance.StopTest -= _sampler.Stop;
     }
 
     private void MovePlayer(float distance)

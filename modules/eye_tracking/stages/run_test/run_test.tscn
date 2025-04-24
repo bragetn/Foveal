@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://c0c1k3sfkkta4"]
+[gd_scene load_steps=19 format=3 uid="uid://c0c1k3sfkkta4"]
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_tpk51"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="2_vrkii"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="3_8fov7"]
 [ext_resource type="PackedScene" uid="uid://bmgc7qlit8rsa" path="res://core/common/extensions/eye_tracker/eye_tracker.tscn" id="5_0tvwn"]
+[ext_resource type="PackedScene" uid="uid://cit0vptuxn1cv" path="res://core/common/extensions/gaze_sampler/gaze_sampler.tscn" id="5_ijqlh"]
 [ext_resource type="Shader" uid="uid://brq6fbyudbflp" path="res://core/common/shaders/checkerboard.gdshader" id="6_8fov7"]
 [ext_resource type="Script" uid="uid://c6qrtq3pnd76p" path="res://modules/eye_tracking/stages/run_test/PlayerController.cs" id="6_ijqlh"]
 [ext_resource type="Texture2D" uid="uid://cw30trkhjgwuh" path="res://core/assets/skybox/skybox.hdr" id="7_44lo7"]
@@ -52,7 +53,10 @@ collision_mask = 3071
 [node name="EyeTracker" parent="XROrigin3D" index="4" node_paths=PackedStringArray("Camera") instance=ExtResource("5_0tvwn")]
 Camera = NodePath("../XRCamera3D")
 
-[node name="PlayerController" type="Node" parent="XROrigin3D" index="5" node_paths=PackedStringArray("PlayerBody")]
+[node name="GazeSampler" parent="XROrigin3D" index="5" node_paths=PackedStringArray("ETracker") instance=ExtResource("5_ijqlh")]
+ETracker = NodePath("../EyeTracker")
+
+[node name="PlayerController" type="Node" parent="XROrigin3D" index="6" node_paths=PackedStringArray("PlayerBody")]
 script = ExtResource("6_ijqlh")
 PlayerBody = NodePath("../PlayerBody")
 

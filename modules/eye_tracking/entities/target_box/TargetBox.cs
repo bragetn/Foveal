@@ -43,6 +43,8 @@ public partial class TargetBox : Node3D
 
         EyeTrackingRadio.Instance.AddTarget += AddRandomTarget;
         EyeTrackingRadio.Instance.ClearTargets += ClearTargets;
+        EyeTrackingRadio.Instance.StartTest += StartTest;
+        EyeTrackingRadio.Instance.StopTest += StopTest;
         EyeTrackingRadio.Instance.PreviewTest += OnPreviewTest;
         UpdateBoxScale();
     }
@@ -51,6 +53,8 @@ public partial class TargetBox : Node3D
     {
         EyeTrackingRadio.Instance.AddTarget -= AddRandomTarget;
         EyeTrackingRadio.Instance.ClearTargets -= ClearTargets;
+        EyeTrackingRadio.Instance.StartTest -= StartTest;
+        EyeTrackingRadio.Instance.StopTest -= StopTest;
         EyeTrackingRadio.Instance.PreviewTest -= OnPreviewTest;
     }
 

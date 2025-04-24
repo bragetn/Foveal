@@ -84,10 +84,21 @@ public partial class RunTestMenu : Control
     private void ToggleRunning()
     {
         _loadTestPanel.Visible = false;
-        _running = !_running;
-        EyeTrackingRadio.Instance.EmitSignal("PreviewTest", _running);
-        _runTestButton.Text = _running ? "Avslutt" : "Start";
-        _testResultPanel.Visible = !_running;
+
+        if (_running)
+        {
+            _running = false;
+            _runTestButton.Text = "Start";
+            _testResultPanel.Visible = true;
+            EyeTrackingRadio.Instance.EmitSignal("StopTest");
+        }
+        else
+        {
+            _running = true;
+            _runTestButton.Text = "Avslutt";
+            _testResultPanel.Visible = false;
+            EyeTrackingRadio.Instance.EmitSignal("StartTest");
+        }
     }
     
     private static bool IsValidFileName(string fileName)

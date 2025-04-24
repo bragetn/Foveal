@@ -1,8 +1,11 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text.Json;
+using CsvHelper;
 
 public partial class FileHandler : Node
 {
@@ -10,11 +13,14 @@ public partial class FileHandler : Node
     const String ResultDataPath = "data/eye_tracking/results/";
     
     public String TestName;
+    
+    private GazeSampler _gazeSampler;
     private TargetBox _targetBox;
     private String _testData;
     
     public override void _Ready()
     {
+        _gazeSampler = GetNode<GazeSampler>("../XROrigin3D/GazeSampler");
         _targetBox = GetNode<TargetBox>("../TargetBox");
         
         EyeTrackingRadio.Instance.ClearTargets += OnClearTargets;
@@ -85,19 +91,42 @@ public partial class FileHandler : Node
 
     private void SaveTestResults(string fileName)
     {
-        TestResultData testResultData = _targetBox.GetTestResult();
-        if (testResultData == null)
-        {
-            GD.PrintErr("There is no test result");
-            return;
-        }
-        testResultData.TestName = TestName;
-        
         string path = ResultDataPath + fileName + "/";
-        string testResultJson = JsonSerializer.Serialize(testResultData);
-        
         Directory.CreateDirectory(path);
-        File.WriteAllText(path + "test_result.json", testResultJson);
+        
+        // Save Test Result
+
+        if (_targetBox != null)
+        {
+            TestResultData testResultData = _targetBox.GetTestResult();
+            if (testResultData == null)
+            {
+                GD.PrintErr("There is no test result");
+                return;
+            }
+            testResultData.TestName = TestName;
+            
+            string testResultJson = JsonSerializer.Serialize(testResultData);
+            File.WriteAllText(path + "test_result.json", testResultJson);
+        }
+        
+        // Save Gaze Samples
+
+        if (_gazeSampler != null)
+        {
+            List<GazeSampleEntry> gazeSamples = _gazeSampler.GetSamples();
+
+            if (gazeSamples.Count <= 0)
+            {
+                GD.PrintErr("There is no gaze samples");
+                return;
+            }
+
+            using StreamWriter writer = new StreamWriter(path + "gaze_samples.txt");
+            using CsvWriter csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+            csv.WriteRecords(gazeSamples);
+        }
+        
     }
 
     private void LoadTestFile(string fileName)
