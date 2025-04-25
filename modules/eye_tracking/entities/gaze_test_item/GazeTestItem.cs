@@ -4,6 +4,7 @@ using System;
 public partial class GazeTestItem : Control
 {
     public GazeTestData TestData;
+    public bool Editable;
     
     private Button _selectButton;
     private Button _renameButton;
@@ -17,7 +18,16 @@ public partial class GazeTestItem : Control
         
         _selectButton.Text = TestData.Name;
         _selectButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("LoadTestFile", TestData.Name);
-        _renameButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("RenameTestFile", TestData.Name);
-        _deleteButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("DeleteTestFile", TestData.Name);
+        
+        if (Editable)
+        {
+            _renameButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("RenameTestFile", TestData.Name);
+            _deleteButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("DeleteTestFile", TestData.Name);
+        }
+        else
+        {
+            _renameButton.Visible = false;
+            _deleteButton.Visible = false;
+        }
     }
 }

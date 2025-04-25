@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 public partial class SaveAsMenu : Control
 {
-    private TextEdit _textEdit;
+    private LineEdit _textEdit;
     private Button _saveButton;
     private Label _feedbackLabel;
 
@@ -12,7 +12,7 @@ public partial class SaveAsMenu : Control
     
     public override void _Ready()
     {
-        _textEdit = GetNode<TextEdit>("MarginContainer/VBoxContainer/TextEdit");
+        _textEdit = GetNode<LineEdit>("MarginContainer/VBoxContainer/TextEdit");
         _saveButton = GetNode<Button>("MarginContainer/VBoxContainer/SaveButton");
         _feedbackLabel = GetNode<Label>("MarginContainer/VBoxContainer/FeedbackLabel");
         

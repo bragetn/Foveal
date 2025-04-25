@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 [Tool]
 public partial class TargetBox : Node3D
@@ -29,6 +30,9 @@ public partial class TargetBox : Node3D
     
     public List<GazeTarget> Targets = [];
     
+    private Stopwatch _stopwatch;
+    private TestResultData _testResult;
+    
     private Vector3 _halfScale = new Vector3(4.0f, 2.0f, 2.0f);
     private float _defaultRadius = 0.1f * MathF.Pow(2, 0.5f * 1.5f);
 
@@ -39,18 +43,21 @@ public partial class TargetBox : Node3D
 
         EyeTrackingRadio.Instance.AddTarget += AddRandomTarget;
         EyeTrackingRadio.Instance.ClearTargets += ClearTargets;
-        EyeTrackingRadio.Instance.PreviewTest += running =>
-        {
-            if (running)
-            {
-                StartTest();
-            }
-            else
-            {
-                StopTest();
-            }
-        };
+        EyeTrackingRadio.Instance.StartTest += StartTest;
+        EyeTrackingRadio.Instance.StopTest += StopTest;
+        EyeTrackingRadio.Instance.PreviewTest += OnPreviewTest;
         UpdateBoxScale();
+    }
+
+    public override void _ExitTree()
+    {
+        if (Engine.IsEditorHint()) return;
+        
+        EyeTrackingRadio.Instance.AddTarget -= AddRandomTarget;
+        EyeTrackingRadio.Instance.ClearTargets -= ClearTargets;
+        EyeTrackingRadio.Instance.StartTest -= StartTest;
+        EyeTrackingRadio.Instance.StopTest -= StopTest;
+        EyeTrackingRadio.Instance.PreviewTest -= OnPreviewTest;
     }
 
     private void AddRandomTarget()
@@ -92,6 +99,11 @@ public partial class TargetBox : Node3D
         Targets.Clear();
     }
 
+    public TestResultData GetTestResult()
+    {
+        return _testResult;
+    }
+
     private void UpdateBoxScale()
     {
         Vector3 boxScale = BoxScale;
@@ -126,18 +138,46 @@ public partial class TargetBox : Node3D
 
     private void StartTest()
     {
+        _stopwatch = new Stopwatch();
+        _stopwatch.Start();
+        
         foreach (GazeTarget target in Targets)
         {
-            target.StartTest();
+            target.StartTest(_stopwatch);
         }
     }
 
     private void StopTest()
     {
+        _stopwatch.Stop();
+
+        TestResultData testResult = new TestResultData
+        {
+            TestName = "",
+            TestTime = _stopwatch.Elapsed,
+            GazeTime = 0,
+            PlayerDistance = 0,
+            TargetResults = new List<TargetResultData>()
+        };
+        
         foreach (GazeTarget target in Targets)
         {
-            target.StopTest();
+            TargetResultData targetResult = target.StopTest();
+            testResult.TargetResults.Add(targetResult);
+        }
+        
+        _testResult = testResult;
+    }
+
+    private void OnPreviewTest(bool running)
+    {
+        if (running)
+        {
+            StartTest();
+        }
+        else
+        {
+            StopTest();
         }
     }
-    
 }

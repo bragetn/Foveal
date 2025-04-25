@@ -23,7 +23,6 @@ environment = SubResource("Environment_bmhke")
 
 [node name="SubViewport" type="Window" parent="." index="2"]
 auto_translate_mode = 1
-disable_3d = true
 initial_position = 1
 size = Vector2i(1145, 650)
 
