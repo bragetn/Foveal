@@ -4,11 +4,12 @@ using System.Diagnostics;
 
 public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 {
-    [Export] public float Seconds { get; set; }
+    [Export] public float GazeTime { get; set; }
     [Export] public float Radius { get; set; }
     [Export] public float Delay { get; set; }
     
-    public Vector3 Bounds;
+    public Vector3 Bounds { get; set; }
+    public float ColliderSize { get; set; } = 1.0f;
     
     private MeshInstance3D _meshInstance;
     private CollisionShape3D _collisionShape;
@@ -33,7 +34,13 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         _testTimer = GetNode<Timer>("TestTimer");
 
         _testTimer.Timeout += SetRunning;
+        
         UpdateSize();
+    }
+    
+    public override void _ExitTree()
+    {
+        _testTimer.Timeout -= SetRunning;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -52,14 +59,11 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         );
     }
 
-    public override void _ExitTree()
-    {
-        _testTimer.Timeout -= SetRunning;
-    }
-
     public void OnGazeExit()
     {
+        if (!_running) return;
         if (_completed) return;
+        
         _value = 0.0f;
         _meshInstance.SetInstanceShaderParameter("t", 0.0f);
     }
@@ -70,17 +74,17 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         
         _value += (float) delta;
         
-        if (_value > Seconds)
+        if (_value > GazeTime)
         {
-            _value = Seconds;
+            _value = GazeTime;
             _completed = true;
             _timeBeforeSeen = _stopwatch.Elapsed;
             _meshInstance.SetInstanceShaderParameter("completed", true);
         }
         
-        if (Seconds > 0.0f)
+        if (GazeTime > 0.0f)
         {
-            _meshInstance.SetInstanceShaderParameter("t", _value / Seconds);
+            _meshInstance.SetInstanceShaderParameter("t", _value / GazeTime);
         }
     }
     
@@ -118,6 +122,11 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         // t ∈ [0.0, 1.0]
         // radius(t) = 0.1 * 2^(2t)
         Radius = 0.1f * MathF.Pow(2, value * 1.5f);
+        UpdateSize();
+    }
+
+    public void SetColliderSize(float value) {
+        ColliderSize = value;
         UpdateSize();
     }
 
@@ -199,7 +208,7 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 
         if (_collisionShape.GetShape().Duplicate() is SphereShape3D shape)
         {
-            shape.Radius = Radius;
+            shape.Radius = Radius * ColliderSize;
             _collisionShape.Shape = shape;
         }
     }

@@ -1,0 +1,141 @@
+[gd_scene load_steps=13 format=3 uid="uid://d08h8f6qx3wt5"]
+
+[ext_resource type="Theme" uid="uid://b26dx2omna2g4" path="res://modules/eye_tracking/assets/themes/player_menu_theme.tres" id="1_3xiuc"]
+[ext_resource type="Script" uid="uid://bw4x0g0wt8n8q" path="res://modules/eye_tracking/interface/player/test_settings_menu/TestSettingsMenu.cs" id="2_pdghf"]
+[ext_resource type="Texture2D" uid="uid://cwup5a0qcgb0r" path="res://icon.svg" id="2_pphl2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdghf"]
+bg_color = Color(0.121569, 0.121569, 0.152941, 1)
+corner_radius_top_left = 45
+corner_radius_bottom_left = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmwym"]
+bg_color = Color(0.254902, 0.254902, 0.309804, 1)
+corner_radius_top_right = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlblo"]
+bg_color = Color(0.0784314, 0.0784314, 0.101961, 1)
+corner_radius_top_right = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3kpo"]
+bg_color = Color(0.121569, 0.121569, 0.152941, 1)
+corner_radius_top_right = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g43bq"]
+bg_color = Color(0.254902, 0.254902, 0.309804, 1)
+corner_radius_bottom_right = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6vrx"]
+bg_color = Color(0.0784314, 0.0784314, 0.101961, 1)
+corner_radius_bottom_right = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wga5g"]
+bg_color = Color(0.121569, 0.121569, 0.152941, 1)
+corner_radius_bottom_right = 45
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_en50t"]
+thickness = 35
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5fgl"]
+
+[node name="TestSettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_3xiuc")
+script = ExtResource("2_pdghf")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Target Menu"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Gaze Time"
+
+[node name="TimeHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TimeLabel" type="Label" parent="MarginContainer/VBoxContainer/TimeHBox"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_pdghf")
+text = "0.0 "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CounterVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TimeHBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AddTimeButton" type="Button" parent="MarginContainer/VBoxContainer/TimeHBox/CounterVBox"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/hover = SubResource("StyleBoxFlat_rmwym")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vlblo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_m3kpo")
+text = "+"
+
+[node name="SubtractTimeButton" type="Button" parent="MarginContainer/VBoxContainer/TimeHBox/CounterVBox"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/hover = SubResource("StyleBoxFlat_g43bq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_d6vrx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wga5g")
+text = "-"
+
+[node name="SizeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Collider Size"
+
+[node name="SizeSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("2_pphl2")
+theme_override_icons/grabber_highlight = ExtResource("2_pphl2")
+theme_override_styles/slider = SubResource("StyleBoxLine_en50t")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_y5fgl")
+min_value = 1.0
+max_value = 2.0
+step = 0.25
+value = 1.0
+
+[node name="ToggleButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+text = "Toggle Collider Visulization"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+text = "Exit"

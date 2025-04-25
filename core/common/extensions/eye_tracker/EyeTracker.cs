@@ -7,6 +7,7 @@ public partial class EyeTracker : XRController3D
     [Signal] public delegate void GazeSampleEventHandler(Camera3D camera, Vector3 gazeRayRotation, Vector3 hitPoint);
     
     [Export] public XRCamera3D Camera { get; set; }
+    [Export] public float RayLength { get; set; } = 100.0f;
     
     private Node3D _gazeDot;
     private IGazeable _prevGazeable;
@@ -16,20 +17,28 @@ public partial class EyeTracker : XRController3D
         _gazeDot = GetNode<Node3D>("GazeDot");
         CoreRadio.Instance.ToggleGazeDot += ToggleGazeDot;
     }
+    
+    public override void _ExitTree()
+    {
+        CoreRadio.Instance.ToggleGazeDot -= ToggleGazeDot;
+    }
 
     public override void _PhysicsProcess(double delta)
     {
-        Vector3 viewDir = _gazeDot.GlobalPosition - Camera.GlobalPosition;
-        
+        Vector3 viewDir = (_gazeDot.GlobalPosition - Camera.GlobalPosition).Normalized();
+
         PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-        PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(Camera.GlobalPosition, _gazeDot.GlobalPosition, 1 << 10);
+        PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(Camera.GlobalPosition,
+            Camera.GlobalPosition + viewDir * RayLength, 1 << 10);
         Dictionary result = spaceState.IntersectRay(query);
+
+        if (!Godot.GodotObject.IsInstanceValid((Godot.GodotObject)_prevGazeable)) _prevGazeable = null;
 
         if (result.Count <= 0)
         {
             _prevGazeable?.OnGazeExit();
             _prevGazeable = null;
-            EmitSignal("GazeSample", Camera, viewDir.Normalized(), new Vector3(float.NaN, float.NaN, float.NaN));
+            EmitSignal("GazeSample", Camera, viewDir, new Vector3(float.NaN, float.NaN, float.NaN));
             return;
         }
         
@@ -55,11 +64,6 @@ public partial class EyeTracker : XRController3D
         }
         
         EmitSignal("GazeSample", Camera, viewDir.Normalized(), result["position"]);
-    }
-
-    public override void _ExitTree()
-    {
-        CoreRadio.Instance.ToggleGazeDot -= ToggleGazeDot;
     }
 
     private void ToggleGazeDot()

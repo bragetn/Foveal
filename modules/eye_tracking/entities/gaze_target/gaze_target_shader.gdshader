@@ -13,4 +13,6 @@ void fragment() {
 	else {
 		ALBEDO = mix(base_color.rgb, hover_color.rgb, t);
 	}
+
+	ROUGHNESS = 0.25;
 }

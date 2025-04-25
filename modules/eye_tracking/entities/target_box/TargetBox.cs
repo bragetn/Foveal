@@ -29,6 +29,12 @@ public partial class TargetBox : Node3D
     [Export] public StaticBody3D CeilingWall;
     
     public List<GazeTarget> Targets = [];
+
+    public float GazeTime { get; set; } = 1.0f;
+    public float ColliderSize { get; set; } = 1.0f;
+    public bool VisualizeCollider { get; set; } = false;
+
+    private ShaderMaterial _colliderMaterial = GD.Load<ShaderMaterial>("uid://bubrshfvrabhd");
     
     private Stopwatch _stopwatch;
     private TestResultData _testResult;
@@ -46,6 +52,7 @@ public partial class TargetBox : Node3D
         EyeTrackingRadio.Instance.StartTest += StartTest;
         EyeTrackingRadio.Instance.StopTest += StopTest;
         EyeTrackingRadio.Instance.PreviewTest += OnPreviewTest;
+        EyeTrackingRadio.Instance.AssignTargetBoxToMenu += AssignTargetBoxToMenu;
         UpdateBoxScale();
     }
 
@@ -58,6 +65,7 @@ public partial class TargetBox : Node3D
         EyeTrackingRadio.Instance.StartTest -= StartTest;
         EyeTrackingRadio.Instance.StopTest -= StopTest;
         EyeTrackingRadio.Instance.PreviewTest -= OnPreviewTest;
+        EyeTrackingRadio.Instance.AssignTargetBoxToMenu -= AssignTargetBoxToMenu;
     }
 
     private void AddRandomTarget()
@@ -71,8 +79,9 @@ public partial class TargetBox : Node3D
         
         target.Position = new Vector3(x, y, z);
         target.Radius = _defaultRadius;
-        target.Seconds = 1.0f;
+        target.GazeTime = GazeTime;
         target.Bounds = _halfScale;
+        target.ColliderSize = ColliderSize;
         
         Targets.Add(target);
         AddChild(target);
@@ -84,7 +93,9 @@ public partial class TargetBox : Node3D
         target.Position = targetPosition;
         target.Radius = targetRadius;
         target.Delay = targetDelay;
+        target.GazeTime = GazeTime;
         target.Bounds = _halfScale;
+        target.ColliderSize = ColliderSize;
         
         Targets.Add(target);
         AddChild(target);
@@ -102,6 +113,35 @@ public partial class TargetBox : Node3D
     public TestResultData GetTestResult()
     {
         return _testResult;
+    }
+
+    public void UpdateGazeTime()
+    {
+        foreach (GazeTarget target in Targets)
+        {
+            target.GazeTime = GazeTime;
+        }
+    }
+
+    public void UpdateColliderSize()
+    {
+        _colliderMaterial.SetShaderParameter("collider_scale", ColliderSize);
+
+        foreach (GazeTarget target in Targets)
+        {
+            target.SetColliderSize(ColliderSize);
+        }
+    }
+
+    public void ToggleColliderVisualization()
+    {
+        VisualizeCollider = !VisualizeCollider;
+        _colliderMaterial.SetShaderParameter("enabled", VisualizeCollider);
+    }
+
+    private void AssignTargetBoxToMenu(Control menu)
+    {
+        menu.Set("GazeTargetBox", this);
     }
 
     private void UpdateBoxScale()
