@@ -30,7 +30,8 @@ public partial class RunTestMenu : Control
         _gazeTimeEdit = GetNode<LineEdit>("HBoxContainer/MenuPanel/MarginContainer/VBoxContainer/GazeTimeEdit");
         _loadTestPanel = GetNode<Panel>("HBoxContainer/LoadTestPanel");
         _testResultPanel = GetNode<Panel>("TestResultPanel");
-
+        
+        EyeTrackingRadio.Instance.StartTest += () => _runTestButton.Disabled = false;
         EyeTrackingRadio.Instance.LoadTestFile += OnLoadTestFile;
         EyeTrackingRadio.Instance.EmitSignal("LoadTestsEditable", false);
         
@@ -96,8 +97,9 @@ public partial class RunTestMenu : Control
         {
             _running = true;
             _runTestButton.Text = "Avslutt";
+            _runTestButton.Disabled = true;
             _testResultPanel.Visible = false;
-            EyeTrackingRadio.Instance.EmitSignal("StartTest");
+            EyeTrackingRadio.Instance.EmitSignal("StartCountdownTimer", 3);
         }
     }
     

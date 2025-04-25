@@ -51,6 +51,8 @@ public partial class TargetBox : Node3D
 
     public override void _ExitTree()
     {
+        if (Engine.IsEditorHint()) return;
+        
         EyeTrackingRadio.Instance.AddTarget -= AddRandomTarget;
         EyeTrackingRadio.Instance.ClearTargets -= ClearTargets;
         EyeTrackingRadio.Instance.StartTest -= StartTest;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c0c1k3sfkkta4"]
+[gd_scene load_steps=21 format=3 uid="uid://c0c1k3sfkkta4"]
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_tpk51"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="2_vrkii"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://dnxmh5pikkt3m" path="res://modules/eye_tracking/entities/target_box/target_box.tscn" id="8_0tvwn"]
 [ext_resource type="Script" uid="uid://bjucwoxdhqwa2" path="res://modules/eye_tracking/stages/test_editor/FileHandler.cs" id="9_odnva"]
 [ext_resource type="PackedScene" uid="uid://dkjyrf4bgbw6w" path="res://modules/eye_tracking/interface/run_test_menu/run_test_menu.tscn" id="9_vg00v"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="12_xk0po"]
+[ext_resource type="PackedScene" uid="uid://byexnenghk6ds" path="res://modules/eye_tracking/interface/countdown_timer_menu/countdown_timer_menu.tscn" id="13_eyf54"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0tvwn"]
 panorama = ExtResource("7_44lo7")
@@ -41,7 +43,7 @@ size = Vector3(7, 1, 7)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_odnva"]
 
-[node name="SceneBase" instance=ExtResource("1_tpk51")]
+[node name="RunTest" instance=ExtResource("1_tpk51")]
 
 [node name="MovementTurn" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("2_vrkii")]
 turn_mode = 1
@@ -110,3 +112,10 @@ initial_position = 1
 size = Vector2i(1145, 650)
 
 [node name="RunTestMenu" parent="SubViewport" index="0" instance=ExtResource("9_vg00v")]
+
+[node name="CountdownTimerViewport" parent="." index="7" instance=ExtResource("12_xk0po")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00647831, 1.5, -5.00064)
+collision_layer = 0
+scene = ExtResource("13_eyf54")
+viewport_size = Vector2(600, 400)
+scene_properties_keys = PackedStringArray("CountdownTimerMenu")
