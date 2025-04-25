@@ -73,7 +73,7 @@ public partial class TargetBox : Node3D
         target.Radius = _defaultRadius;
         target.GazeTime = GazeTime;
         target.Bounds = _halfScale;
-        target.SetColliderSize(ColliderSize);
+        target.ColliderSize = ColliderSize;
         
         Targets.Add(target);
         AddChild(target);
@@ -87,7 +87,7 @@ public partial class TargetBox : Node3D
         target.Delay = targetDelay;
         target.GazeTime = GazeTime;
         target.Bounds = _halfScale;
-        target.SetColliderSize(ColliderSize);
+        target.ColliderSize = ColliderSize;
         
         Targets.Add(target);
         AddChild(target);

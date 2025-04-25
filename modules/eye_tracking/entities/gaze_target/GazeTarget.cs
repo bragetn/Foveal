@@ -7,7 +7,8 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
     [Export] public float Radius { get; set; }
     [Export] public float Delay { get; set; }
     
-    public Vector3 Bounds;
+    public Vector3 Bounds { get; set; }
+    public float ColliderSize { get; set; } = 1.0f;
     
     private MeshInstance3D _meshInstance;
     private CollisionShape3D _collisionShape;
@@ -29,6 +30,7 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         _testTimer = GetNode<Timer>("TestTimer");
 
         _testTimer.Timeout += SetRunning;
+        
         UpdateSize();
     }
 
@@ -112,11 +114,8 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
     }
 
     public void SetColliderSize(float value) {
-        if (_collisionShape.GetShape().Duplicate() is SphereShape3D shape)
-        {
-            shape.Radius = Radius * value;
-            _collisionShape.Shape = shape;
-        }
+        ColliderSize = value;
+        UpdateSize();
     }
 
     public void Delete()
@@ -174,7 +173,7 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 
         if (_collisionShape.GetShape().Duplicate() is SphereShape3D shape)
         {
-            shape.Radius = Radius;
+            shape.Radius = Radius * ColliderSize;
             _collisionShape.Shape = shape;
         }
     }

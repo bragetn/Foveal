@@ -85,10 +85,10 @@ MovementTurn = NodePath("../RightHand/MovementTurn")
 
 [node name="MenuController" type="Node" parent="XROrigin3D" index="6" node_paths=PackedStringArray("PlayerMenu", "PlayerBody", "LeftHand")]
 script = ExtResource("6_dj6vh")
-MenuScale = 0.25
 PlayerMenu = NodePath("../LeftHand/PlayerMenu")
 PlayerBody = NodePath("../PlayerBody")
 LeftHand = NodePath("../LeftHand")
+MenuScale = 0.25
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_7id5q")
@@ -140,6 +140,7 @@ screen_size = Vector2(1.6, 0.4)
 scene = ExtResource("15_q2eiv")
 viewport_size = Vector2(400, 100)
 unshaded = true
+scene_properties_keys = PackedStringArray("PreviewTest")
 
 [node name="FileHandler" type="Node" parent="." index="7"]
 script = ExtResource("15_xj7uk")

@@ -81,8 +81,6 @@ public partial class FileHandler : Node
         {
             _targetBox.AddTarget(new Vector3(target.X, target.Y, target.Z), target.Radius, target.Delay);
         }
-
-        _targetBox.UpdateColliderSize();
     }
 
     private void RenameTestFileTo(string fileName, string newName)
