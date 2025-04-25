@@ -4,6 +4,8 @@ using Godot.Collections;
 
 public partial class EyeTracker : XRController3D
 {
+    [Signal] public delegate void GazeSampleEventHandler(Camera3D camera, Vector3 gazeRayRotation, Vector3 hitPoint);
+    
     [Export] public XRCamera3D Camera { get; set; }
     
     private Node3D _gazeDot;
@@ -27,6 +29,7 @@ public partial class EyeTracker : XRController3D
         {
             _prevGazeable?.OnGazeExit();
             _prevGazeable = null;
+            EmitSignal("GazeSample", Camera, viewDir.Normalized(), new Vector3(float.NaN, float.NaN, float.NaN));
             return;
         }
         
@@ -50,6 +53,13 @@ public partial class EyeTracker : XRController3D
             _prevGazeable?.OnGazeExit();
             _prevGazeable = null;
         }
+        
+        EmitSignal("GazeSample", Camera, viewDir.Normalized(), result["position"]);
+    }
+
+    public override void _ExitTree()
+    {
+        CoreRadio.Instance.ToggleGazeDot -= ToggleGazeDot;
     }
 
     private void ToggleGazeDot()

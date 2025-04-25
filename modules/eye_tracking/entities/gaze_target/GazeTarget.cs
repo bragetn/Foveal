@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 {
@@ -17,6 +18,9 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
     private bool _running;
     private bool _completed;
     private float _value;
+    
+    private Stopwatch _stopwatch;
+    private TimeSpan _timeBeforeSeen;
 
     private bool _isGrabbed;
     private float _pointerDistance;
@@ -50,6 +54,11 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         );
     }
 
+    public override void _ExitTree()
+    {
+        _testTimer.Timeout -= SetRunning;
+    }
+
     public void OnGazeExit()
     {
         if (_completed) return;
@@ -67,6 +76,7 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         {
             _value = GazeTime;
             _completed = true;
+            _timeBeforeSeen = _stopwatch.Elapsed;
             _meshInstance.SetInstanceShaderParameter("completed", true);
         }
         
@@ -127,8 +137,22 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         QueueFree();
     }
 
-    public void StartTest()
+    public GazeTargetData GetTargetData()
     {
+        return new GazeTargetData
+        {
+            X = Position.X,
+            Y = Position.Y,
+            Z = Position.Z,
+            Radius = Radius,
+            Delay = Delay,
+        };
+    }
+
+    public void StartTest(Stopwatch stopwatch)
+    {
+        _stopwatch = stopwatch;
+        
         Visible = false;
         _collisionShape.Disabled = true;
 
@@ -143,8 +167,15 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         }
     }
 
-    public void StopTest()
+    public TargetResultData StopTest()
     {
+        TargetResultData result = new TargetResultData
+        {
+            GazeTargetData = GetTargetData(),
+            HasBeenSeen = _completed,
+            TimeBeforeSeen = _completed ? _timeBeforeSeen : TimeSpan.Zero,
+        };
+        
         _running = false;
         Visible = true;
         _collisionShape.Disabled = false;
@@ -153,6 +184,8 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         _testTimer.Stop();
         _meshInstance.SetInstanceShaderParameter("completed", false);
         _meshInstance.SetInstanceShaderParameter("t", 0);
+        
+        return result;
     }
 
     private void SetRunning()

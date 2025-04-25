@@ -1,52 +1,75 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text.Json;
+using CsvHelper;
 
 public partial class FileHandler : Node
 {
-    const String DataPath = "data/eye_tracking/tests/";
+    const String TestDataPath = "data/eye_tracking/tests/";
+    const String ResultDataPath = "data/eye_tracking/results/";
     
-    public String FileName;
+    public String TestName;
+    
+    private GazeSampler _gazeSampler;
     private TargetBox _targetBox;
     private String _testData;
     
     public override void _Ready()
     {
+        _gazeSampler = GetNode<GazeSampler>("../XROrigin3D/GazeSampler");
         _targetBox = GetNode<TargetBox>("../TargetBox");
         
-        EyeTrackingRadio.Instance.ClearTargets += () => FileName = null;
+        EyeTrackingRadio.Instance.ClearTargets += OnClearTargets;
         EyeTrackingRadio.Instance.SaveTestFile += SaveTestFile;
+        EyeTrackingRadio.Instance.SaveTestResults += SaveTestResults;
         EyeTrackingRadio.Instance.LoadTestFile += LoadTestFile;
         EyeTrackingRadio.Instance.RenameTestFileTo += RenameTestFileTo;
         EyeTrackingRadio.Instance.DeleteTestFileForReal += DeleteTestFileForReal;
     }
 
+    public override void _ExitTree()
+    {
+        EyeTrackingRadio.Instance.ClearTargets -= OnClearTargets;
+        EyeTrackingRadio.Instance.SaveTestFile -= SaveTestFile;
+        EyeTrackingRadio.Instance.SaveTestResults -= SaveTestResults;
+        EyeTrackingRadio.Instance.LoadTestFile -= LoadTestFile;
+        EyeTrackingRadio.Instance.RenameTestFileTo -= RenameTestFileTo;
+        EyeTrackingRadio.Instance.DeleteTestFileForReal -= DeleteTestFileForReal;
+    }
+
+    private void OnClearTargets()
+    {
+        TestName = null;
+    }
+
     private void SaveTestFile(string fileName)
     {
-        if (string.IsNullOrEmpty(FileName))
+        if (string.IsNullOrEmpty(TestName))
         {
             if (string.IsNullOrEmpty(fileName))
             {
                 return;
             }
-            FileName = fileName;
+            TestName = fileName;
         }
         else
         {
             if (!string.IsNullOrEmpty(fileName))
             {
-                FileName = fileName;
+                TestName = fileName;
             }
         }
         
         GazeTestData data = new GazeTestData
         {
-            Name = FileName,
+            Name = TestName,
             GazeTime = _targetBox.GazeTime,
             ColliderSize = _targetBox.ColliderSize,
-            Targets = new List<GazeTargetData>{}
+            Targets = new List<GazeTargetData>()
         };
         
         foreach (var target in _targetBox.Targets)
@@ -62,17 +85,57 @@ public partial class FileHandler : Node
             data.Targets.Add(newTarget);
         }
         string jsonString = JsonSerializer.Serialize(data);
-        Directory.CreateDirectory(DataPath);
-        File.WriteAllText(DataPath + FileName + ".json", jsonString);
+        Directory.CreateDirectory(TestDataPath);
+        File.WriteAllText(TestDataPath + TestName + ".json", jsonString);
         _testData = jsonString;
+    }
+
+    private void SaveTestResults(string fileName)
+    {
+        string path = ResultDataPath + fileName + "/";
+        Directory.CreateDirectory(path);
+        
+        // Save Test Result
+
+        if (_targetBox != null)
+        {
+            TestResultData testResultData = _targetBox.GetTestResult();
+            if (testResultData == null)
+            {
+                GD.PrintErr("There is no test result");
+                return;
+            }
+            testResultData.TestName = TestName;
+            
+            string testResultJson = JsonSerializer.Serialize(testResultData);
+            File.WriteAllText(path + "test_result.json", testResultJson);
+        }
+        
+        // Save Gaze Samples
+
+        if (_gazeSampler != null)
+        {
+            List<GazeSampleEntry> gazeSamples = _gazeSampler.GetSamples();
+
+            if (gazeSamples.Count <= 0)
+            {
+                GD.PrintErr("There is no gaze samples");
+                return;
+            }
+
+            using StreamWriter writer = new StreamWriter(path + "gaze_samples.txt");
+            using CsvWriter csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+            csv.WriteRecords(gazeSamples);
+        }
+        
     }
 
     private void LoadTestFile(string fileName)
     {
         _targetBox.ClearTargets();
-        string loadedJson = File.ReadAllText(DataPath + fileName + ".json");
+        string loadedJson = File.ReadAllText(TestDataPath + fileName + ".json");
         GazeTestData loadedGazeTestData = JsonSerializer.Deserialize<GazeTestData>(loadedJson);
-        FileName = loadedGazeTestData.Name;
+        TestName = loadedGazeTestData.Name;
 
         _targetBox.GazeTime = loadedGazeTestData.GazeTime;
         _targetBox.ColliderSize = loadedGazeTestData.ColliderSize;
@@ -85,18 +148,18 @@ public partial class FileHandler : Node
 
     private void RenameTestFileTo(string fileName, string newName)
     {
-        if (FileName == fileName)
+        if (TestName == fileName)
         {
-            FileName = newName;
+            TestName = newName;
         }
         
-        string loadedJson = File.ReadAllText(DataPath + fileName + ".json");
+        string loadedJson = File.ReadAllText(TestDataPath + fileName + ".json");
         GazeTestData loadedGazeTestData = JsonSerializer.Deserialize<GazeTestData>(loadedJson);
         
         loadedGazeTestData.Name = newName;
         string jsonString = JsonSerializer.Serialize(loadedGazeTestData);
-        Directory.CreateDirectory(DataPath);
-        File.WriteAllText(DataPath + newName + ".json", jsonString);
+        Directory.CreateDirectory(TestDataPath);
+        File.WriteAllText(TestDataPath + newName + ".json", jsonString);
         _testData = jsonString;
         
         DeleteTestFileForReal(fileName);
@@ -104,6 +167,6 @@ public partial class FileHandler : Node
 
     private void DeleteTestFileForReal(string fileName)
     {
-        File.Delete(DataPath + fileName + ".json");
+        File.Delete(TestDataPath + fileName + ".json");
     }
 }

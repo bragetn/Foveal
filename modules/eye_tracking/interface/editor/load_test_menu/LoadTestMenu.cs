@@ -15,6 +15,8 @@ public partial class LoadTestMenu : Control
 
     public override void _Ready()
     {
+        EyeTrackingRadio.Instance.LoadTestsEditable += _initializeChildren;
+        
         _container = GetNode<Control>("ScrollContainer/MarginContainer/VBoxContainer");
         _testDataList = new List<GazeTestData>();
         foreach (string filePath in Directory.GetFiles(DataPath))
@@ -23,12 +25,22 @@ public partial class LoadTestMenu : Control
             GazeTestData loadedGazeTestData = JsonSerializer.Deserialize<GazeTestData>(loadedJson);
             _testDataList.Add(loadedGazeTestData);
         }
+    }
 
+    public override void _ExitTree()
+    {
+        EyeTrackingRadio.Instance.LoadTestsEditable -= _initializeChildren;
+    }
+
+    private void _initializeChildren(bool editable)
+    {
         foreach (GazeTestData testData in _testDataList)
         {
             GazeTestItem testItem = _gazeTestItemPackedScene.Instantiate<GazeTestItem>();
             testItem.TestData = testData;
+            testItem.Editable = editable;
             _container.AddChild(testItem);
         }
     }
+
 }

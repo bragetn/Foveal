@@ -26,43 +26,60 @@ public partial class MenuController : Node
         EyeTrackingRadio.Instance.ResetPlayerPosition += ResetPlayerPosition;
         EyeTrackingRadio.Instance.AssignTargetToMenu += AssignTargetToMenu;
         EyeTrackingRadio.Instance.ExitTargetMenu += ExitTargetMenu;
+        EyeTrackingRadio.Instance.LoadTestFile += OnLoadTestFile;
+        EyeTrackingRadio.Instance.ClearTargets += OnClearTargets;
+        EyeTrackingRadio.Instance.PreviewTest += OnPreviewTest;
 
         EyeTrackingRadio.Instance.EnterTestSettings += () => SetMenu(_testSettingsMenuScene);
         EyeTrackingRadio.Instance.ExitTestSettings += () => SetMenu(_playerMenuScene);
         
-        EyeTrackingRadio.Instance.LoadTestFile += name => SetMenu(_playerMenuScene);
-        EyeTrackingRadio.Instance.ClearTargets += () => SetMenu(_playerMenuScene);
-        
-        EyeTrackingRadio.Instance.PreviewTest += running =>
-        {
-            if (running)
-            {
-                _menuEnabled = false;
-                PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
-                PlayerMenu.Visible = false;
-            }
-            else
-            {
-                _menuEnabled = true;
-                
-                if (!_menuVisible)
-                {
-                    PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
-                    PlayerMenu.Visible = false;
-                    _menuVisible = false;
-                }
-                else
-                {
-                    PlayerMenu.ProcessMode = ProcessModeEnum.Inherit;
-                    PlayerMenu.Visible = true;
-                    _menuVisible = true;
-                }
-            }
-        };
-        
         SetMenu(_playerMenuScene);
         PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
         PlayerMenu.Visible = false;
+    }
+    
+    public override void _ExitTree()
+    {
+        LeftHand.ButtonPressed -= LeftHandButtonPressed;
+        CoreRadio.Instance.GrabEntered -= GrabEntered;
+        EyeTrackingRadio.Instance.ResetPlayerPosition -= ResetPlayerPosition;
+        EyeTrackingRadio.Instance.AssignTargetToMenu -= AssignTargetToMenu;
+        EyeTrackingRadio.Instance.ExitTargetMenu -= ExitTargetMenu;
+        EyeTrackingRadio.Instance.LoadTestFile -= OnLoadTestFile;
+        EyeTrackingRadio.Instance.ClearTargets -= OnClearTargets;
+        EyeTrackingRadio.Instance.PreviewTest -= OnPreviewTest;
+    }
+
+    private void OnPreviewTest(bool running)
+    {
+        if (running)
+        {
+            _menuEnabled = false;
+            PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
+            PlayerMenu.Visible = false;
+        }
+        else
+        {
+            _menuEnabled = true;
+                
+            if (!_menuVisible)
+            {
+                PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
+                PlayerMenu.Visible = false;
+                _menuVisible = false;
+            }
+            else
+            {
+                PlayerMenu.ProcessMode = ProcessModeEnum.Inherit;
+                PlayerMenu.Visible = true;
+                _menuVisible = true;
+            }
+        }
+    }
+
+    private void OnClearTargets()
+    {
+        SetMenu(_playerMenuScene);
     }
     
     private void LeftHandButtonPressed(string name)
@@ -122,7 +139,7 @@ public partial class MenuController : Node
     
     private void ResetPlayerPosition()
     {
-        PlayerBody.Call("teleport", new Transform3D(new Basis(Vector3.Up, Mathf.DegToRad(0)), new Vector3(0, 0, 0)));
+        PlayerBody.Call("teleport", new Transform3D(PlayerBody.GlobalTransform.Basis, Vector3.Zero));
     }
     
     private void ExitTargetMenu()
@@ -135,4 +152,10 @@ public partial class MenuController : Node
         if (!_menuEnabled) return;
         targetMenu.Target = _grabbedTarget;
     }
+    
+    private void OnLoadTestFile(string name)
+    {
+        SetMenu(_playerMenuScene);
+    }
+
 }
