@@ -8,7 +8,7 @@ public partial class EyeTrackingRadio : Node
     [Signal] public delegate void ChangePlayerDistanceEventHandler(float distance);
     [Signal] public delegate void AddTargetEventHandler();
     [Signal] public delegate void AssignTargetToMenuEventHandler(TargetMenu targetMenu);
-    [Signal] public delegate void AssignTargetBoxToMenuEventHandler(TestSettingsMenu settingsMenu);
+    [Signal] public delegate void AssignTargetBoxToMenuEventHandler(Control menu);
     [Signal] public delegate void ExitTargetMenuEventHandler();
     [Signal] public delegate void EnterTestSettingsEventHandler();
     [Signal] public delegate void ExitTestSettingsEventHandler();

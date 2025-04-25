@@ -3,7 +3,7 @@ using System;
 
 public partial class TestSettingsMenu : Control
 {
-    public TargetBox TBox { get; set; }
+    public TargetBox GazeTargetBox { get; set; }
 
     private Label _timeLabel;
     private Button _addTimeButton;
@@ -16,7 +16,7 @@ public partial class TestSettingsMenu : Control
     {
         EyeTrackingRadio.Instance.EmitSignal("AssignTargetBoxToMenu", this);
     }
-
+    
     public override void _Ready()
     {
         _timeLabel = GetNode<Label>("MarginContainer/VBoxContainer/TimeHBox/TimeLabel");
@@ -35,21 +35,21 @@ public partial class TestSettingsMenu : Control
 
     private void UpdateTime(bool sign)
     {
-        TBox.GazeTime += sign ? -0.5f : 0.5f;
-        TBox.GazeTime = MathF.Max(TBox.GazeTime, 0.0f);
-        TBox.UpdateGazeTime();
+        GazeTargetBox.GazeTime += sign ? -0.5f : 0.5f;
+        GazeTargetBox.GazeTime = MathF.Max(GazeTargetBox.GazeTime, 0.0f);
+        GazeTargetBox.UpdateGazeTime();
 
-        _timeLabel.Text = TBox.GazeTime.ToString("n2");
+        _timeLabel.Text = GazeTargetBox.GazeTime.ToString("n2");
     }
 
     private void UpdateColliderSize(double value)
     {
-        TBox.ColliderSize = (float) value;
-        TBox.UpdateColliderSize();
+        GazeTargetBox.ColliderSize = (float) value;
+        GazeTargetBox.UpdateColliderSize();
     }
 
     private void ToggleColliderVisualization()
     {
-        TBox.ToggleColliderVisualization();
+        GazeTargetBox.ToggleColliderVisualization();
     }
 }

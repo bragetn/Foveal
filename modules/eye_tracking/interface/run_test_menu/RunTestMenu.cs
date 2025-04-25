@@ -4,12 +4,15 @@ using System.Text.RegularExpressions;
 
 public partial class RunTestMenu : Control
 {
+    public TargetBox GazeTargetBox { get; set; }
+    
     private Button _runTestButton;
     private Button _openTestButton;
     private Button _toggleGazeDotButton;
     private Button _toggleColliderVisualizationButton;
     private Button _mainMenuButton;
     
+    private Panel _settingsPanel;
     private LineEdit _testNameEdit;
     private HSlider _distanceSlider;
     private HSlider _colliderSizeSlider;
@@ -25,12 +28,14 @@ public partial class RunTestMenu : Control
     
     public override void _Ready()
     {
+        EyeTrackingRadio.Instance.EmitSignal("AssignTargetBoxToMenu", this);
         _runTestButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/RunTestButton");
         _openTestButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/OpenTestButton");
         _toggleGazeDotButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/ToggleGazeDotButton");
         _toggleColliderVisualizationButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/ToggleColliderVisualizationButton");
         _mainMenuButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/MainMenuButton");
         
+        _settingsPanel = GetNode<Panel>("SettingsPanel");
         _gazeTimeEdit = GetNode<LineEdit>("SettingsPanel/MarginContainer/VBoxContainer/GazeTimeEdit");
         _distanceSlider = GetNode<HSlider>("SettingsPanel/MarginContainer/VBoxContainer/DistanceSlider");
         _colliderSizeSlider = GetNode<HSlider>("SettingsPanel/MarginContainer/VBoxContainer/ColliderSizeSlider");
@@ -56,20 +61,27 @@ public partial class RunTestMenu : Control
             _loadTestPanel.Visible = false;
             CoreRadio.Instance.EmitSignal("ToggleGazeDot");
         };
+        _toggleColliderVisualizationButton.Pressed += () => GazeTargetBox.ToggleColliderVisualization();
         _mainMenuButton.Pressed += () =>
         {
             CoreRadio.Instance.EmitSignal("LoadScene", "uid://bcskthtw74py2");
         };
         _gazeTimeEdit.TextChanged += text =>
         {
-            //if (float.TryParse(text, out float gazeTime))
-            //{
-            //    EyeTrackingRadio.Instance.EmitSignal("SetGazeTime", gazeTime);
-            //}
+            if (float.TryParse(text, out float gazeTime))
+            {
+                GazeTargetBox.GazeTime = gazeTime;
+                GazeTargetBox.UpdateGazeTime();
+            }
         };
         _distanceSlider.ValueChanged += value =>
         {
             EyeTrackingRadio.Instance.EmitSignal("ChangePlayerDistance", value);
+        };
+        _colliderSizeSlider.ValueChanged += value =>
+        {
+            GazeTargetBox.ColliderSize = (float) value;
+            GazeTargetBox.UpdateColliderSize();
         };
         _cancelButton.Pressed += () => _testResultPanel.Visible = false;
         _saveResultButton.Pressed += () =>
@@ -97,6 +109,8 @@ public partial class RunTestMenu : Control
 
     private void OnLoadTestFile(string name)
     {
+        _runTestButton.Disabled = false;
+        _settingsPanel.Visible = true;
         if (_running) ToggleRunning();
     }
 

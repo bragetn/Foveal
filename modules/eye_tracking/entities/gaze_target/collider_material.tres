@@ -6,7 +6,7 @@
 render_priority = 0
 shader = ExtResource("1_kit8s")
 shader_parameter/color = Color(0.8145, 0, 0.417226, 1)
-shader_parameter/grid_scale = 5
-shader_parameter/line_width = 0.1
+shader_parameter/grid_scale = 15
+shader_parameter/line_width = 0.075
 shader_parameter/collider_scale = 1.0
 shader_parameter/enabled = false

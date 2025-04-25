@@ -55,6 +55,7 @@ alignment = 1
 [node name="RunTestButton" type="Button" parent="HBoxContainer/MainPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+disabled = true
 text = "Start"
 
 [node name="OpenTestButton" type="Button" parent="HBoxContainer/MainPanel/MarginContainer/VBoxContainer"]
@@ -90,6 +91,7 @@ layout_mode = 1
 size_flags_vertical = 8
 
 [node name="SettingsPanel" type="Panel" parent="."]
+visible = false
 custom_minimum_size = Vector2(250, 200)
 layout_mode = 1
 anchors_preset = 3
@@ -207,7 +209,7 @@ text = "Lagre Test Resultater"
 
 [node name="TestNameEdit" type="LineEdit" parent="TestResultPanel/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-placeholder_text = "Testnavn"
+placeholder_text = "Filnavn"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TestResultPanel/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

@@ -139,9 +139,9 @@ public partial class TargetBox : Node3D
         _colliderMaterial.SetShaderParameter("enabled", VisualizeCollider);
     }
 
-    private void AssignTargetBoxToMenu(TestSettingsMenu settingsMenu)
+    private void AssignTargetBoxToMenu(Control menu)
     {
-        settingsMenu.TBox = this;
+        menu.Set("GazeTargetBox", this);
     }
 
     private void UpdateBoxScale()
