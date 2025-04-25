@@ -29,12 +29,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MenuPanel" type="Panel" parent="HBoxContainer"]
-custom_minimum_size = Vector2(250, 400)
+[node name="MainPanel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(250, 330)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MenuPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MainPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,45 +46,34 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MenuPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MainPanel/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="RunTestButton" type="Button" parent="HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
+[node name="RunTestButton" type="Button" parent="HBoxContainer/MainPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Start"
 
-[node name="OpenTestButton" type="Button" parent="HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
+[node name="OpenTestButton" type="Button" parent="HBoxContainer/MainPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Åpne test"
 
-[node name="ToggleGazeDotButton" type="Button" parent="HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
+[node name="ToggleGazeDotButton" type="Button" parent="HBoxContainer/MainPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Toggle gaze dot"
 
-[node name="GazeTimeEdit" type="LineEdit" parent="HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
+[node name="ToggleColliderVisualizationButton" type="Button" parent="HBoxContainer/MainPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-focus_mode = 1
-text = "0"
-placeholder_text = "Gazetime"
-max_length = 5
-emoji_menu_enabled = false
-virtual_keyboard_type = 3
+text = "Toggle Collider Visualization
+"
 
-[node name="DistanceSlider" type="HSlider" parent="HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-min_value = -3.0
-max_value = 3.0
-step = 0.1
-
-[node name="MainMenuButton" type="Button" parent="HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="HBoxContainer/MainPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Hovedmeny
@@ -99,6 +88,75 @@ size_flags_vertical = 8
 [node name="LoadTestMenu" parent="HBoxContainer/LoadTestPanel" instance=ExtResource("2_r723x")]
 layout_mode = 1
 size_flags_vertical = 8
+
+[node name="SettingsPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -299.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="GazeTimeLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Gaze Time"
+
+[node name="GazeTimeEdit" type="LineEdit" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 1
+text = "0"
+placeholder_text = "Gazetime"
+max_length = 5
+emoji_menu_enabled = false
+virtual_keyboard_type = 3
+
+[node name="DistanceLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Player Distance"
+
+[node name="DistanceSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+min_value = -3.0
+max_value = 3.0
+step = 0.1
+
+[node name="ColliderSizeLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Collider Size"
+
+[node name="ColliderSizeSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+min_value = 1.0
+max_value = 2.0
+step = 0.25
+value = 1.0
 
 [node name="TestResultPanel" type="Panel" parent="."]
 visible = false

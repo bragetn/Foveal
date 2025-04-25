@@ -4,34 +4,44 @@ using System.Text.RegularExpressions;
 
 public partial class RunTestMenu : Control
 {
-    private Button _openTestButton;
     private Button _runTestButton;
-    private Button _mainMenuButton;
+    private Button _openTestButton;
     private Button _toggleGazeDotButton;
+    private Button _toggleColliderVisualizationButton;
+    private Button _mainMenuButton;
+    
+    private LineEdit _testNameEdit;
+    private HSlider _distanceSlider;
+    private HSlider _colliderSizeSlider;
+    
     private Button _cancelButton;
     private Button _saveResultButton;
-    private HSlider _distanceSlider;
     private LineEdit _gazeTimeEdit;
-    private LineEdit _testNameEdit;
     private Panel _loadTestPanel;
     private Panel _testResultPanel;
+    
+    
     private bool _running = false;
     
     public override void _Ready()
     {
-        _openTestButton = GetNode<Button>("HBoxContainer/MenuPanel/MarginContainer/VBoxContainer/OpenTestButton");
-        _runTestButton = GetNode<Button>("HBoxContainer/MenuPanel/MarginContainer/VBoxContainer/RunTestButton");
-        _mainMenuButton = GetNode<Button>("HBoxContainer/MenuPanel/MarginContainer/VBoxContainer/MainMenuButton");
-        _toggleGazeDotButton = GetNode<Button>("HBoxContainer/MenuPanel/MarginContainer/VBoxContainer/ToggleGazeDotButton");
+        _runTestButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/RunTestButton");
+        _openTestButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/OpenTestButton");
+        _toggleGazeDotButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/ToggleGazeDotButton");
+        _toggleColliderVisualizationButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/ToggleColliderVisualizationButton");
+        _mainMenuButton = GetNode<Button>("HBoxContainer/MainPanel/MarginContainer/VBoxContainer/MainMenuButton");
+        
+        _gazeTimeEdit = GetNode<LineEdit>("SettingsPanel/MarginContainer/VBoxContainer/GazeTimeEdit");
+        _distanceSlider = GetNode<HSlider>("SettingsPanel/MarginContainer/VBoxContainer/DistanceSlider");
+        _colliderSizeSlider = GetNode<HSlider>("SettingsPanel/MarginContainer/VBoxContainer/ColliderSizeSlider");
+        
         _cancelButton = GetNode<Button>("TestResultPanel/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CancelButton");
         _saveResultButton = GetNode<Button>("TestResultPanel/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SaveButton");
-        _distanceSlider = GetNode<HSlider>("HBoxContainer/MenuPanel/MarginContainer/VBoxContainer/DistanceSlider");
         _testNameEdit = GetNode<LineEdit>("TestResultPanel/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TestNameEdit");
-        _gazeTimeEdit = GetNode<LineEdit>("HBoxContainer/MenuPanel/MarginContainer/VBoxContainer/GazeTimeEdit");
         _loadTestPanel = GetNode<Panel>("HBoxContainer/LoadTestPanel");
         _testResultPanel = GetNode<Panel>("TestResultPanel");
-        
-        EyeTrackingRadio.Instance.StartTest += () => _runTestButton.Disabled = false;
+
+        EyeTrackingRadio.Instance.StartTest += StartTest;
         EyeTrackingRadio.Instance.LoadTestFile += OnLoadTestFile;
         EyeTrackingRadio.Instance.EmitSignal("LoadTestsEditable", false);
         
@@ -74,7 +84,13 @@ public partial class RunTestMenu : Control
 
     public override void _ExitTree()
     {
+        EyeTrackingRadio.Instance.StartTest -= StartTest;
         EyeTrackingRadio.Instance.LoadTestFile -= OnLoadTestFile;
+    }
+    
+    private void StartTest()
+    {
+        _runTestButton.Disabled = false;
     }
 
     private void OnLoadTestFile(string name)
@@ -95,11 +111,14 @@ public partial class RunTestMenu : Control
             _runTestButton.Disabled = false;
             _openTestButton.Disabled = false;
             _toggleGazeDotButton.Disabled = false;
+            _toggleColliderVisualizationButton.Disabled = false;
+            _mainMenuButton.Disabled = false;
+            
             _gazeTimeEdit.Editable = true;
             _gazeTimeEdit.SelectingEnabled = true;
             _gazeTimeEdit.FocusMode = FocusModeEnum.Click;
             _distanceSlider.Editable = true;
-            _mainMenuButton.Disabled = false;
+            _colliderSizeSlider.Editable = true;
             
             EyeTrackingRadio.Instance.EmitSignal("StopTest");
         }
@@ -112,11 +131,14 @@ public partial class RunTestMenu : Control
             _runTestButton.Disabled = true;
             _openTestButton.Disabled = true;
             _toggleGazeDotButton.Disabled = true;
+            _toggleColliderVisualizationButton.Disabled = true;
+            _mainMenuButton.Disabled = true;
+            
             _gazeTimeEdit.Editable = false;
             _gazeTimeEdit.SelectingEnabled = false;
             _gazeTimeEdit.FocusMode = FocusModeEnum.None;
             _distanceSlider.Editable = false;
-            _mainMenuButton.Disabled = true;
+            _colliderSizeSlider.Editable = false;
             
             EyeTrackingRadio.Instance.EmitSignal("StartCountdownTimer", 3);
         }

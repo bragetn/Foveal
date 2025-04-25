@@ -37,6 +37,11 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         
         UpdateSize();
     }
+    
+    public override void _ExitTree()
+    {
+        _testTimer.Timeout -= SetRunning;
+    }
 
     public override void _PhysicsProcess(double delta)
     {
@@ -52,11 +57,6 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
             Mathf.Clamp(Position.Y, -Bounds.Y + Radius, Bounds.Y - Radius),
             Mathf.Clamp(Position.Z, -Bounds.Z + Radius, Bounds.Z - Radius)
         );
-    }
-
-    public override void _ExitTree()
-    {
-        _testTimer.Timeout -= SetRunning;
     }
 
     public void OnGazeExit()

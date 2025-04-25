@@ -16,6 +16,11 @@ public partial class EyeTracker : XRController3D
         _gazeDot = GetNode<Node3D>("GazeDot");
         CoreRadio.Instance.ToggleGazeDot += ToggleGazeDot;
     }
+    
+    public override void _ExitTree()
+    {
+        CoreRadio.Instance.ToggleGazeDot -= ToggleGazeDot;
+    }
 
     public override void _PhysicsProcess(double delta)
     {
@@ -55,11 +60,6 @@ public partial class EyeTracker : XRController3D
         }
         
         EmitSignal("GazeSample", Camera, viewDir.Normalized(), result["position"]);
-    }
-
-    public override void _ExitTree()
-    {
-        CoreRadio.Instance.ToggleGazeDot -= ToggleGazeDot;
     }
 
     private void ToggleGazeDot()

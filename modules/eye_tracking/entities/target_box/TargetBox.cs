@@ -65,6 +65,7 @@ public partial class TargetBox : Node3D
         EyeTrackingRadio.Instance.StartTest -= StartTest;
         EyeTrackingRadio.Instance.StopTest -= StopTest;
         EyeTrackingRadio.Instance.PreviewTest -= OnPreviewTest;
+        EyeTrackingRadio.Instance.AssignTargetBoxToMenu -= AssignTargetBoxToMenu;
     }
 
     private void AddRandomTarget()

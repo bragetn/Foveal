@@ -18,6 +18,11 @@ public partial class CountdownTimerMenu : Control
         EyeTrackingRadio.Instance.StartCountdownTimer += Start;
     }
 
+    public override void _ExitTree()
+    {
+        EyeTrackingRadio.Instance.StartCountdownTimer -= Start;
+    }
+
     private void Start(int seconds)
     {
         _counter = seconds;

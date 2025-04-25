@@ -29,9 +29,8 @@ public partial class MenuController : Node
         EyeTrackingRadio.Instance.LoadTestFile += OnLoadTestFile;
         EyeTrackingRadio.Instance.ClearTargets += OnClearTargets;
         EyeTrackingRadio.Instance.PreviewTest += OnPreviewTest;
-
-        EyeTrackingRadio.Instance.EnterTestSettings += () => SetMenu(_testSettingsMenuScene);
-        EyeTrackingRadio.Instance.ExitTestSettings += () => SetMenu(_playerMenuScene);
+        EyeTrackingRadio.Instance.EnterTestSettings += EnterTestSettings;
+        EyeTrackingRadio.Instance.ExitTestSettings += ExitTestSettings;
         
         SetMenu(_playerMenuScene);
         PlayerMenu.ProcessMode = ProcessModeEnum.Disabled;
@@ -48,6 +47,8 @@ public partial class MenuController : Node
         EyeTrackingRadio.Instance.LoadTestFile -= OnLoadTestFile;
         EyeTrackingRadio.Instance.ClearTargets -= OnClearTargets;
         EyeTrackingRadio.Instance.PreviewTest -= OnPreviewTest;
+        EyeTrackingRadio.Instance.EnterTestSettings -= EnterTestSettings;
+        EyeTrackingRadio.Instance.ExitTestSettings -= ExitTestSettings;
     }
 
     private void OnPreviewTest(bool running)
@@ -147,15 +148,24 @@ public partial class MenuController : Node
         SetMenu(_playerMenuScene);
     }
     
-    private void AssignTargetToMenu(TargetMenu targetMenu)
-    {
-        if (!_menuEnabled) return;
-        targetMenu.Target = _grabbedTarget;
-    }
-    
     private void OnLoadTestFile(string name)
     {
         SetMenu(_playerMenuScene);
     }
 
+    private void EnterTestSettings()
+    {
+        SetMenu(_testSettingsMenuScene);
+    }
+
+    private void ExitTestSettings()
+    {
+        SetMenu(_playerMenuScene);
+    }
+    
+    private void AssignTargetToMenu(TargetMenu targetMenu)
+    {
+        if (!_menuEnabled) return;
+        targetMenu.Target = _grabbedTarget;
+    }
 }
