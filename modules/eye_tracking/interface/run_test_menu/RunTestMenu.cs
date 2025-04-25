@@ -91,14 +91,33 @@ public partial class RunTestMenu : Control
             _running = false;
             _runTestButton.Text = "Start";
             _testResultPanel.Visible = true;
+            
+            _runTestButton.Disabled = false;
+            _openTestButton.Disabled = false;
+            _toggleGazeDotButton.Disabled = false;
+            _gazeTimeEdit.Editable = true;
+            _gazeTimeEdit.SelectingEnabled = true;
+            _gazeTimeEdit.FocusMode = FocusModeEnum.Click;
+            _distanceSlider.Editable = true;
+            _mainMenuButton.Disabled = false;
+            
             EyeTrackingRadio.Instance.EmitSignal("StopTest");
         }
         else
         {
             _running = true;
             _runTestButton.Text = "Avslutt";
-            _runTestButton.Disabled = true;
             _testResultPanel.Visible = false;
+            
+            _runTestButton.Disabled = true;
+            _openTestButton.Disabled = true;
+            _toggleGazeDotButton.Disabled = true;
+            _gazeTimeEdit.Editable = false;
+            _gazeTimeEdit.SelectingEnabled = false;
+            _gazeTimeEdit.FocusMode = FocusModeEnum.None;
+            _distanceSlider.Editable = false;
+            _mainMenuButton.Disabled = true;
+            
             EyeTrackingRadio.Instance.EmitSignal("StartCountdownTimer", 3);
         }
     }

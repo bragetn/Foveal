@@ -70,6 +70,7 @@ text = "Toggle gaze dot"
 [node name="GazeTimeEdit" type="LineEdit" parent="HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 1
 text = "0"
 placeholder_text = "Gazetime"
 max_length = 5
