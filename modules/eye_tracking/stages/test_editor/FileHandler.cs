@@ -139,6 +139,8 @@ public partial class FileHandler : Node
 
         _targetBox.GazeTime = loadedGazeTestData.GazeTime;
         _targetBox.ColliderSize = loadedGazeTestData.ColliderSize;
+        
+        EyeTrackingRadio.Instance.EmitSignal("SetTestParameters", loadedGazeTestData.GazeTime, loadedGazeTestData.ColliderSize);
 
         foreach (var target in loadedGazeTestData.Targets)
         {

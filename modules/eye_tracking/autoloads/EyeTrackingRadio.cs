@@ -34,6 +34,7 @@ public partial class EyeTrackingRadio : Node
     [Signal] public delegate void PreviewTestEventHandler(bool running);
     [Signal] public delegate void PreviewEndedEventHandler();
     [Signal] public delegate void StartCountdownTimerEventHandler(int seconds);
+    [Signal] public delegate void SetTestParametersEventHandler(float gazeTime, float colliderSize);
     
     public static EyeTrackingRadio Instance { get; private set; }
     

@@ -15,7 +15,7 @@ public partial class LoadTestMenu : Control
 
     public override void _Ready()
     {
-        EyeTrackingRadio.Instance.LoadTestsEditable += _initializeChildren;
+        EyeTrackingRadio.Instance.LoadTestsEditable += InitializeChildren;
         
         _container = GetNode<Control>("ScrollContainer/MarginContainer/VBoxContainer");
         _testDataList = new List<GazeTestData>();
@@ -29,10 +29,10 @@ public partial class LoadTestMenu : Control
 
     public override void _ExitTree()
     {
-        EyeTrackingRadio.Instance.LoadTestsEditable -= _initializeChildren;
+        EyeTrackingRadio.Instance.LoadTestsEditable -= InitializeChildren;
     }
 
-    private void _initializeChildren(bool editable)
+    private void InitializeChildren(bool editable)
     {
         foreach (GazeTestData testData in _testDataList)
         {

@@ -61,7 +61,9 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 
     public void OnGazeExit()
     {
+        if (!_running) return;
         if (_completed) return;
+        
         _value = 0.0f;
         _meshInstance.SetInstanceShaderParameter("t", 0.0f);
     }

@@ -43,6 +43,7 @@ public partial class RunTestMenu : Control
 
         EyeTrackingRadio.Instance.StartTest += StartTest;
         EyeTrackingRadio.Instance.LoadTestFile += OnLoadTestFile;
+        EyeTrackingRadio.Instance.SetTestParameters += SetTestParameters;
         EyeTrackingRadio.Instance.EmitSignal("LoadTestsEditable", false);
         
         _openTestButton.Pressed += () =>
@@ -86,6 +87,7 @@ public partial class RunTestMenu : Control
     {
         EyeTrackingRadio.Instance.StartTest -= StartTest;
         EyeTrackingRadio.Instance.LoadTestFile -= OnLoadTestFile;
+        EyeTrackingRadio.Instance.SetTestParameters -= SetTestParameters;
     }
     
     private void StartTest()
@@ -96,6 +98,12 @@ public partial class RunTestMenu : Control
     private void OnLoadTestFile(string name)
     {
         if (_running) ToggleRunning();
+    }
+
+    private void SetTestParameters(float gazeTime, float colliderSize)
+    {
+        _gazeTimeEdit.Text = gazeTime.ToString();
+        _colliderSizeSlider.Value = colliderSize;
     }
 
     private void ToggleRunning()
