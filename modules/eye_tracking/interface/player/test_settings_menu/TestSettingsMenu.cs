@@ -31,6 +31,9 @@ public partial class TestSettingsMenu : Control
         _sizeSlider.ValueChanged += UpdateColliderSize;
         _toggleButton.Pressed += ToggleColliderVisualization;
         _exitButton.Pressed += () => EyeTrackingRadio.Instance.EmitSignal("ExitTestSettings");
+        
+        _timeLabel.Text = GazeTargetBox.GazeTime.ToString("n2");
+        _sizeSlider.Value = GazeTargetBox.ColliderSize;
     }
 
     private void UpdateTime(bool sign)
