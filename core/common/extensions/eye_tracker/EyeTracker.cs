@@ -5,9 +5,15 @@ using Godot.Collections;
 public partial class EyeTracker : XRController3D
 {
     [Signal] public delegate void GazeSampleEventHandler(Camera3D camera, Vector3 gazeRayRotation, Vector3 hitPoint);
-    
-    [Export] public XRCamera3D Camera { get; set; }
+
+    [Export] public bool Enabled { get; set; } = true;
     [Export] public float RayLength { get; set; } = 100.0f;
+    [Export] public XRCamera3D Camera { get; set; }
+    
+    [ExportGroup("Gaze Dot")]
+    [Export] public bool ShowGazeDot { get; set; } = true;
+    [Export] public float GazeDotDistance { get; set; } = 10.0f;
+    [Export] public float GazeDotRadius { get; set; } = 0.025f;
     
     private Node3D _gazeDot;
     private IGazeable _prevGazeable;
@@ -15,6 +21,17 @@ public partial class EyeTracker : XRController3D
     public override void _Ready()
     {
         _gazeDot = GetNode<Node3D>("GazeDot");
+        _gazeDot.Visible = ShowGazeDot;
+        _gazeDot.Position = new Vector3(0, 0, -GazeDotDistance);
+        
+        if (_gazeDot is MeshInstance3D meshInstance)
+        {
+            if (meshInstance.Mesh is QuadMesh quadMesh)
+            {
+                quadMesh.Size = Vector2.One * GazeDotRadius;
+            }
+        }
+        
         CoreRadio.Instance.ToggleGazeDot += ToggleGazeDot;
     }
     

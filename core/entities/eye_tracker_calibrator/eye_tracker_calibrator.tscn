@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://j43jwpyjj8vx"]
+
+[ext_resource type="Script" uid="uid://cgc3mvyx8i4he" path="res://core/entities/eye_tracker_calibrator/EyeTrackerCalibrator.cs" id="1_hknju"]
+[ext_resource type="Shader" uid="uid://wvwxjxm7ylu5" path="res://core/entities/eye_tracker_calibrator/calibration_frame.gdshader" id="2_otl35"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1opm5"]
+render_priority = 0
+shader = ExtResource("2_otl35")
+shader_parameter/line_width = 0.025
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_hknju"]
+material = SubResource("ShaderMaterial_1opm5")
+size = Vector2(4, 3)
+
+[sub_resource type="SphereMesh" id="SphereMesh_at77n"]
+radius = 0.125
+height = 0.25
+
+[node name="EyeTrackerCalibrator" type="Node3D"]
+script = ExtResource("1_hknju")
+FrameSize = Vector2(5.945, 3.415)
+FrameDistance = 2.38
+
+[node name="CalibrationFrame" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_hknju")
+
+[node name="CalibratorDot" type="MeshInstance3D" parent="CalibrationFrame"]
+mesh = SubResource("SphereMesh_at77n")
+skeleton = NodePath("../..")
