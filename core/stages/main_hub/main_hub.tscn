@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_5vbp8"]
 [ext_resource type="Texture2D" uid="uid://cw30trkhjgwuh" path="res://core/assets/skybox/skybox.hdr" id="2_5vbp8"]
-[ext_resource type="PackedScene" uid="uid://bhhwl1c052tya" path="res://core/interface/main_menu/main_menu.tscn" id="3_5vbp8"]
+[ext_resource type="PackedScene" uid="uid://bhhwl1c052tya" path="res://core/ui/main_menu/main_menu.tscn" id="3_5vbp8"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_h16oy"]
 panorama = ExtResource("2_5vbp8")

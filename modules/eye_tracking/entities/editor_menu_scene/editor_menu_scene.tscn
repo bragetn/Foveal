@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cmcvjf80wpvgw" path="res://modules/eye_tracking/entities/editor_menu_scene/EditorMenuScene.cs" id="1_33lj0"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_xlcqh"]
-[ext_resource type="PackedScene" uid="uid://2yvsq8eb04nt" path="res://modules/eye_tracking/interface/editor/editor_menu/editor_menu.tscn" id="3_ojlk2"]
+[ext_resource type="PackedScene" uid="uid://2yvsq8eb04nt" path="res://modules/eye_tracking/ui/editor/editor_menu/editor_menu.tscn" id="3_ojlk2"]
 [ext_resource type="PackedScene" uid="uid://dgdb1texynduw" path="res://addons/godot-xr-tools/objects/virtual_keyboard.tscn" id="4_6k5bb"]
 
 [node name="EditorMenuScene" type="Node3D"]

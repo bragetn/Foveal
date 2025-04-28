@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhhwl1c052tya"]
+
+[ext_resource type="Theme" uid="uid://bwg1dpg6kww6v" path="res://core/assets/themes/menu_theme.tres" id="1_1vrja"]
+[ext_resource type="Script" uid="uid://bxrqhqbdrv2xd" path="res://core/ui/main_menu/MainMenu.cs" id="1_4csak"]
+[ext_resource type="PackedScene" uid="uid://scoafeh8eoef" path="res://modules/eye_tracking/ui/module_menu/module_menu.tscn" id="1_7mj28"]
+[ext_resource type="Texture2D" uid="uid://enbjm6y5rpx4" path="res://core/assets/icons/settings.svg" id="3_ovpse"]
+[ext_resource type="Script" uid="uid://cqiswduehuq77" path="res://core/common/data_models/ModuleResource.cs" id="4_b1f3f"]
+
+[sub_resource type="Resource" id="Resource_my24q"]
+script = ExtResource("4_b1f3f")
+ModuleName = "Eye Tracking"
+ModuleMenuScene = ExtResource("1_7mj28")
+metadata/_custom_type_script = "uid://cqiswduehuq77"
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1vrja")
+script = ExtResource("1_4csak")
+Modules = [SubResource("Resource_my24q")]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ModulesContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="Panel" parent="MarginContainer/HBoxContainer/ModulesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/ModulesContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/ModulesContainer/ColorRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ModulesHeader" type="Label" parent="MarginContainer/HBoxContainer/ModulesContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Moduler"
+
+[node name="ModulesScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/ModulesContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ModulesVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/ModulesContainer/ColorRect/MarginContainer/VBoxContainer/ModulesScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/HBoxContainer/ModulesContainer/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_constants/h_separation = 15
+text = "Instillinger"
+icon = ExtResource("3_ovpse")
+alignment = 0
+
+[node name="MenuContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuPanel" type="Panel" parent="MarginContainer/HBoxContainer/MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MenuContainer/MenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.980181, 0.198102, 0, -0.198102, 0.980181, 0, 1.5137, 2.35624)
