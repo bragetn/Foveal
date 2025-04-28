@@ -37,7 +37,5 @@ size = Vector2i(1145, 650)
 
 [node name="EyeTrackerCalibrator" parent="." index="3" node_paths=PackedStringArray("Camera", "HandController") instance=ExtResource("5_bmhke")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, -3)
-FrameSize = Vector2(4, 3)
-FrameDistance = 3.0
 Camera = NodePath("../XROrigin3D/XRCamera3D")
 HandController = NodePath("../XROrigin3D/RightHand")
