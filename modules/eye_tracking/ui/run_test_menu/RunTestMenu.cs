@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 
 public partial class RunTestMenu : Control
 {
+    [Export] public bool DesktopView { get; set; }
     public TargetBox GazeTargetBox { get; set; }
     
     private Button _runTestButton;
@@ -22,7 +23,8 @@ public partial class RunTestMenu : Control
     private LineEdit _gazeTimeEdit;
     private Panel _loadTestPanel;
     private Panel _testResultPanel;
-    
+
+    private Panel _adminModePanel;
     
     private bool _running = false;
     
@@ -45,15 +47,20 @@ public partial class RunTestMenu : Control
         _testNameEdit = GetNode<LineEdit>("TestResultPanel/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TestNameEdit");
         _loadTestPanel = GetNode<Panel>("HBoxContainer/LoadTestPanel");
         _testResultPanel = GetNode<Panel>("TestResultPanel");
+        
+        _adminModePanel = GetNode<Panel>("AdminModePanel");
 
         EyeTrackingRadio.Instance.StartTest += StartTest;
+        EyeTrackingRadio.Instance.StopTest += OnStopTest;
+        EyeTrackingRadio.Instance.StartCountdownTimer += OnStartCountDownTimer;
         EyeTrackingRadio.Instance.LoadTestFile += OnLoadTestFile;
         EyeTrackingRadio.Instance.SetTestParameters += SetTestParameters;
+        CoreRadio.Instance.ToggleAdminMode += ToggleAdmin;
         EyeTrackingRadio.Instance.EmitSignal("LoadTestsEditable", false);
         
         _openTestButton.Pressed += () =>
         {
-            _loadTestPanel.Visible = true;
+            _loadTestPanel.Visible = !_loadTestPanel.Visible;
         };
         _runTestButton.Pressed += ToggleRunning;
         _toggleGazeDotButton.Pressed += () =>
@@ -61,13 +68,19 @@ public partial class RunTestMenu : Control
             _loadTestPanel.Visible = false;
             CoreRadio.Instance.EmitSignal("ToggleGazeDot");
         };
-        _toggleColliderVisualizationButton.Pressed += () => GazeTargetBox.ToggleColliderVisualization();
+        _toggleColliderVisualizationButton.Pressed += () =>
+        {
+            _loadTestPanel.Visible = false;
+            GazeTargetBox.ToggleColliderVisualization();
+        };
         _mainMenuButton.Pressed += () =>
         {
+            _loadTestPanel.Visible = false;
             CoreRadio.Instance.EmitSignal("LoadScene", "uid://bcskthtw74py2");
         };
         _gazeTimeEdit.TextChanged += text =>
         {
+            _loadTestPanel.Visible = false;
             if (float.TryParse(text, out float gazeTime))
             {
                 GazeTargetBox.GazeTime = gazeTime;
@@ -76,10 +89,12 @@ public partial class RunTestMenu : Control
         };
         _distanceSlider.ValueChanged += value =>
         {
+            _loadTestPanel.Visible = false;
             EyeTrackingRadio.Instance.EmitSignal("ChangePlayerDistance", value);
         };
         _colliderSizeSlider.ValueChanged += value =>
         {
+            _loadTestPanel.Visible = false;
             GazeTargetBox.ColliderSize = (float) value;
             GazeTargetBox.UpdateColliderSize();
         };
@@ -93,13 +108,18 @@ public partial class RunTestMenu : Control
                 _testNameEdit.Text = "";
             }
         };
+        
+        ToggleAdmin();
     }
 
     public override void _ExitTree()
     {
         EyeTrackingRadio.Instance.StartTest -= StartTest;
+        EyeTrackingRadio.Instance.StopTest -= OnStopTest;
+        EyeTrackingRadio.Instance.StartCountdownTimer -= OnStartCountDownTimer;
         EyeTrackingRadio.Instance.LoadTestFile -= OnLoadTestFile;
         EyeTrackingRadio.Instance.SetTestParameters -= SetTestParameters;
+        CoreRadio.Instance.ToggleAdminMode -= ToggleAdmin;
     }
     
     private void StartTest()
@@ -126,43 +146,67 @@ public partial class RunTestMenu : Control
 
         if (_running)
         {
-            _running = false;
-            _runTestButton.Text = "Start";
-            _testResultPanel.Visible = true;
-            
-            _runTestButton.Disabled = false;
-            _openTestButton.Disabled = false;
-            _toggleGazeDotButton.Disabled = false;
-            _toggleColliderVisualizationButton.Disabled = false;
-            _mainMenuButton.Disabled = false;
-            
-            _gazeTimeEdit.Editable = true;
-            _gazeTimeEdit.SelectingEnabled = true;
-            _gazeTimeEdit.FocusMode = FocusModeEnum.Click;
-            _distanceSlider.Editable = true;
-            _colliderSizeSlider.Editable = true;
-            
             EyeTrackingRadio.Instance.EmitSignal("StopTest");
         }
         else
         {
-            _running = true;
-            _runTestButton.Text = "Avslutt";
-            _testResultPanel.Visible = false;
-            
-            _runTestButton.Disabled = true;
-            _openTestButton.Disabled = true;
-            _toggleGazeDotButton.Disabled = true;
-            _toggleColliderVisualizationButton.Disabled = true;
-            _mainMenuButton.Disabled = true;
-            
-            _gazeTimeEdit.Editable = false;
-            _gazeTimeEdit.SelectingEnabled = false;
-            _gazeTimeEdit.FocusMode = FocusModeEnum.None;
-            _distanceSlider.Editable = false;
-            _colliderSizeSlider.Editable = false;
-            
             EyeTrackingRadio.Instance.EmitSignal("StartCountdownTimer", 3);
+        }
+    }
+
+    private void OnStopTest()
+    {
+        _running = false;
+        _runTestButton.Text = "Start";
+        
+        _testResultPanel.Visible = true;
+            
+        _runTestButton.Disabled = false;
+        _openTestButton.Disabled = false;
+        _toggleGazeDotButton.Disabled = false;
+        _toggleColliderVisualizationButton.Disabled = false;
+        _mainMenuButton.Disabled = false;
+            
+        _gazeTimeEdit.Editable = true;
+        _gazeTimeEdit.SelectingEnabled = true;
+        _gazeTimeEdit.FocusMode = FocusModeEnum.Click;
+        _distanceSlider.Editable = true;
+        _colliderSizeSlider.Editable = true;
+
+        if (DesktopView && CoreRadio.Instance.AdminMode)
+        {
+            _testResultPanel.Visible = false;
+        }
+    }
+
+    private void OnStartCountDownTimer(int seconds)
+    {
+        _running = true;
+        _runTestButton.Text = "Avslutt";
+        _testResultPanel.Visible = false;
+            
+        _runTestButton.Disabled = true;
+        _openTestButton.Disabled = true;
+        _toggleGazeDotButton.Disabled = true;
+        _toggleColliderVisualizationButton.Disabled = true;
+        _mainMenuButton.Disabled = true;
+            
+        _gazeTimeEdit.Editable = false;
+        _gazeTimeEdit.SelectingEnabled = false;
+        _gazeTimeEdit.FocusMode = FocusModeEnum.None;
+        _distanceSlider.Editable = false;
+        _colliderSizeSlider.Editable = false;
+    }
+
+    private void ToggleAdmin()
+    {
+        if (DesktopView && CoreRadio.Instance.AdminMode)
+        {
+            _adminModePanel.Visible = true;
+        }
+        else if (!_running)
+        {
+            _adminModePanel.Visible = false;
         }
     }
     

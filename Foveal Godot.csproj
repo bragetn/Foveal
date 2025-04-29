@@ -9,5 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="core\common\extensions\gaze_sampler\" />
+    <Folder Include="core\stages\main_hub\" />
   </ItemGroup>
 </Project>
