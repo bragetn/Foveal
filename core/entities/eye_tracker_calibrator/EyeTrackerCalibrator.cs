@@ -19,6 +19,7 @@ public partial class EyeTrackerCalibrator : Node3D
 
     private MeshInstance3D _calibrationFrame;
     private MeshInstance3D _calibrationDot;
+    private Node3D _tutorial;
     
     private List<Vector3> _calibrationPoints;
 
@@ -29,6 +30,7 @@ public partial class EyeTrackerCalibrator : Node3D
     {
         _calibrationFrame = GetNode<MeshInstance3D>("CalibrationFrame");
         _calibrationDot = GetNode<MeshInstance3D>("CalibrationFrame/CalibrationDot");
+        _tutorial = GetNode<Node3D>("CalibrationFrame/Viewport2Din3D");
         
         HandController.ButtonPressed += HandButtonPressed;
 
@@ -68,6 +70,7 @@ public partial class EyeTrackerCalibrator : Node3D
     {
         _enabled = true;
         _calibrationFrame.Visible = true;
+        _tutorial.Visible = true;
         _calibrationFrame.SetInstanceShaderParameter("enabled", true);
         UpdateFrameSize();
     }
@@ -102,6 +105,7 @@ public partial class EyeTrackerCalibrator : Node3D
             _running = true;
             _calibrationPoints = GenerateCalibrationPoints();
             _calibrationFrame.SetInstanceShaderParameter("enabled", false);
+            _tutorial.Visible = false;
             _calibrationDot.Visible = true;
             Calibrate(0);
         }

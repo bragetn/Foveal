@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dqmqidvmdye1w"]
 
-[ext_resource type="Script" uid="uid://bwn15e4curl1j" path="res://core/entities/AdminController.cs" id="1_r83mq"]
+[ext_resource type="Script" uid="uid://bwn15e4curl1j" path="res://core/entities/admin_controller/AdminController.cs" id="1_r83mq"]
 
 [node name="AdminController" type="Node"]
 script = ExtResource("1_r83mq")

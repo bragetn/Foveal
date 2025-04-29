@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="7_i1d0i"]
 [ext_resource type="PackedScene" uid="uid://scoafeh8eoef" path="res://modules/eye_tracking/ui/module_menu/module_menu.tscn" id="8_710nj"]
 [ext_resource type="Script" uid="uid://cqiswduehuq77" path="res://core/common/data_models/ModuleResource.cs" id="9_7xj1l"]
-[ext_resource type="PackedScene" uid="uid://dqmqidvmdye1w" path="res://core/entities/AdminController.tscn" id="10_i1d0i"]
+[ext_resource type="PackedScene" uid="uid://dqmqidvmdye1w" path="res://core/entities/admin_controller/admin_controller.tscn" id="10_i1d0i"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_h16oy"]
 panorama = ExtResource("2_5vbp8")

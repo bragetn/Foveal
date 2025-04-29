@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://j43jwpyjj8vx"]
+[gd_scene load_steps=9 format=3 uid="uid://j43jwpyjj8vx"]
 
 [ext_resource type="Script" uid="uid://cgc3mvyx8i4he" path="res://core/entities/eye_tracker_calibrator/EyeTrackerCalibrator.cs" id="1_hknju"]
 [ext_resource type="Shader" uid="uid://wvwxjxm7ylu5" path="res://core/entities/eye_tracker_calibrator/calibration_frame.gdshader" id="2_otl35"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_4ge47"]
+[ext_resource type="PackedScene" uid="uid://g26lxoas218b" path="res://core/entities/eye_tracker_calibrator/calibration_tutorial.tscn" id="4_y3s2h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1opm5"]
 render_priority = 0
@@ -33,3 +35,10 @@ mesh = SubResource("QuadMesh_hknju")
 visible = false
 mesh = SubResource("SphereMesh_at77n")
 skeleton = NodePath("../..")
+
+[node name="Viewport2Din3D" parent="CalibrationFrame" instance=ExtResource("3_4ge47")]
+visible = false
+collision_layer = 0
+scene = ExtResource("4_y3s2h")
+viewport_size = Vector2(1152, 648)
+unshaded = true

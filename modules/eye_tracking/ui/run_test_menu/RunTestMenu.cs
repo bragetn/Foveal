@@ -173,7 +173,7 @@ public partial class RunTestMenu : Control
         _distanceSlider.Editable = true;
         _colliderSizeSlider.Editable = true;
 
-        if (DesktopView && CoreRadio.Instance.AdminMode)
+        if ((DesktopView && CoreRadio.Instance.AdminMode) || (!DesktopView && !CoreRadio.Instance.AdminMode))
         {
             _testResultPanel.Visible = false;
         }
