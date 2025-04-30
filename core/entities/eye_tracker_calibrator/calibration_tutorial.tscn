@@ -16,8 +16,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 22
-text = "Set view frame using Right Stick
+text = "Juster posisjon og størrelse av sirkelen
+ved bruk av venstre og høyre kontroller
 
-Press A to start callibration"
+Trykk \"A\" for å starte kalibrasjonen"
 horizontal_alignment = 1
 vertical_alignment = 1
