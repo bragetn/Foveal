@@ -3,11 +3,13 @@ using System;
 
 public partial class AdminController : Node
 {
-    
     [Export] public XRController3D HandController { get; set; }
     [Export] public Node3D Menu { get; set; }
     [Export] public Node3D Keyboard { get; set; }
     [Export] public Node3D Pointer { get; set; }
+
+    private int pressCounter = 0;
+    
     public override void _Ready()
     {
         HandController.ButtonPressed += HandButtonPressed;
@@ -24,7 +26,28 @@ public partial class AdminController : Node
     {
         if (name == "by_button")
         {
-            CoreRadio.Instance.EmitSignal("ToggleAdminMode");
+            if (pressCounter == 0)
+            {
+                Timer timer = new Timer();
+                timer.OneShot = true;
+                timer.WaitTime = 0.7f;
+                timer.Timeout += () =>
+                {
+                    pressCounter = 0;
+                    RemoveChild(timer);
+                    timer.QueueFree();
+                };
+                AddChild(timer);
+                timer.Start();
+            }
+            
+            pressCounter++;
+            
+            if (pressCounter == 3)
+            {
+                pressCounter = 0;
+                CoreRadio.Instance.EmitSignal("ToggleAdminMode");
+            }
         }
     }
 

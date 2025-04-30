@@ -6,6 +6,7 @@ public partial class EyeTrackerCalibrator : Node3D
 {
     [ExportGroup("Calibration Frame")]
     [Export] public Vector2 FrameSize { get; set; } = new Vector2(4, 3);
+    [Export] public Vector2 FramePosition { get; set; } = new Vector2(0, 0);
     [Export] public float FrameDistance { get; set; } = 3.0f;
     [Export] public float FrameChangeSpeed { get; set; } = 0.25f;
     
@@ -15,7 +16,8 @@ public partial class EyeTrackerCalibrator : Node3D
     
     [ExportGroup("Assign")]
     [Export] public Camera3D Camera { get; set; }
-    [Export] public XRController3D HandController { get; set; }
+    [Export] public XRController3D RightHandController { get; set; }
+    [Export] public XRController3D LeftHandController { get; set; }
 
     private MeshInstance3D _calibrationFrame;
     private MeshInstance3D _calibrationDot;
@@ -32,7 +34,7 @@ public partial class EyeTrackerCalibrator : Node3D
         _calibrationDot = GetNode<MeshInstance3D>("CalibrationFrame/CalibrationDot");
         _tutorial = GetNode<Node3D>("CalibrationFrame/Viewport2Din3D");
         
-        HandController.ButtonPressed += HandButtonPressed;
+        RightHandController.ButtonPressed += RightHandButtonPressed;
 
         CoreRadio.Instance.CalibrateEyeTracker += EnableCalibrator;
     }
@@ -59,10 +61,14 @@ public partial class EyeTrackerCalibrator : Node3D
         
         if (_running) return;
         
-        Vector2 primaryInput = HandController.GetVector2("primary");
+        Vector2 rightPrimaryInput = RightHandController.GetVector2("primary");
+        Vector2 leftPrimaryInput = RightHandController.GetVector2("primary");
         
-        FrameSize += FrameSize * FrameChangeSpeed * primaryInput * (float) delta;
+        FrameSize += FrameSize * FrameChangeSpeed * rightPrimaryInput * (float) delta;
         FrameSize = FrameSize.Clamp(Vector2.One * 2.5f, Vector2.One * 8.0f);
+        
+        FramePosition += FramePosition * FrameChangeSpeed * leftPrimaryInput * (float) delta;
+        FramePosition = FramePosition.Clamp(Vector2.One * 10.0f, Vector2.One * 10.0f);
         UpdateFrameSize();
     }
 
@@ -98,7 +104,7 @@ public partial class EyeTrackerCalibrator : Node3D
         }
     }
 
-    private void HandButtonPressed(string name)
+    private void RightHandButtonPressed(string name)
     {
         if (name == "ax_button")
         {

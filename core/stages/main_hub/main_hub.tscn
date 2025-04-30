@@ -50,10 +50,9 @@ size = Vector2i(1145, 650)
 
 [node name="MainMenu" parent="SubViewport" index="0" instance=ExtResource("3_5vbp8")]
 
-[node name="EyeTrackerCalibrator" parent="." index="3" node_paths=PackedStringArray("Camera", "HandController") instance=ExtResource("5_bmhke")]
+[node name="EyeTrackerCalibrator" parent="." index="3" node_paths=PackedStringArray("Camera") instance=ExtResource("5_bmhke")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, -3)
 Camera = NodePath("../XROrigin3D/XRCamera3D")
-HandController = NodePath("../XROrigin3D/RightHand")
 
 [node name="Viewport2Din3D" parent="." index="4" instance=ExtResource("7_i1d0i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11096, -3.74771)
