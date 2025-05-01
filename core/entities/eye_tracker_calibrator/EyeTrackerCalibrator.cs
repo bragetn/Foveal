@@ -97,6 +97,7 @@ public partial class EyeTrackerCalibrator : Node3D
         points.Add(Vector3.Zero);
         points.Add(Vector3.Up * (FrameSize.Y / 2.0f - DotRadius - 0.1f));
         points.Add(Vector3.Down * (FrameSize.Y / 2.0f - DotRadius - 0.1f));
+        points.Add(Vector3.Zero);
         points.Add(Vector3.Left * (FrameSize.X / 2.0f - DotRadius - 0.1f));
         points.Add(Vector3.Right * (FrameSize.X / 2.0f - DotRadius - 0.1f));
         points.Add(new Vector3((-FrameSize.X / 2.0f) * 0.68f + DotRadius, (FrameSize.Y / 2.0f) * 0.68f - DotRadius, 0.0f));
@@ -130,7 +131,18 @@ public partial class EyeTrackerCalibrator : Node3D
             _eyeTrackerSamples = new List<Vector3>();
             _eyeTrackerTargets = new List<Vector3>();
             
-            SampleCalibrationPoint(0);
+            Timer timer = new Timer();
+            timer.OneShot = true;
+            timer.WaitTime = 1.0f;
+            timer.Timeout += () =>
+            {
+                MoveCalibrationDot(1);
+                RemoveChild(timer);
+                timer.QueueFree();
+            };
+            
+            AddChild(timer);
+            timer.Start();
         }
     }
 
@@ -184,6 +196,9 @@ public partial class EyeTrackerCalibrator : Node3D
                 ETracker.Calibrate(_eyeTrackerSamples, _eyeTrackerTargets);
                 _calibrationDot.Visible = false;
                 _running = false;
+                
+                RemoveChild(timer);
+                timer.QueueFree();
             };
         }
         
