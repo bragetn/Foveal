@@ -1,8 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://d1tqqk3ddggtd"]
+[gd_scene load_steps=16 format=3 uid="uid://d1tqqk3ddggtd"]
 
 [ext_resource type="Theme" uid="uid://b26dx2omna2g4" path="res://modules/eye_tracking/assets/themes/player_menu_theme.tres" id="1_2sfxc"]
 [ext_resource type="Script" uid="uid://com1raenw06dc" path="res://modules/eye_tracking/ui/player/target_menu/TargetMenu.cs" id="1_yem0h"]
 [ext_resource type="Texture2D" uid="uid://cwup5a0qcgb0r" path="res://icon.svg" id="2_fv1ya"]
+[ext_resource type="Texture2D" uid="uid://bfqudipmgll48" path="res://modules/eye_tracking/assets/sprites/left_sphere.png" id="4_2i48d"]
+[ext_resource type="Texture2D" uid="uid://d0tplus0dewjy" path="res://modules/eye_tracking/assets/sprites/full_sphere.png" id="5_dvt4u"]
+[ext_resource type="Texture2D" uid="uid://naecmjp6pus" path="res://modules/eye_tracking/assets/sprites/right_sphere.png" id="6_0bcsm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drqdu"]
 bg_color = Color(0.121569, 0.121569, 0.152941, 1)
@@ -143,27 +146,36 @@ custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/outline_size = 35
+theme_override_constants/icon_max_width = 100
 theme_override_font_sizes/font_size = 32
-text = "Placeholder
-Value"
+icon = ExtResource("4_2i48d")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Type0Button" type="Button" parent="MarginContainer/VBoxContainer/TypeHBox"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/outline_size = 35
+theme_override_constants/icon_max_width = 100
+theme_override_font_sizes/font_size = 32
+icon = ExtResource("5_dvt4u")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Type2Button" type="Button" parent="MarginContainer/VBoxContainer/TypeHBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/outline_size = 35
+theme_override_constants/icon_max_width = 100
 theme_override_font_sizes/font_size = 32
-text = "Placeholder
-Value"
-
-[node name="Type3Button" type="Button" parent="MarginContainer/VBoxContainer/TypeHBox"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 32
-text = "Placeholder
-Value"
+icon = ExtResource("6_0bcsm")
+icon_alignment = 1
+expand_icon = true
 
 [node name="DeleteTargetButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)

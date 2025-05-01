@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://dp3o3tn18hrba" path="res://modules/eye_tracking/entities/gaze_target/collider_shader.gdshader" id="1_kit8s"]
 
 [resource]
-render_priority = 0
+render_priority = 10
 shader = ExtResource("1_kit8s")
 shader_parameter/color = Color(0.8145, 0, 0.417226, 1)
 shader_parameter/grid_scale = 15

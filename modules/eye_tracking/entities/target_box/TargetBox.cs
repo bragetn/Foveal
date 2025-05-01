@@ -87,12 +87,13 @@ public partial class TargetBox : Node3D
         AddChild(target);
     }
     
-    public void AddTarget(Vector3 targetPosition, float targetRadius, float targetDelay)
+    public void AddTarget(Vector3 targetPosition, float targetRadius, float targetDelay, int targetType)
     {
         GazeTarget target = TargetScene.Instantiate<GazeTarget>();
         target.Position = targetPosition;
         target.Radius = targetRadius;
         target.Delay = targetDelay;
+        target.Type = targetType;
         target.GazeTime = GazeTime;
         target.Bounds = _halfScale;
         target.ColliderSize = ColliderSize;

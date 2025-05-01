@@ -74,15 +74,7 @@ public partial class FileHandler : Node
         
         foreach (var target in _targetBox.Targets)
         {
-            GazeTargetData newTarget = new GazeTargetData
-            {
-                X = target.Position.X,
-                Y = target.Position.Y,
-                Z = target.Position.Z,
-                Radius = target.Radius,
-                Delay = target.Delay,
-            };
-            data.Targets.Add(newTarget);
+            data.Targets.Add(target.GetTargetData());
         }
         string jsonString = JsonSerializer.Serialize(data);
         Directory.CreateDirectory(TestDataPath);
@@ -145,7 +137,7 @@ public partial class FileHandler : Node
 
         foreach (var target in loadedGazeTestData.Targets)
         {
-            _targetBox.AddTarget(new Vector3(target.X, target.Y, target.Z), target.Radius, target.Delay);
+            _targetBox.AddTarget(new Vector3(target.X, target.Y, target.Z), target.Radius, target.Delay, target.Type);
         }
     }
 

@@ -7,11 +7,16 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
     [Export] public float GazeTime { get; set; }
     [Export] public float Radius { get; set; }
     [Export] public float Delay { get; set; }
+    [Export] public int Type { get; set; }
     
     public Vector3 Bounds { get; set; }
     public float ColliderSize { get; set; } = 1.0f;
+
+    private Mesh _fullSphereMesh = GD.Load<Mesh>("uid://bai0bfv38awv2");
+    private Mesh _halfSphereMesh = GD.Load<Mesh>("uid://bsd21byed4y24");
     
-    private MeshInstance3D _meshInstance;
+    private MeshInstance3D _targetMeshInstance;
+    private MeshInstance3D _colliderMeshInstance;
     private CollisionShape3D _collisionShape;
     private Timer _testTimer;
 
@@ -29,13 +34,14 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 
     public override void _Ready()
     {
-        _meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
+        _targetMeshInstance = GetNode<MeshInstance3D>("TargetMeshInstance3D");
+        _colliderMeshInstance = GetNode<MeshInstance3D>("ColliderMeshInstance3D");
         _collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
         _testTimer = GetNode<Timer>("TestTimer");
 
         _testTimer.Timeout += SetRunning;
         
-        UpdateSize();
+        UpdateGazeTarget();
     }
     
     public override void _ExitTree()
@@ -65,7 +71,7 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         if (_completed) return;
         
         _value = 0.0f;
-        _meshInstance.SetInstanceShaderParameter("t", 0.0f);
+        _targetMeshInstance.SetInstanceShaderParameter("t", 0.0f);
     }
 
     public void OnGazeStay(double delta)
@@ -79,12 +85,12 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
             _value = GazeTime;
             _completed = true;
             _timeBeforeSeen = _stopwatch.Elapsed;
-            _meshInstance.SetInstanceShaderParameter("completed", true);
+            _targetMeshInstance.SetInstanceShaderParameter("completed", true);
         }
         
         if (GazeTime > 0.0f)
         {
-            _meshInstance.SetInstanceShaderParameter("t", _value / GazeTime);
+            _targetMeshInstance.SetInstanceShaderParameter("t", _value / GazeTime);
         }
     }
     
@@ -122,12 +128,18 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         // t ∈ [0.0, 1.0]
         // radius(t) = 0.1 * 2^(2t)
         Radius = 0.1f * MathF.Pow(2, value * 1.5f);
-        UpdateSize();
+        UpdateGazeTarget();
     }
 
     public void SetColliderSize(float value) {
         ColliderSize = value;
-        UpdateSize();
+        UpdateGazeTarget();
+    }
+
+    public void SetType(int value)
+    {
+        Type = value;
+        UpdateGazeTarget();
     }
 
     public void Delete()
@@ -148,6 +160,7 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
             Z = Position.Z,
             Radius = Radius,
             Delay = Delay,
+            Type = Type,
         };
     }
 
@@ -184,8 +197,8 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         _value = 0.0f;
         _completed = false;
         _testTimer.Stop();
-        _meshInstance.SetInstanceShaderParameter("completed", false);
-        _meshInstance.SetInstanceShaderParameter("t", 0);
+        _targetMeshInstance.SetInstanceShaderParameter("completed", false);
+        _targetMeshInstance.SetInstanceShaderParameter("t", 0);
         
         return result;
     }
@@ -197,13 +210,29 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         _collisionShape.Disabled = false;
     }
 
-    private void UpdateSize()
+    private void UpdateGazeTarget()
     {
-        if (_meshInstance.GetMesh().Duplicate() is SphereMesh mesh)
+        _targetMeshInstance.Scale = Vector3.One * Radius * 2.0f;
+        _colliderMeshInstance.Scale = Vector3.One * Radius * 2.0f;
+        
+        if (_targetMeshInstance != null)
         {
-            mesh.Radius = Radius;
-            mesh.Height = Radius * 2.0f;
-            _meshInstance.Mesh = mesh;
+            switch (Type)
+            {
+                case 0:
+                    _targetMeshInstance.Mesh = _fullSphereMesh;
+                    break;
+                case 1:
+                    _targetMeshInstance.Mesh = _halfSphereMesh;
+                    _targetMeshInstance.Scale = new Vector3(-1, 1, 1) * Radius * 2.0f;
+                    break;
+                case 2:
+                    _targetMeshInstance.Mesh = _halfSphereMesh;
+                    break;
+                default:
+                    _targetMeshInstance.Mesh = _fullSphereMesh;
+                    break;
+            }
         }
 
         if (_collisionShape.GetShape().Duplicate() is SphereShape3D shape)
