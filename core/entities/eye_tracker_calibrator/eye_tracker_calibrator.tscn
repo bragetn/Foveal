@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://j43jwpyjj8vx"]
+[gd_scene load_steps=9 format=3 uid="uid://j43jwpyjj8vx"]
 
 [ext_resource type="Script" uid="uid://cgc3mvyx8i4he" path="res://core/entities/eye_tracker_calibrator/EyeTrackerCalibrator.cs" id="1_hknju"]
 [ext_resource type="Shader" uid="uid://wvwxjxm7ylu5" path="res://core/entities/eye_tracker_calibrator/calibration_frame.gdshader" id="2_otl35"]
@@ -23,16 +23,6 @@ material = SubResource("StandardMaterial3D_4ge47")
 radius = 0.05
 height = 0.1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jaitd"]
-no_depth_test = true
-shading_mode = 0
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_at77n"]
-material = SubResource("StandardMaterial3D_jaitd")
-radius = 0.05
-height = 0.1
-
 [node name="EyeTrackerCalibrator" type="Node3D"]
 script = ExtResource("1_hknju")
 
@@ -53,7 +43,3 @@ collision_layer = 0
 scene = ExtResource("4_y3s2h")
 viewport_size = Vector2(1152, 648)
 unshaded = true
-
-[node name="DebugDot" type="MeshInstance3D" parent="CalibrationFrame"]
-visible = false
-mesh = SubResource("SphereMesh_at77n")

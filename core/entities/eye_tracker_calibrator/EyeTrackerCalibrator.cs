@@ -26,8 +26,6 @@ public partial class EyeTrackerCalibrator : Node3D
     private MeshInstance3D _calibrationFrame;
     private MeshInstance3D _calibrationDot;
     private Node3D _tutorial;
-    
-    private MeshInstance3D _debugDot;
 
     private List<Vector3> _calibrationPoints;
     private List<Vector3> _eyeTrackerEntries;
@@ -42,8 +40,6 @@ public partial class EyeTrackerCalibrator : Node3D
         _calibrationFrame = GetNode<MeshInstance3D>("CalibrationFrame");
         _calibrationDot = GetNode<MeshInstance3D>("CalibrationFrame/CalibrationDot");
         _tutorial = GetNode<Node3D>("CalibrationFrame/Viewport2Din3D");
-        
-        _debugDot = GetNode<MeshInstance3D>("CalibrationFrame/DebugDot");
 
         RightHandController.ButtonPressed += RightHandButtonPressed;
 
@@ -155,9 +151,6 @@ public partial class EyeTrackerCalibrator : Node3D
         
         _eyeTrackerTargets.Add(Camera.GlobalBasis.Inverse() * (_calibrationDot.GlobalPosition - Camera.GlobalPosition).Normalized());
         _eyeTrackerSamples.Add(sum.Normalized());
-        
-        // _debugDot.GlobalPosition = Camera.GlobalPosition + Camera.GlobalBasis * sum.Normalized() * 5;
-        
         _eyeTrackerEntries.Clear();
     }
 
@@ -187,11 +180,10 @@ public partial class EyeTrackerCalibrator : Node3D
         {
             timer.Timeout += () =>
             {
-                GD.Print("Calibration done");
                 ETracker.GazeSample -= HandleEyeTrackerEntry;
-                _calibrationDot.Visible = false;
-                
                 ETracker.Calibrate(_eyeTrackerSamples, _eyeTrackerTargets);
+                _calibrationDot.Visible = false;
+                _running = false;
             };
         }
         

@@ -1,13 +1,17 @@
 using Godot;
-using System;
-using System.Collections.Generic;
 using Godot.Collections;
+using System.IO;
+using System.Text.Json;
+using System.Collections.Generic;
+using System.Linq;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Factorization;
 using MathNet.Numerics.LinearAlgebra.Single;
 
 public partial class EyeTracker : XRController3D
 {
+    const string CALIBRATION_PATH = "data/core/calibration.json";
+    
     [Signal] public delegate void GazeSampleEventHandler(Camera3D camera, Vector3 gazeRayRotation, Vector3 hitPoint);
 
     [Export] public bool Enabled { get; set; } = true;
@@ -40,6 +44,8 @@ public partial class EyeTracker : XRController3D
         }
         
         CoreRadio.Instance.ToggleGazeDot += ToggleGazeDot;
+        
+        LoadCalibration(CALIBRATION_PATH);
     }
     
     public override void _ExitTree()
@@ -134,6 +140,7 @@ public partial class EyeTracker : XRController3D
         }
 
         _calibrated = true;
+        SaveCalibration(CALIBRATION_PATH);
     }
     
     private Vector3 CorrectViewDir(Vector3 viewDir)
@@ -145,6 +152,44 @@ public partial class EyeTracker : XRController3D
         Vector3 correctedLocal = new Vector3(corrected[0], corrected[1], corrected[2]).Normalized();
         
         return Camera.GlobalBasis * correctedLocal;
+    }
+    
+    private void SaveCalibration(string path)
+    {
+        if (!_calibrated || _rotationMatrix == null)
+        {
+            GD.PrintErr("Calibration has not been done");
+            return;
+        }
+
+        float[][] matrixData = new float[3][];
+        for (int i = 0; i < 3; i++)
+        {
+            matrixData[i] = new float[3];
+            for (int j = 0; j < 3; j++)
+                matrixData[i][j] = _rotationMatrix[i, j];
+        }
+
+        string json = JsonSerializer.Serialize(matrixData, new JsonSerializerOptions { WriteIndented = true });
+        Directory.CreateDirectory(Path.GetDirectoryName(path));
+        File.WriteAllText(path, json);
+    }
+    
+    private void LoadCalibration(string path)
+    {
+        if (!File.Exists(path)) return;
+
+        string json = File.ReadAllText(path);
+        float[][] matrixData = JsonSerializer.Deserialize<float[][]>(json);
+
+        if (matrixData.Length != 3 || matrixData.Any(row => row.Length != 3))
+        {
+            GD.PrintErr("Invalid matrix data");
+            return;
+        }
+
+        _rotationMatrix = DenseMatrix.Create(3, 3, (i, j) => matrixData[i][j]);
+        _calibrated = true;
     }
 
 
