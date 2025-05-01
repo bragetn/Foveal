@@ -34,6 +34,12 @@ public partial class LoadTestMenu : Control
 
     private void InitializeChildren(bool editable)
     {
+        foreach (Node child in _container.GetChildren())
+        {
+            _container.RemoveChild(child);
+            child.QueueFree();
+        }
+        
         foreach (GazeTestData testData in _testDataList)
         {
             GazeTestItem testItem = _gazeTestItemPackedScene.Instantiate<GazeTestItem>();

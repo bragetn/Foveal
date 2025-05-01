@@ -158,10 +158,10 @@ public partial class EyeTrackerCalibrator : Node3D
     {
         Timer timer = new Timer();
         timer.OneShot = true;
-        timer.WaitTime = 1.0f;
+        timer.WaitTime = 2.0f;
         AddChild(timer);
-
-        ETracker.GazeSample += HandleEyeTrackerEntry;
+        
+        DelaySampling(0.75f);
 
         if (i < _calibrationPoints.Count - 1)
         {
@@ -188,6 +188,12 @@ public partial class EyeTrackerCalibrator : Node3D
         }
         
         timer.Start();
+    }
+
+    private async void DelaySampling(float seconds)
+    {
+        await ToSignal(GetTree().CreateTimer(seconds), "timeout");
+        ETracker.GazeSample += HandleEyeTrackerEntry;
     }
 
     private void MoveCalibrationDot(int i)

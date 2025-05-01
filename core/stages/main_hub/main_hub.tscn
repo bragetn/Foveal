@@ -38,6 +38,7 @@ enabled = false
 [node name="EyeTracker" parent="XROrigin3D" index="3" node_paths=PackedStringArray("Camera") instance=ExtResource("2_h16oy")]
 Enabled = false
 Camera = NodePath("../XRCamera3D")
+ShowGazeDot = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_bmhke")
