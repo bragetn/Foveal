@@ -1,9 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce5n050wc588g"]
+[gd_scene load_steps=7 format=3 uid="uid://ce5n050wc588g"]
 
 [ext_resource type="Script" uid="uid://cpj8itlmivt2p" path="res://modules/eye_tracking/entities/gaze_target/GazeTarget.cs" id="1_ref4b"]
 [ext_resource type="Material" uid="uid://bubrshfvrabhd" path="res://modules/eye_tracking/entities/gaze_target/collider_material.tres" id="2_6c3i8"]
 [ext_resource type="Material" uid="uid://clso2br4rvb7g" path="res://modules/eye_tracking/entities/gaze_target/gaze_target_material.tres" id="2_ojfxn"]
 [ext_resource type="ArrayMesh" uid="uid://b02wcophph3fq" path="res://modules/eye_tracking/entities/gaze_target/full_sphere.obj" id="4_oto0y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojfxn"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ref4b"]
 radius = 0.2
@@ -12,14 +17,20 @@ radius = 0.2
 collision_layer = 1049600
 script = ExtResource("1_ref4b")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="TargetMeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 material_override = ExtResource("2_ojfxn")
+mesh = ExtResource("4_oto0y")
+
+[node name="ColliderMeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ojfxn")
 material_overlay = ExtResource("2_6c3i8")
 mesh = ExtResource("4_oto0y")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ref4b")
+debug_fill = false
 
 [node name="TestTimer" type="Timer" parent="."]
 process_callback = 0

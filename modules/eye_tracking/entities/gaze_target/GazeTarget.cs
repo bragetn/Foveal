@@ -15,7 +15,8 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
     private Mesh _fullSphereMesh = GD.Load<Mesh>("uid://bai0bfv38awv2");
     private Mesh _halfSphereMesh = GD.Load<Mesh>("uid://bsd21byed4y24");
     
-    private MeshInstance3D _meshInstance;
+    private MeshInstance3D _targetMeshInstance;
+    private MeshInstance3D _colliderMeshInstance;
     private CollisionShape3D _collisionShape;
     private Timer _testTimer;
 
@@ -33,7 +34,8 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 
     public override void _Ready()
     {
-        _meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
+        _targetMeshInstance = GetNode<MeshInstance3D>("TargetMeshInstance3D");
+        _colliderMeshInstance = GetNode<MeshInstance3D>("ColliderMeshInstance3D");
         _collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
         _testTimer = GetNode<Timer>("TestTimer");
 
@@ -69,7 +71,7 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         if (_completed) return;
         
         _value = 0.0f;
-        _meshInstance.SetInstanceShaderParameter("t", 0.0f);
+        _targetMeshInstance.SetInstanceShaderParameter("t", 0.0f);
     }
 
     public void OnGazeStay(double delta)
@@ -83,12 +85,12 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
             _value = GazeTime;
             _completed = true;
             _timeBeforeSeen = _stopwatch.Elapsed;
-            _meshInstance.SetInstanceShaderParameter("completed", true);
+            _targetMeshInstance.SetInstanceShaderParameter("completed", true);
         }
         
         if (GazeTime > 0.0f)
         {
-            _meshInstance.SetInstanceShaderParameter("t", _value / GazeTime);
+            _targetMeshInstance.SetInstanceShaderParameter("t", _value / GazeTime);
         }
     }
     
@@ -195,8 +197,8 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
         _value = 0.0f;
         _completed = false;
         _testTimer.Stop();
-        _meshInstance.SetInstanceShaderParameter("completed", false);
-        _meshInstance.SetInstanceShaderParameter("t", 0);
+        _targetMeshInstance.SetInstanceShaderParameter("completed", false);
+        _targetMeshInstance.SetInstanceShaderParameter("t", 0);
         
         return result;
     }
@@ -210,25 +212,25 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
 
     private void UpdateGazeTarget()
     {
-        if (_meshInstance != null)
+        _targetMeshInstance.Scale = Vector3.One * Radius * 2.0f;
+        _colliderMeshInstance.Scale = Vector3.One * Radius * 2.0f;
+        
+        if (_targetMeshInstance != null)
         {
             switch (Type)
             {
                 case 0:
-                    _meshInstance.Mesh = _fullSphereMesh;
-                    _meshInstance.Scale = Vector3.One * Radius * 2.0f;
+                    _targetMeshInstance.Mesh = _fullSphereMesh;
                     break;
                 case 1:
-                    _meshInstance.Mesh = _halfSphereMesh;
-                    _meshInstance.Scale = new Vector3(-1, 1, 1) * Radius * 2.0f;
+                    _targetMeshInstance.Mesh = _halfSphereMesh;
+                    _targetMeshInstance.Scale = new Vector3(-1, 1, 1) * Radius * 2.0f;
                     break;
                 case 2:
-                    _meshInstance.Mesh = _halfSphereMesh;
-                    _meshInstance.Scale = Vector3.One * Radius * 2.0f;
+                    _targetMeshInstance.Mesh = _halfSphereMesh;
                     break;
                 default:
-                    _meshInstance.Mesh = _fullSphereMesh;
-                    _meshInstance.Scale = Vector3.One * Radius * 2.0f;
+                    _targetMeshInstance.Mesh = _fullSphereMesh;
                     break;
             }
         }
