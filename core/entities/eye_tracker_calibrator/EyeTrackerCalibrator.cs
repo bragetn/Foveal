@@ -103,14 +103,10 @@ public partial class EyeTrackerCalibrator : Node3D
         points.Add(Vector3.Down * (FrameSize.Y / 2.0f - DotRadius - 0.1f));
         points.Add(Vector3.Left * (FrameSize.X / 2.0f - DotRadius - 0.1f));
         points.Add(Vector3.Right * (FrameSize.X / 2.0f - DotRadius - 0.1f));
-        points.Add(new Vector3((-FrameSize.X / 2.0f) * 0.68f + DotRadius, (FrameSize.Y / 2.0f) * 0.68f - DotRadius,
-            0.0f));
-        points.Add(new Vector3((-FrameSize.X / 2.0f) * 0.68f + DotRadius, (-FrameSize.Y / 2.0f) * 0.68f + DotRadius,
-            0.0f));
-        points.Add(
-            new Vector3((FrameSize.X / 2.0f) * 0.68f - DotRadius, (FrameSize.Y / 2.0f) * 0.68f - DotRadius, 0.0f));
-        points.Add(new Vector3((FrameSize.X / 2.0f) * 0.68f - DotRadius, (-FrameSize.Y / 2.0f) * 0.68f + DotRadius,
-            0.0f));
+        points.Add(new Vector3((-FrameSize.X / 2.0f) * 0.68f + DotRadius, (FrameSize.Y / 2.0f) * 0.68f - DotRadius, 0.0f));
+        points.Add(new Vector3((-FrameSize.X / 2.0f) * 0.68f + DotRadius, (-FrameSize.Y / 2.0f) * 0.68f + DotRadius, 0.0f));
+        points.Add(new Vector3((FrameSize.X / 2.0f) * 0.68f - DotRadius, (FrameSize.Y / 2.0f) * 0.68f - DotRadius, 0.0f));
+        points.Add(new Vector3((FrameSize.X / 2.0f) * 0.68f - DotRadius, (-FrameSize.Y / 2.0f) * 0.68f + DotRadius, 0.0f));
         return points;
     }
 
@@ -138,7 +134,7 @@ public partial class EyeTrackerCalibrator : Node3D
             _eyeTrackerSamples = new List<Vector3>();
             _eyeTrackerTargets = new List<Vector3>();
             
-            Calibrate(0);
+            SampleCalibrationPoint(0);
         }
     }
 
@@ -165,7 +161,7 @@ public partial class EyeTrackerCalibrator : Node3D
         _eyeTrackerEntries.Clear();
     }
 
-    private void Calibrate(int i)
+    private void SampleCalibrationPoint(int i)
     {
         Timer timer = new Timer();
         timer.OneShot = true;
@@ -179,8 +175,8 @@ public partial class EyeTrackerCalibrator : Node3D
             timer.Timeout += () =>
             {
                 ETracker.GazeSample -= HandleEyeTrackerEntry;
-                GenerateSample();
                 
+                GenerateSample();
                 MoveCalibrationDot(i + 1);
                 
                 RemoveChild(timer);
@@ -194,6 +190,8 @@ public partial class EyeTrackerCalibrator : Node3D
                 GD.Print("Calibration done");
                 ETracker.GazeSample -= HandleEyeTrackerEntry;
                 _calibrationDot.Visible = false;
+                
+                ETracker.Calibrate(_eyeTrackerSamples, _eyeTrackerTargets);
             };
         }
         
@@ -206,6 +204,6 @@ public partial class EyeTrackerCalibrator : Node3D
         
         Tween tween = CreateTween();
         tween.TweenProperty(_calibrationDot, "position", _calibrationPoints[i], t);
-        tween.TweenCallback(Callable.From(() => Calibrate(i)));
+        tween.TweenCallback(Callable.From(() => SampleCalibrationPoint(i)));
     }
 }
