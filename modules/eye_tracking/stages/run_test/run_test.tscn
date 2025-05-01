@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://c0c1k3sfkkta4"]
+[gd_scene load_steps=24 format=3 uid="uid://c0c1k3sfkkta4"]
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_tpk51"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="2_vrkii"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_6jtwq"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="3_8fov7"]
 [ext_resource type="PackedScene" uid="uid://bmgc7qlit8rsa" path="res://core/common/extensions/eye_tracker/eye_tracker.tscn" id="5_0tvwn"]
 [ext_resource type="PackedScene" uid="uid://cit0vptuxn1cv" path="res://core/common/extensions/gaze_sampler/gaze_sampler.tscn" id="5_ijqlh"]
@@ -10,9 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://cw30trkhjgwuh" path="res://core/assets/skybox/skybox.hdr" id="7_44lo7"]
 [ext_resource type="PackedScene" uid="uid://dnxmh5pikkt3m" path="res://modules/eye_tracking/entities/target_box/target_box.tscn" id="8_0tvwn"]
 [ext_resource type="Script" uid="uid://bjucwoxdhqwa2" path="res://modules/eye_tracking/stages/test_editor/FileHandler.cs" id="9_odnva"]
-[ext_resource type="PackedScene" uid="uid://dkjyrf4bgbw6w" path="res://modules/eye_tracking/interface/run_test_menu/run_test_menu.tscn" id="9_vg00v"]
+[ext_resource type="PackedScene" uid="uid://dkjyrf4bgbw6w" path="res://modules/eye_tracking/ui/run_test_menu/run_test_menu.tscn" id="9_vg00v"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="12_xk0po"]
-[ext_resource type="PackedScene" uid="uid://byexnenghk6ds" path="res://modules/eye_tracking/interface/countdown_timer_menu/countdown_timer_menu.tscn" id="13_eyf54"]
+[ext_resource type="PackedScene" uid="uid://byexnenghk6ds" path="res://modules/eye_tracking/ui/countdown_timer_menu/countdown_timer_menu.tscn" id="13_eyf54"]
+[ext_resource type="PackedScene" uid="uid://dqmqidvmdye1w" path="res://core/entities/admin_controller/admin_controller.tscn" id="15_i0x5k"]
+[ext_resource type="PackedScene" uid="uid://dgdb1texynduw" path="res://addons/godot-xr-tools/objects/virtual_keyboard.tscn" id="16_bwai3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0tvwn"]
 panorama = ExtResource("7_44lo7")
@@ -48,6 +51,8 @@ size = Vector3(7, 1, 7)
 [node name="MovementTurn" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("2_vrkii")]
 turn_mode = 1
 step_turn_angle = 30.0
+
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" instance=ExtResource("3_6jtwq")]
 
 [node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("3_8fov7")]
 collision_mask = 3071
@@ -112,6 +117,7 @@ initial_position = 1
 size = Vector2i(1145, 650)
 
 [node name="RunTestMenu" parent="SubViewport" index="0" instance=ExtResource("9_vg00v")]
+DesktopView = true
 
 [node name="CountdownTimerViewport" parent="." index="7" instance=ExtResource("12_xk0po")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00647831, 1.5, -5.00064)
@@ -119,3 +125,20 @@ collision_layer = 0
 scene = ExtResource("13_eyf54")
 viewport_size = Vector2(600, 400)
 scene_properties_keys = PackedStringArray("CountdownTimerMenu")
+
+[node name="Viewport2Din3D" parent="." index="8" instance=ExtResource("12_xk0po")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.74844, -5.32513)
+scene = ExtResource("9_vg00v")
+viewport_size = Vector2(1152, 648)
+unshaded = true
+scene_properties_keys = PackedStringArray("RunTestMenu", "DesktopView")
+DesktopView = false
+
+[node name="AdminController" parent="." index="9" node_paths=PackedStringArray("HandController", "Menu", "Keyboard", "Pointer") instance=ExtResource("15_i0x5k")]
+HandController = NodePath("../XROrigin3D/RightHand")
+Menu = NodePath("../Viewport2Din3D")
+Keyboard = NodePath("../VirtualKeyboard")
+Pointer = NodePath("../XROrigin3D/RightHand/FunctionPointer")
+
+[node name="VirtualKeyboard" parent="." index="10" instance=ExtResource("16_bwai3")]
+transform = Transform3D(1, 0, 0, 0, 0.603277, 0.797531, 0, -0.797531, 0.603277, 0.0119336, 0.0418785, -4.45437)

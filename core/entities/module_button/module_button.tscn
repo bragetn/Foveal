@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1trqh82qsub5"]
+
+[ext_resource type="StyleBox" uid="uid://cat8h1kf1fg58" path="res://core/entities/module_button/module_button_normal.tres" id="1_hrr3h"]
+
+[node name="ModuleButton" type="Button"]
+custom_minimum_size = Vector2(0, 100)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/normal = ExtResource("1_hrr3h")
+text = "Placeholder Text"

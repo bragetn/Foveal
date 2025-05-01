@@ -14,7 +14,7 @@
 [ext_resource type="Shader" uid="uid://brq6fbyudbflp" path="res://core/common/shaders/checkerboard.gdshader" id="11_n42i5"]
 [ext_resource type="PackedScene" uid="uid://dnxmh5pikkt3m" path="res://modules/eye_tracking/entities/target_box/target_box.tscn" id="13_dj6vh"]
 [ext_resource type="PackedScene" uid="uid://c8smj86fbqvtq" path="res://modules/eye_tracking/entities/editor_menu_scene/editor_menu_scene.tscn" id="15_gdtd6"]
-[ext_resource type="PackedScene" uid="uid://6a4j1x4tkiet" path="res://modules/eye_tracking/interface/preview_test/preview_test.tscn" id="15_q2eiv"]
+[ext_resource type="PackedScene" uid="uid://6a4j1x4tkiet" path="res://modules/eye_tracking/ui/preview_test/preview_test.tscn" id="15_q2eiv"]
 [ext_resource type="Script" uid="uid://bjucwoxdhqwa2" path="res://modules/eye_tracking/stages/test_editor/FileHandler.cs" id="15_xj7uk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uahf1"]

@@ -18,5 +18,5 @@ pose = &"eye_gaze"
 script = ExtResource("1_awqxp")
 
 [node name="GazeDot" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+visible = false
 mesh = SubResource("QuadMesh_21k70")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://byexnenghk6ds"]
+
+[ext_resource type="Script" uid="uid://c48uywtwxqeij" path="res://modules/eye_tracking/ui/countdown_timer_menu/CountdownTimerMenu.cs" id="1_offi3"]
+
+[node name="CountdownTimerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_offi3")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 50
+theme_override_font_sizes/font_size = 250
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]

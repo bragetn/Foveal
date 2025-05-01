@@ -1,8 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcskthtw74py2"]
+[gd_scene load_steps=15 format=3 uid="uid://bcskthtw74py2"]
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_5vbp8"]
 [ext_resource type="Texture2D" uid="uid://cw30trkhjgwuh" path="res://core/assets/skybox/skybox.hdr" id="2_5vbp8"]
-[ext_resource type="PackedScene" uid="uid://bhhwl1c052tya" path="res://core/interface/main_menu/main_menu.tscn" id="3_5vbp8"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_bt7pq"]
+[ext_resource type="PackedScene" uid="uid://bmgc7qlit8rsa" path="res://core/common/extensions/eye_tracker/eye_tracker.tscn" id="2_h16oy"]
+[ext_resource type="PackedScene" uid="uid://bhhwl1c052tya" path="res://core/ui/main_menu/main_menu.tscn" id="3_5vbp8"]
+[ext_resource type="PackedScene" uid="uid://j43jwpyjj8vx" path="res://core/entities/eye_tracker_calibrator/eye_tracker_calibrator.tscn" id="5_bmhke"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="7_i1d0i"]
+[ext_resource type="PackedScene" uid="uid://scoafeh8eoef" path="res://modules/eye_tracking/ui/module_menu/module_menu.tscn" id="8_710nj"]
+[ext_resource type="Script" uid="uid://cqiswduehuq77" path="res://core/common/data_models/ModuleResource.cs" id="9_7xj1l"]
+[ext_resource type="PackedScene" uid="uid://dqmqidvmdye1w" path="res://core/entities/admin_controller/admin_controller.tscn" id="10_i1d0i"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_h16oy"]
 panorama = ExtResource("2_5vbp8")
@@ -16,7 +23,22 @@ sky = SubResource("Sky_5vbp8")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="Resource" id="Resource_my24q"]
+script = ExtResource("9_7xj1l")
+ModuleName = "Eye Tracking"
+ModuleMenuScene = ExtResource("8_710nj")
+metadata/_custom_type_script = "uid://cqiswduehuq77"
+
 [node name="MainHub" instance=ExtResource("1_5vbp8")]
+
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("2_bt7pq")]
+visible = false
+enabled = false
+
+[node name="EyeTracker" parent="XROrigin3D" index="3" node_paths=PackedStringArray("Camera") instance=ExtResource("2_h16oy")]
+Enabled = false
+Camera = NodePath("../XRCamera3D")
+ShowGazeDot = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_bmhke")
@@ -27,3 +49,24 @@ initial_position = 1
 size = Vector2i(1145, 650)
 
 [node name="MainMenu" parent="SubViewport" index="0" instance=ExtResource("3_5vbp8")]
+
+[node name="EyeTrackerCalibrator" parent="." index="3" node_paths=PackedStringArray("Camera", "ETracker", "RightHandController", "LeftHandController") instance=ExtResource("5_bmhke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, -3)
+Camera = NodePath("../XROrigin3D/XRCamera3D")
+ETracker = NodePath("../XROrigin3D/EyeTracker")
+RightHandController = NodePath("../XROrigin3D/RightHand")
+LeftHandController = NodePath("../XROrigin3D/LeftHand")
+
+[node name="Viewport2Din3D" parent="." index="4" instance=ExtResource("7_i1d0i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11096, -3.74771)
+visible = false
+scene = ExtResource("3_5vbp8")
+viewport_size = Vector2(1152, 648)
+unshaded = true
+scene_properties_keys = PackedStringArray("MainMenu", "Modules")
+Modules = [SubResource("Resource_my24q")]
+
+[node name="AdminController" parent="." index="5" node_paths=PackedStringArray("HandController", "Menu", "Pointer") instance=ExtResource("10_i1d0i")]
+HandController = NodePath("../XROrigin3D/RightHand")
+Menu = NodePath("../Viewport2Din3D")
+Pointer = NodePath("../XROrigin3D/RightHand/FunctionPointer")
