@@ -12,8 +12,8 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
     public Vector3 Bounds { get; set; }
     public float ColliderSize { get; set; } = 1.0f;
 
-    private Mesh _fullSphereMesh = GD.Load<Mesh>("uid://bai0bfv38awv2");
-    private Mesh _halfSphereMesh = GD.Load<Mesh>("uid://bsd21byed4y24");
+    private Mesh _fullSphereMesh = GD.Load<Mesh>("uid://b02wcophph3fq");
+    private Mesh _halfSphereMesh = GD.Load<Mesh>("uid://ds2vkivpml1a0");
     
     private MeshInstance3D _targetMeshInstance;
     private MeshInstance3D _colliderMeshInstance;

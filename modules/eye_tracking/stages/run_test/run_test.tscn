@@ -109,8 +109,10 @@ shape = SubResource("WorldBoundaryShape3D_odnva")
 [node name="TargetBox" parent="." index="4" instance=ExtResource("8_0tvwn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
 
-[node name="FileHandler" type="Node" parent="." index="5"]
+[node name="FileHandler" type="Node" parent="." index="5" node_paths=PackedStringArray("Sampler", "Box")]
 script = ExtResource("9_odnva")
+Sampler = NodePath("../XROrigin3D/GazeSampler")
+Box = NodePath("../TargetBox")
 
 [node name="CountdownTimerViewport" parent="." index="6" instance=ExtResource("12_xk0po")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00647831, 1.5, -5.00064)
