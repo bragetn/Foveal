@@ -9,7 +9,7 @@ uniform float collider_scale = 1.0;
 uniform bool enabled = false;
 
 void vertex() {
-	VERTEX *= collider_scale;
+	VERTEX *= collider_scale + 0.001;
 }
 
 void fragment() {

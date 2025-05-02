@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ce5n050wc588g"]
+[gd_scene load_steps=8 format=3 uid="uid://ce5n050wc588g"]
 
 [ext_resource type="Script" uid="uid://cpj8itlmivt2p" path="res://modules/eye_tracking/entities/gaze_target/GazeTarget.cs" id="1_ref4b"]
 [ext_resource type="Material" uid="uid://bubrshfvrabhd" path="res://modules/eye_tracking/entities/gaze_target/collider_material.tres" id="2_6c3i8"]
@@ -9,6 +9,8 @@
 transparency = 1
 shading_mode = 0
 albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ojfxn"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ref4b"]
 radius = 0.2
@@ -26,7 +28,7 @@ mesh = ExtResource("4_oto0y")
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_ojfxn")
 material_overlay = ExtResource("2_6c3i8")
-mesh = ExtResource("4_oto0y")
+mesh = SubResource("SphereMesh_ojfxn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ref4b")
