@@ -9,20 +9,17 @@ using CsvHelper;
 
 public partial class FileHandler : Node
 {
-    const String TestDataPath = "data/eye_tracking/tests/";
-    const String ResultDataPath = "data/eye_tracking/results/";
+    const string TestDataPath = "data/eye_tracking/tests/";
+    const string ResultDataPath = "data/eye_tracking/results/";
     
-    public String TestName;
+    [Export] public GazeSampler Sampler { get; set; }
+    [Export] public TargetBox Box { get; set; }
     
-    private GazeSampler _gazeSampler;
-    private TargetBox _targetBox;
-    private String _testData;
+    public string TestName;
+    private string _testData;
     
     public override void _Ready()
     {
-        _gazeSampler = GetNode<GazeSampler>("../XROrigin3D/GazeSampler");
-        _targetBox = GetNode<TargetBox>("../TargetBox");
-        
         EyeTrackingRadio.Instance.ClearTargets += OnClearTargets;
         EyeTrackingRadio.Instance.SaveTestFile += SaveTestFile;
         EyeTrackingRadio.Instance.SaveTestResults += SaveTestResults;
@@ -67,12 +64,12 @@ public partial class FileHandler : Node
         GazeTestData data = new GazeTestData
         {
             Name = TestName,
-            GazeTime = _targetBox.GazeTime,
-            ColliderSize = _targetBox.ColliderSize,
+            GazeTime = Box.GazeTime,
+            ColliderSize = Box.ColliderSize,
             Targets = new List<GazeTargetData>()
         };
         
-        foreach (var target in _targetBox.Targets)
+        foreach (var target in Box.Targets)
         {
             data.Targets.Add(target.GetTargetData());
         }
@@ -89,9 +86,9 @@ public partial class FileHandler : Node
         
         // Save Test Result
 
-        if (_targetBox != null)
+        if (Box != null)
         {
-            TestResultData testResultData = _targetBox.GetTestResult();
+            TestResultData testResultData = Box.GetTestResult();
             if (testResultData == null)
             {
                 GD.PrintErr("There is no test result");
@@ -105,9 +102,9 @@ public partial class FileHandler : Node
         
         // Save Gaze Samples
 
-        if (_gazeSampler != null)
+        if (Sampler != null)
         {
-            List<GazeSampleEntry> gazeSamples = _gazeSampler.GetSamples();
+            List<GazeSampleEntry> gazeSamples = Sampler.GetSamples();
 
             if (gazeSamples.Count <= 0)
             {
@@ -124,20 +121,20 @@ public partial class FileHandler : Node
 
     private void LoadTestFile(string fileName)
     {
-        _targetBox.ClearTargets();
+        Box.ClearTargets();
         string loadedJson = File.ReadAllText(TestDataPath + fileName + ".json");
         GazeTestData loadedGazeTestData = JsonSerializer.Deserialize<GazeTestData>(loadedJson);
         TestName = loadedGazeTestData.Name;
 
-        _targetBox.GazeTime = loadedGazeTestData.GazeTime;
-        _targetBox.ColliderSize = loadedGazeTestData.ColliderSize;
-        _targetBox.UpdateColliderSize();
+        Box.GazeTime = loadedGazeTestData.GazeTime;
+        Box.ColliderSize = loadedGazeTestData.ColliderSize;
+        Box.UpdateColliderSize();
         
         EyeTrackingRadio.Instance.EmitSignal("SetTestParameters", loadedGazeTestData.GazeTime, loadedGazeTestData.ColliderSize);
 
         foreach (var target in loadedGazeTestData.Targets)
         {
-            _targetBox.AddTarget(new Vector3(target.X, target.Y, target.Z), target.Radius, target.Delay, target.Type);
+            Box.AddTarget(new Vector3(target.X, target.Y, target.Z), target.Radius, target.Delay, target.Type);
         }
     }
 

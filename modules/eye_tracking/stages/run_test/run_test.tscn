@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c0c1k3sfkkta4"]
+[gd_scene load_steps=25 format=3 uid="uid://c0c1k3sfkkta4"]
 
 [ext_resource type="PackedScene" uid="uid://c8p4vxg3elj8j" path="res://core/stages/base/scene_base.tscn" id="1_tpk51"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="2_vrkii"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://byexnenghk6ds" path="res://modules/eye_tracking/ui/countdown_timer_menu/countdown_timer_menu.tscn" id="13_eyf54"]
 [ext_resource type="PackedScene" uid="uid://dqmqidvmdye1w" path="res://core/entities/admin_controller/admin_controller.tscn" id="15_i0x5k"]
 [ext_resource type="PackedScene" uid="uid://dgdb1texynduw" path="res://addons/godot-xr-tools/objects/virtual_keyboard.tscn" id="16_bwai3"]
+[ext_resource type="PackedScene" uid="uid://dsp0804sb1xhn" path="res://core/entities/menu_window/menu_window.tscn" id="17_4p35g"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0tvwn"]
 panorama = ExtResource("7_44lo7")
@@ -108,25 +109,19 @@ shape = SubResource("WorldBoundaryShape3D_odnva")
 [node name="TargetBox" parent="." index="4" instance=ExtResource("8_0tvwn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
 
-[node name="FileHandler" type="Node" parent="." index="5"]
+[node name="FileHandler" type="Node" parent="." index="5" node_paths=PackedStringArray("Sampler", "Box")]
 script = ExtResource("9_odnva")
+Sampler = NodePath("../XROrigin3D/GazeSampler")
+Box = NodePath("../TargetBox")
 
-[node name="SubViewport" type="Window" parent="." index="6"]
-auto_translate_mode = 1
-initial_position = 1
-size = Vector2i(1145, 650)
-
-[node name="RunTestMenu" parent="SubViewport" index="0" instance=ExtResource("9_vg00v")]
-DesktopView = true
-
-[node name="CountdownTimerViewport" parent="." index="7" instance=ExtResource("12_xk0po")]
+[node name="CountdownTimerViewport" parent="." index="6" instance=ExtResource("12_xk0po")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00647831, 1.5, -5.00064)
 collision_layer = 0
 scene = ExtResource("13_eyf54")
 viewport_size = Vector2(600, 400)
 scene_properties_keys = PackedStringArray("CountdownTimerMenu")
 
-[node name="Viewport2Din3D" parent="." index="8" instance=ExtResource("12_xk0po")]
+[node name="Viewport2Din3D" parent="." index="7" instance=ExtResource("12_xk0po")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.74844, -5.32513)
 scene = ExtResource("9_vg00v")
 viewport_size = Vector2(1152, 648)
@@ -134,11 +129,16 @@ unshaded = true
 scene_properties_keys = PackedStringArray("RunTestMenu", "DesktopView")
 DesktopView = false
 
-[node name="AdminController" parent="." index="9" node_paths=PackedStringArray("HandController", "Menu", "Keyboard", "Pointer") instance=ExtResource("15_i0x5k")]
+[node name="AdminController" parent="." index="8" node_paths=PackedStringArray("HandController", "Menu", "Keyboard", "Pointer") instance=ExtResource("15_i0x5k")]
 HandController = NodePath("../XROrigin3D/RightHand")
 Menu = NodePath("../Viewport2Din3D")
 Keyboard = NodePath("../VirtualKeyboard")
 Pointer = NodePath("../XROrigin3D/RightHand/FunctionPointer")
 
-[node name="VirtualKeyboard" parent="." index="10" instance=ExtResource("16_bwai3")]
+[node name="VirtualKeyboard" parent="." index="9" instance=ExtResource("16_bwai3")]
 transform = Transform3D(1, 0, 0, 0, 0.603277, 0.797531, 0, -0.797531, 0.603277, 0.0119336, 0.0418785, -4.45437)
+
+[node name="MenuWindow" parent="." index="10" instance=ExtResource("17_4p35g")]
+
+[node name="RunTestMenu" parent="MenuWindow" index="0" instance=ExtResource("9_vg00v")]
+DesktopView = true

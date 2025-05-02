@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsp0804sb1xhn"]
+
+[ext_resource type="Script" uid="uid://bsapl3a7sc4it" path="res://core/entities/menu_window/MenuWindow.cs" id="1_8gbeh"]
+
+[node name="MenuWindow" type="Window"]
+initial_position = 1
+size = Vector2i(1145, 650)
+script = ExtResource("1_8gbeh")

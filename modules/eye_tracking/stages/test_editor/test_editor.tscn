@@ -142,5 +142,6 @@ viewport_size = Vector2(400, 100)
 unshaded = true
 scene_properties_keys = PackedStringArray("PreviewTest")
 
-[node name="FileHandler" type="Node" parent="." index="7"]
+[node name="FileHandler" type="Node" parent="." index="7" node_paths=PackedStringArray("Box")]
 script = ExtResource("15_xj7uk")
+Box = NodePath("../TargetBox")
