@@ -33,6 +33,7 @@ public partial class MainMenu : Control
         }
         
         SetMenu(Modules[0].ModuleMenuScene);
+        _modulesContainer.GetChild<Button>(0).GrabFocus();
     }
 
     private void SetMenu(PackedScene menu)
