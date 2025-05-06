@@ -32,26 +32,25 @@ theme_override_constants/separation = 25
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
-text = "Player Menu"
+text = "Spiller Meny"
 horizontal_alignment = 1
 
 [node name="AddTargetButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Add Target
-"
+text = "Legg til Target"
 
 [node name="ToggleGazeDotButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Toggle Gaze Dot"
+text = "Vis/skjul Gaze Dot"
 
 [node name="ResetPlayerPositionButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Reset Player Position"
+text = "Tilbakestill Spiller Posisjon"
 
 [node name="TestSettingsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Test Settings"
+text = "Test Instillinger"

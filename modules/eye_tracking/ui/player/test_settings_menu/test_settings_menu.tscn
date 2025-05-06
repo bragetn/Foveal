@@ -67,13 +67,13 @@ theme_override_constants/separation = 25
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
-text = "Target Menu"
+text = "Test Instillinger Meny"
 horizontal_alignment = 1
 
 [node name="TimeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Gaze Time"
+text = "Gaze Tid"
 
 [node name="TimeHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -115,7 +115,7 @@ text = "-"
 [node name="SizeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Collider Size"
+text = "Collider Størrelse"
 
 [node name="SizeSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
@@ -133,9 +133,9 @@ value = 1.0
 [node name="ToggleButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Toggle Collider Visulization"
+text = "Vis/skjul Target Collider"
 
 [node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Exit"
+text = "Gå tilbake"

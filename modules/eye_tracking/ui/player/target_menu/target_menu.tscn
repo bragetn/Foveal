@@ -70,13 +70,13 @@ theme_override_constants/separation = 25
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
-text = "Target Menu"
+text = "Target Meny"
 horizontal_alignment = 1
 
 [node name="DelayLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Spawn Delay"
+text = "Spawn Forsinkelse"
 
 [node name="DelayHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -118,7 +118,7 @@ text = "-"
 [node name="SizeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Target Size"
+text = "Target Størrelse"
 
 [node name="SizeSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
@@ -180,9 +180,9 @@ expand_icon = true
 [node name="DeleteTargetButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Delete Target"
+text = "Slett Target"
 
 [node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Exit"
+text = "Gå tilbake"
