@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://bra64iwswjyt2"]
+
+[ext_resource type="Script" uid="uid://cjfi4e5e6m0wo" path="res://modules/example_module/ui/example_module_menu/ExampleModuleMenu.cs" id="1_kqcug"]
+[ext_resource type="Texture2D" uid="uid://nxwgh5ao4myt" path="res://core/assets/icons/play_arrow.svg" id="3_fwne5"]
+
+[node name="ExampleModuleMenu" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kqcug")
+
+[node name="HeaderLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Eksempel Modul"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 100
+
+[node name="MenuVBox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="TestEditorButton" type="Button" parent="MarginContainer/MenuVBox"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 15
+text = "Gå til \"Example Stage\""
+icon = ExtResource("3_fwne5")
+alignment = 0
