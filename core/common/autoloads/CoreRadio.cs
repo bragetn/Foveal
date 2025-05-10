@@ -8,9 +8,7 @@ public partial class CoreRadio : Node
     [Signal] public delegate void GrabEnteredEventHandler(Node grabbedNode);
     [Signal] public delegate void GrabExitedEventHandler();
     [Signal] public delegate void ToggleAdminModeEventHandler();
-
-    [Signal]
-    public delegate void CalibrateEyeTrackerEventHandler();
+    [Signal] public delegate void CalibrateEyeTrackerEventHandler();
     
     public bool AdminMode = false;
     public static CoreRadio Instance { get; private set; }

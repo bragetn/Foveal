@@ -4,7 +4,7 @@
 
 This is the directory for **Foveal Modules**.
 A module in this context refers to self-contained *projects* for various neuropsychological XR experiments.
-These should ideally encapsulate assets, stages, entities, etc, which are unique to the module, while relying on **Foveal Core** for common shared functonality between modules. 
+These should ideally encapsulate assets, stages, entities, etc, which are unique to the module, while relying on **Foveal Core** for common shared functonality between modules.
 The project architecture was designed this way in order to more easily accommodate future experiments and developers, by allowing pseudo-independent *projects* that should not conflict or depend on each other.
 
 ## Contents
