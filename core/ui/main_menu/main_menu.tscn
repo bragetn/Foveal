@@ -91,7 +91,7 @@ theme_override_constants/separation = 15
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_constants/h_separation = 15
-text = "Instillinger"
+text = "Innstillinger"
 icon = ExtResource("3_ovpse")
 alignment = 0
 
