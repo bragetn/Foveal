@@ -47,7 +47,39 @@ Contains the following data:
 
 ### Extensions
 
-...
+This directory contains **Foveal Extensions**, which can be added to a XROrigin3D node to enable certain features like eye-tracking.
+
+#### EyeTracker
+
+This is an extension that uses the eye-tracking functionality of the headset to send raycasts in the eye-gaze direction during physics process. It also visualizes where the player is looking with a **GazeDot**. The raycasts will only affect objects that impliments the **IGazeable** interface.
+
+Export properties:
+
+- **Enabled (bool)**: Controls whether or not to send raycasts in physics process
+- **RayLength (float)**: Determines the length of the ray used in the physics process raycast
+- **Camera (XRCamera3D)**: The camera node the raycast will be sendt from
+- **ShowGazeDot (bool)**: Determines if the **GazeDot** is initialy visible or not
+- **GazeDotDistance (float)**: Determines the initial distance away from the camera of the **GazeDot**
+- **GazeDotRadius (float)**: Determines the initial radius of the **GazeDot**
+
+#### GazeSampler
+
+This is an extension for collecting samples from an **EyeTracker** extension node, and storing them as a list of **GazeSampleEntry** objects. It has public methods for starting and stopping the sampler, and for retrieving the list of the samples.
+
+Export properties:
+
+- **ETracker (EyeTracker)**: The **EyeTracker** extension node which **GazeSampler** should collect samples from
+
+#### Grabber
+
+This is an extension that uses pointer-events from a **Godot XR Tools** function-pointer, to interact with objects that impliments **IGrabbable**. It also temporarily disables the movement-turn node used by the same controller (if exists), in order to moved grabbed targets with the controller joystick.
+
+Export properties:
+
+- **TargetMoveSpeed (float)**: The speed to move grabbed targets towards or away from the pointer origin
+- **Pointer (Node3D)**: The **Godot XR Tools** function-pointer node used to interact with the game-world
+- **HandController (XRController3D)**: The xr-contoller of the hand with the function-pointer and movement-turn
+- **MovementTurn (Node)**: The **Godot XR Tools** movement-turn node used to rotate the player
 
 ### Interfaces
 
