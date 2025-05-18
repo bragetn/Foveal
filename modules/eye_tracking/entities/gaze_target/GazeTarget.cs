@@ -105,12 +105,12 @@ public partial class GazeTarget : StaticBody3D, IGazeable, IGrabbable
     {
         _isGrabbed = false;
     }
-    
-    public void UpdatePointerDistance(float value)
+
+    public void OnGrabStay(double delta, float value)
     {
         if (!_isGrabbed) return;
         
-        _pointerDistance += value;
+        _pointerDistance += (float) (value * delta);
             
         if (_pointerDistance < Radius)
         {
