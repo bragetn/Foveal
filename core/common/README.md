@@ -47,8 +47,25 @@ Contains the following data:
 
 ### Extentions
 
+...
+
 ### Interfaces
+
+...
 
 ### Shaders
 
+This directory contains globally accessible GDShaders to be used in **Foveal Core** and **Foveal Modules**.
+Currently hosts the *checkerboard* shader, which can be used with a **ShaderMaterial** to give meshes a simple configurable checkerboard pattern as the name implies.
+
+The *checkerboard* shader has the following configurable shader uniforms:
+
+- **color_a**: Vec3
+- **color_b**: Vec3
+- **scale**: float
+- **offset**: Vec3
+
 ### Utils
+
+This directory contains static utility classes for the project.
+As of now the only util is the **PointerUtil** class, which is used to parse a **Godot XR Tools** pointer-event from GDScript to a custom **PointerEvent** class to be used in C#.
