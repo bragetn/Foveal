@@ -45,6 +45,7 @@ public partial class Grabber : Node
                     MovementTurn.Set("enabled", true);
                     CoreRadio.Instance.EmitSignal("GrabExited");
                     _isGrabbing = false;
+                    _grabbedTarget = null;
                     break;
             }
         }

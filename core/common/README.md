@@ -45,13 +45,33 @@ Contains the following data:
 - **ModuleName (string)**: The name of the module in **MainMenu**
 - **ModuleMenuScene (PackedScene)**: The UI scene to display for the module in **MainMenu**
 
-### Extentions
+### Extensions
 
 ...
 
 ### Interfaces
 
-...
+This directory contains **Foveal Core** interfaces which can be implimented by other components to become interactable with **Foveal Extensions**.
+
+#### IGazeable
+
+Used in conjunction with the **EyeTracker** extension.
+
+Contains the following methods:
+
+- **OnGazeEnter()**: Triggered on the first physics update the gaze intersects the object
+- **OnGazeStay(double delta)**: Called continuously on physics updates while the gaze ramains on the object
+- **OnGazeExit()**: Triggered on the first physics update the gaze leaves the object
+
+#### IGrabbable
+
+Used in conjunction with the **Grabber** extension.
+
+Contains the following methods:
+
+- **OnGrabEnter(PointerUtil.PointerEvent pointerEvent)**: Triggered on the **Godot XR Tools** pointer-event **Pressed**, on the current object that intersects the function-pointer
+- **OnGrabStay(double delta, float value)**: Called continuously on physics updates on the current grabbed target of the **Grabber** extension, provides the joystick Y-input of the XRController as *value*
+- **OnGrabExit()**: Triggered on the **Godot XR Tools** pointer-event **Released**, on the current object that intersects the function-pointer
 
 ### Shaders
 
