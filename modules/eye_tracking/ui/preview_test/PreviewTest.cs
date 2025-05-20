@@ -32,6 +32,6 @@ public partial class PreviewTest : Control
     private void TogglePreview()
     {
         _running = !_running;
-        _button.Text = _running ? "Stop Preview" : "Preview Test";
+        _button.Text = _running ? "Stopp Forhåndsvisning" : "Forhåndsvis Test";
     }
 }

@@ -41,6 +41,6 @@ custom_minimum_size = Vector2(499.015, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 15
-text = "Run Test"
+text = "Kjør Test"
 icon = ExtResource("3_icqq6")
 alignment = 0

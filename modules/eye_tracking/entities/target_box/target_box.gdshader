@@ -15,7 +15,7 @@ void vertex() {
 void fragment() {
 	vec2 pattern = mod(UV * float(scale) + vec2(line_width / 2.0, 1.0 + line_width / 2.0), 1);
 	float grid = min(1.0, step(pattern.x, line_width) + step(pattern.y, line_width));
-	
+
 	if (grid == 0.0) {
 		ALBEDO = color_b;
 	}

@@ -55,6 +55,8 @@ public partial class EyeTracker : XRController3D
 
     public override void _PhysicsProcess(double delta)
     {
+        if (!Enabled) return;
+
         Vector3 viewDir = -GlobalBasis.Z.Normalized();
         if (_calibrated)
         {

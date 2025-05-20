@@ -112,7 +112,7 @@ public partial class FileHandler : Node
                 return;
             }
 
-            using StreamWriter writer = new StreamWriter(path + "gaze_samples.txt");
+            using StreamWriter writer = new StreamWriter(path + "gaze_samples.csv.txt");
             using CsvWriter csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
             csv.WriteRecords(gazeSamples);
         }
