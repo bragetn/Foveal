@@ -7,6 +7,7 @@ using System.Text.Json;
 public partial class EditorMenu : Control
 {
     private PackedScene _defaultPackedScene = GD.Load<PackedScene>("uid://bo5e8fm3iq5bk");
+    private PackedScene _tutorialPackedScene = GD.Load<PackedScene>("uid://bt4m7utxt37qu");
     private PackedScene _saveAsPackedScene = GD.Load<PackedScene>("uid://bm3fu54guqawa");
     private PackedScene _loadTestPackedScene = GD.Load<PackedScene>("uid://bed0c47cubn6q");
     private PackedScene _confirmationPackedScene = GD.Load<PackedScene>("uid://bxtuspc7tq5ja"); 
@@ -43,7 +44,7 @@ public partial class EditorMenu : Control
         EyeTrackingRadio.Instance.RenameTestFileTo += OnRenameTestFileTo;
         EyeTrackingRadio.Instance.DeleteTestFile += OnDeleteTestFile;
         
-        SetSidePanel(_defaultPackedScene);
+        SetSidePanel(_tutorialPackedScene);
     }
 
     public override void _ExitTree()
@@ -119,14 +120,14 @@ public partial class EditorMenu : Control
 
         if (_currentScene is ConfirmationMenu confirmationMenu)
         {
-            confirmationMenu.SetPrompt("Er du sikker på at du vil lage en ny test?");
+            confirmationMenu.SetPrompt("Er du sikker på at du vil lage en ny test?\nDette vil slette endringer som ikke er lagret.");
             confirmationMenu.ConfirmationYes += () =>
             {
                 _testName = "";
                 EyeTrackingRadio.Instance.EmitSignal("ClearTargets");
-                SetSidePanel(_defaultPackedScene);
+                SetSidePanel(_tutorialPackedScene);
             };
-            confirmationMenu.ConfirmationNo += () => SetSidePanel(_defaultPackedScene);
+            confirmationMenu.ConfirmationNo += () => SetSidePanel(_tutorialPackedScene);
         }
     }
 

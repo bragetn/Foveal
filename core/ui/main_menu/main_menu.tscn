@@ -1,15 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhhwl1c052tya"]
+[gd_scene load_steps=9 format=3 uid="uid://bhhwl1c052tya"]
 
 [ext_resource type="Theme" uid="uid://bwg1dpg6kww6v" path="res://core/assets/themes/menu_theme.tres" id="1_1vrja"]
 [ext_resource type="Script" uid="uid://bxrqhqbdrv2xd" path="res://core/ui/main_menu/MainMenu.cs" id="1_4csak"]
 [ext_resource type="PackedScene" uid="uid://scoafeh8eoef" path="res://modules/eye_tracking/ui/module_menu/module_menu.tscn" id="1_7mj28"]
 [ext_resource type="Texture2D" uid="uid://enbjm6y5rpx4" path="res://core/assets/icons/settings.svg" id="3_ovpse"]
 [ext_resource type="Script" uid="uid://cqiswduehuq77" path="res://core/common/data_models/ModuleResource.cs" id="4_b1f3f"]
+[ext_resource type="PackedScene" uid="uid://bra64iwswjyt2" path="res://modules/example_module/ui/example_module_menu/example_module_menu.tscn" id="5_my24q"]
 
 [sub_resource type="Resource" id="Resource_my24q"]
 script = ExtResource("4_b1f3f")
 ModuleName = "Eye Tracking"
 ModuleMenuScene = ExtResource("1_7mj28")
+metadata/_custom_type_script = "uid://cqiswduehuq77"
+
+[sub_resource type="Resource" id="Resource_b1f3f"]
+script = ExtResource("4_b1f3f")
+ModuleName = "Eksempel Modul"
+ModuleMenuScene = ExtResource("5_my24q")
 metadata/_custom_type_script = "uid://cqiswduehuq77"
 
 [node name="MainMenu" type="Control"]
@@ -21,7 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_1vrja")
 script = ExtResource("1_4csak")
-Modules = [SubResource("Resource_my24q")]
+Modules = [SubResource("Resource_my24q"), SubResource("Resource_b1f3f")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -84,7 +91,7 @@ theme_override_constants/separation = 15
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_constants/h_separation = 15
-text = "Instillinger"
+text = "Innstillinger"
 icon = ExtResource("3_ovpse")
 alignment = 0
 

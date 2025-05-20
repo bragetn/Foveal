@@ -9,8 +9,7 @@ public partial class Grabber : Node
     [Export] public Node MovementTurn;
     
     private bool _isGrabbing;
-    private GazeTarget _grabbedTarget;
-    
+    private IGrabbable _grabbedTarget;
     
     public override void _Ready()
     {
@@ -22,7 +21,7 @@ public partial class Grabber : Node
         if (_grabbedTarget != null)
         {
             Vector2 primaryInput = HandController.GetVector2("primary");
-            _grabbedTarget.UpdatePointerDistance((float)(TargetMoveSpeed * primaryInput.Y * delta));
+            _grabbedTarget.OnGrabStay(delta, TargetMoveSpeed * primaryInput.Y);
         }
     }
 
@@ -30,22 +29,23 @@ public partial class Grabber : Node
     {
         PointerUtil.PointerEvent pointerEvent = PointerUtil.ParseEvent(pointingEvent);
 
-        if (pointerEvent.Target is GazeTarget gazeTarget)
+        if (pointerEvent.Target is IGrabbable grabbable)
         {
             switch (pointerEvent.EventType)
             {
                 case PointerUtil.EventType.Pressed:
-                    gazeTarget.OnGrabEnter(pointerEvent);
-                    CoreRadio.Instance.EmitSignal("GrabEntered", gazeTarget);
+                    grabbable.OnGrabEnter(pointerEvent);
+                    CoreRadio.Instance.EmitSignal("GrabEntered", pointerEvent.Target);
                     MovementTurn.Set("enabled", false);
                     _isGrabbing = true;
-                    _grabbedTarget = gazeTarget;
+                    _grabbedTarget = grabbable;
                     break;
                 case PointerUtil.EventType.Released:
-                    gazeTarget.OnGrabExit();
+                    grabbable.OnGrabExit();
                     MovementTurn.Set("enabled", true);
                     CoreRadio.Instance.EmitSignal("GrabExited");
                     _isGrabbing = false;
+                    _grabbedTarget = null;
                     break;
             }
         }
