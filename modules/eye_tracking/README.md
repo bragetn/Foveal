@@ -72,12 +72,29 @@ Includes the following data:
 
 ### Entities
 
-- ****: 
+This directory contains scenes and node hierarchies representing interactive elements, specific to the **Eye Tracking** module.
+
+- **EditorMenuScene**: A scene containing the editor-menu and a virtual keyboard
+- **GazeTarget**: The targets used in a **GazeTest**, are both gazeable and grabbable
+- **GazeTestItem**: 
+- **TargetBox**: A dynamically sized box that manages **GazeTarget** nodes, handles most of the **GazeTest** logic 
 
 ### Stages
 
-- ****: 
+This directory contains self-contained environments or "levels" within the **Eye Tracking** module.
+These scenes are inherited from **SceneBase** in **Foveal Core** which includes a player and core logic.
+
+- **RunTest**: A stage for running **Gaze Tests** and saving the result
+- **TestEditor**: An editor for creating and editing **Gaze Tests**
 
 ### UI
 
-- ****: 
+This directory contains 2D interface elements specific to the **Eye Tracking** module.
+These scenes are used for UI components like menus and in-stage overlays.
+
+- **ContdownTimerMenu**: A menu for displaying a countdown timer, used in **RunTest**
+- **Editor**: Contains all the menus used in the editor-menu in **TestEditor**
+- **ModuleMenu**: 
+- **Player**: Contains all the menus used in the player hand-menu in **TestEditor**
+- **PreviewTest**: A simple menu for starting and stopping test previews in **TestEditor**
+- **RunTestMenu**: The main UI-menu used in **RunTest**
