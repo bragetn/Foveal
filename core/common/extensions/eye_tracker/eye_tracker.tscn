@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmgc7qlit8rsa"]
+
+[ext_resource type="Shader" uid="uid://bss5vfdwsthwc" path="res://core/common/extensions/eye_tracker/gaze_dot.gdshader" id="1_25ade"]
+[ext_resource type="Script" uid="uid://buhk0b7m7nhcr" path="res://core/common/extensions/eye_tracker/EyeTracker.cs" id="1_awqxp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tniv3"]
+render_priority = 10
+shader = ExtResource("1_25ade")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_21k70"]
+material = SubResource("ShaderMaterial_tniv3")
+size = Vector2(0.05, 0.05)
+
+[node name="EyeTracker" type="XRController3D"]
+tracker = &"/user/eyes_ext"
+pose = &"eye_gaze"
+script = ExtResource("1_awqxp")
+
+[node name="GazeDot" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("QuadMesh_21k70")

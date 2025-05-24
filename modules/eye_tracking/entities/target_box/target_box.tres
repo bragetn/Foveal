@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ctn1gprr08wjk"]
+
+[ext_resource type="Shader" uid="uid://dkpt2m3n4knqg" path="res://modules/eye_tracking/entities/target_box/target_box.gdshader" id="1_df5lm"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_df5lm")
+shader_parameter/color_a = Color(0.794827, 0.794829, 0.794828, 1)
+shader_parameter/color_b = Color(0.727544, 0.350816, 0.241851, 1)
+shader_parameter/scale = 6
+shader_parameter/line_width = 0.02

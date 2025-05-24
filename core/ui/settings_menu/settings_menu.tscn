@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1d77bki2hwac"]
+
+[ext_resource type="Script" uid="uid://bpsfjhtwsw2h6" path="res://core/ui/settings_menu/SettingsMenu.cs" id="1_0rgh1"]
+[ext_resource type="Texture2D" uid="uid://cyexysajqh0ik" path="res://core/assets/icons/eye_tracking.svg" id="1_1quyr"]
+
+[node name="SettingsMenu" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0rgh1")
+
+[node name="HeaderLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Innstillinger"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 100
+
+[node name="MenuVBox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="CalibrateEyeTrackerButton" type="Button" parent="MarginContainer/MenuVBox"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 15
+text = "Kalibrer Eye Tracker
+"
+icon = ExtResource("1_1quyr")
+alignment = 0

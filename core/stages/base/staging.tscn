@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbqju14pgerbw"]
+
+[ext_resource type="Script" uid="uid://bx4lnj03yoedx" path="res://addons/godot-xr-tools/staging/staging.gd" id="1_4qgma"]
+[ext_resource type="PackedScene" uid="uid://wtpox7m5vu2b" path="res://addons/godot-xr-tools/effects/fade.tscn" id="2_nrm47"]
+[ext_resource type="Environment" uid="uid://ckiwtcdsam7ed" path="res://addons/godot-xr-tools/staging/staging_env.tres" id="3_oeh6q"]
+[ext_resource type="PackedScene" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="4_2bvkq"]
+[ext_resource type="PackedScene" uid="uid://bqumugyvkct4r" path="res://addons/godot-xr-tools/staging/loading_screen.tscn" id="5_77p32"]
+[ext_resource type="Texture2D" uid="uid://cwup5a0qcgb0r" path="res://icon.svg" id="6_oeh6q"]
+[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="6_xo6p6"]
+[ext_resource type="Script" uid="uid://bxurcxuu52888" path="res://core/stages/base/SceneLoader.cs" id="7_nrm47"]
+
+[node name="Staging" type="Node3D"]
+script = ExtResource("1_4qgma")
+main_scene = "uid://bcskthtw74py2"
+prompt_for_continue = false
+
+[node name="Fade" parent="." instance=ExtResource("2_nrm47")]
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+environment = ExtResource("3_oeh6q")
+
+[node name="VRCommonShaderCache" parent="XROrigin3D/XRCamera3D" instance=ExtResource("4_2bvkq")]
+
+[node name="LeftHandController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+pose = &"aim"
+
+[node name="RightHandController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+pose = &"aim"
+
+[node name="LoadingScreen" parent="." instance=ExtResource("5_77p32")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14, 0)
+splash_screen = ExtResource("6_oeh6q")
+progress = 0.0
+
+[node name="Scene" type="Node3D" parent="."]
+
+[node name="StartXR" parent="." instance=ExtResource("6_xo6p6")]
+
+[node name="SceneLoader" type="Node" parent="."]
+script = ExtResource("7_nrm47")

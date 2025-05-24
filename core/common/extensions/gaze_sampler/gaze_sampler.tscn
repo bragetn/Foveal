@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cit0vptuxn1cv"]
+
+[ext_resource type="Script" uid="uid://dewm7ucc56u1v" path="res://core/common/extensions/gaze_sampler/GazeSampler.cs" id="1_cjry2"]
+
+[node name="GazeSampler" type="Node"]
+script = ExtResource("1_cjry2")

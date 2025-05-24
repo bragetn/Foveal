@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cub15t4ksfnhf"]
+
+[ext_resource type="Script" uid="uid://klyy1m4mbr6c" path="res://core/common/extensions/grabber/Grabber.cs" id="1_71yq6"]
+
+[node name="Grabber" type="Node"]
+script = ExtResource("1_71yq6")
